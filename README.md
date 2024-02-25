@@ -10,7 +10,7 @@
 - pick current vs incoming change or both for all conflicts
 - make sure to test 
 - push again
-6. merge to master (on github UI, please test and make sure it works lol) 
+6. merge to master (on github UI), please test and make sure it works, maybe ask teammates to check  
 
 NOTE: the .keep files are just placeholders, i'll remove them
 
