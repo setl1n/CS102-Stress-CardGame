@@ -12,6 +12,8 @@
 - push again
 6. merge to master (on github UI, please test and make sure it works lol) 
 
+NOTE: the .keep files are just placeholders, i'll remove them
+
 
 ### Some inspirations/examples I found:
 
