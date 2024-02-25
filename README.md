@@ -16,11 +16,16 @@
 ### Some inspirations/examples I found:
 
 - Poker
-https://github.com/Hotrook/poker-game/tree/master/src/main/java/com/hotrook
+
 https://github.com/Hotrook/poker-game/tree/master/src/main/java/com/hotrook
 
+https://github.com/Hotrook/poker-game/tree/master/src/main/java/com/hotrook
+
+
 - Bridge
+
 https://github.com/wecassidy/bridge/tree/master
+
 https://github.com/Xemnaes/Bridge-Game/tree/master/BridgeGame/src/bridgeGame
 
 
