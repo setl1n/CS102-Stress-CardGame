@@ -6,10 +6,10 @@
 3. make changes and push (git push)
 4. open pull request (on github UI)
 5. resolve conflicts if any (choose version and test)
-- pull master to current branch
-- pick current vs incoming change or both for all conflicts
-- make sure to test 
-- push again
+	- pull master to current branch
+	- pick current vs incoming change or both for all conflicts
+	- test agn to make sure it works 
+	- push again
 6. merge to master (on github UI), please test and make sure it works, maybe ask teammates to check  
 
 NOTE: the .keep files are just placeholders, i'll remove them
