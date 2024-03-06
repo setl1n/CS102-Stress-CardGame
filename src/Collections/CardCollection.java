@@ -2,43 +2,44 @@ package Collections;
 
 import Collections.DeckComponents.*;
 import java.util.*;
-import javax.swing.ImageIcon;
 
 public class CardCollection {
 
     private ArrayList<Card> cardCollection;
 
     protected CardCollection() {
+        this.cardCollection = new ArrayList<Card>();
     }
 
     /**
      * The following assumes that index 0 of the array is the bottom card
      */
-    protected void addCardToTop(Card card) {
+    protected void add(Card card) {
         cardCollection.add(card);
     }
 
-    protected void addCardToBottom(Card card) {
-        cardCollection.add(0, card);
+    // commented out as prob not needed, not sure yet tho
+    // rmb to delete cardnot found exception too if this method is not implemented
+    // protected void removeCardFromTop(Card card) throws CardNotFoundException {
+    //     if (!cardCollection.remove(card)) {
+    //         throw new CardNotFoundException();
+    //     }
+    // }
+
+    protected Card peekTopCard() {
+        return cardCollection.get(cardCollection.size() - 1);
     }
 
-    protected void removeCardFromTop(Card card) throws CardNotFoundException {
-        if (!cardCollection.remove(card)) {
-            throw new CardNotFoundException();
-        }
+    protected Card popTopCard() throws IndexOutOfBoundsException {
+        return cardCollection.remove(cardCollection.size() - 1);
     }
-
-    protected Card getCard(int index) throws IndexOutOfBoundsException {
-        return cardCollection.get(index);
-    }
-
 
     /**
      * The size of a card collection.
      * 
      * @return the number of cards present in the full card collection.
      */
-    protected int getSizeOfDeck() {
+    protected int getSizeOfCardCollection() {
         return cardCollection.size();
     }
 
@@ -61,5 +62,10 @@ public class CardCollection {
 
     protected void clear() {
         cardCollection.clear();
+    }
+
+    @Override
+    public String toString() {
+        return "CardCollection [cardCollection=" + cardCollection + "]";
     }
 }
