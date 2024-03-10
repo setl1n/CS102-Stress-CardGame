@@ -2,9 +2,13 @@ package src.Cards;
 
 import java.net.URL;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
 public class Card {
     private String suit;
     private String rank;
+    private JLabel visualRepresentation;
 
     public Card(String suit, String rank) {
         this.suit = suit;
@@ -27,4 +31,5 @@ public class Card {
         }
         return imgUrl;
     }
+
 }

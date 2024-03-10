@@ -1,1 +1,1 @@
-java -cp classes StressMain
+java -cp output src/App

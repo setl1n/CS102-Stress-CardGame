@@ -1,1 +1,1 @@
-javac -d classes -cp ./src/ ./src/StressMain.java
+javac -d output ./src/App.java
