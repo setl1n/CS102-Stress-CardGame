@@ -1,3 +1,7 @@
+/*
+ * @OWNER zane
+ */
+
 package src.Game;
 
 import src.Cards.Hand;

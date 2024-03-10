@@ -1,11 +1,11 @@
+/*
+ * @OWNER zane
+ */
+
 package src.GUI;
 
 import javax.swing.*;
 import java.awt.*;
-
-/*
- * GamePanel is dedicated to drawing.
- */
 
 public class GamePanel extends JPanel {
     private final GameController controller;

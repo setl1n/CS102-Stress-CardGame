@@ -1,3 +1,7 @@
+/*
+ * @OWNER zane
+ */
+
 package src.Cards;
 
 import java.util.ArrayList;
