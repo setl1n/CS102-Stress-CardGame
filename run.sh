@@ -1,1 +1,1 @@
-java -cp classes StressMain
+java -cp classes Game/App

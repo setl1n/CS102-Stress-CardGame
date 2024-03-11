@@ -5,18 +5,29 @@ import java.util.Arrays;
 import Collections.Deck;
 import Collections.Pile;
 import Collections.DeckComponents.Card;
-import Game.Game;
 import Game.GameLogicUtils;
+import GUI.SoundController;
 
 public class Player {
+
+    private SoundController help = new SoundController();
+
     private Deck deck;
-    private Card[] hand;
+    private Hand hand;
     private int targetPile;
 
     public Player(Deck deck){
         this.deck = deck;
-        this.hand = new Card[4];
+        this.hand = new Hand();
         this.targetPile = 0;
+    }
+
+    public Hand getHand() {
+        return hand;
+    }
+
+    public int getTargetPile() {
+        return targetPile;
     }
 
     public void selectTargetPile(char userInput) {
@@ -30,32 +41,17 @@ public class Player {
         }
     }
 
-    // purposely coded in a way (the algo) to throw null pointer exception 
-    // if incorrectly used down the line.
-    // should prob recode before submission.
-    // to (for int i = 0 i < 4)?? idk
-    private void addCard(Card card) throws NullPointerException {
-        int index = 0;
-        while (hand[index] != null) {
-            index++;
-        }
-        hand[index] = card;
-    }
-
-    // deliberately did not throw exception for when hand is full as our programme should naturally avoid that
-    // throws null pointer if u call to add card when hand is full
-    // need to implement when u attempt to draw from empty deck
-    public void drawCard() throws NullPointerException {
+    public void drawCard() {
         if (deck.isEmpty()) {
-            // implement smth?? need or not?? idk
             return;
         }
-        this.addCard(deck.popTopCard());
+        // note different method from player.drawcard
+        hand.drawCard(deck);
     }
 
     public void drawFourCards() {
         for (int i = 0; i < 4; i++) {
-            drawCard();
+            this.drawCard();;
         }
     }
 
@@ -67,12 +63,14 @@ public class Player {
         pileToOpenTo.add(deck.popTopCard());
     }
 
-    public void throwCardToPile(int index, Game game) {
-        Card topCardOfPile = game.getPile(targetPile).peekTopCard();
-        if (GameLogicUtils.isValidThrow(hand[index], topCardOfPile)) {
-            game.getPile(targetPile).add(hand[index]);
-            hand[index] = null;
+    public void throwCardToPile(int index, Pile pile) {
+
+        Card topCardOfPile = pile.peekTopCard();
+
+        if (GameLogicUtils.isValidThrow(hand.getCardAtIndex(index), topCardOfPile)) {
+            pile.add(hand.popCardAtIndex(index));
             drawCard();
+            help.cardSound(); // Play sound after moving the card
         } else {
             // invalid move, add forefeit? like cooldown or smth?
             System.out.println("INVALID MOVE");
@@ -81,7 +79,6 @@ public class Player {
 
     @Override
     public String toString() {
-        return "Hand: " + Arrays.toString(hand) + "\nTargetPile: " + targetPile + "\nCards left in Deck: " + deck.size();
+        return hand.toString() + "\nTargetPile: " + targetPile + "\nCards left in Deck: " + deck.size();
     }
-    
 }

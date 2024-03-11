@@ -1,5 +1,9 @@
 package Collections.DeckComponents;
 
+import java.net.URL;
+import java.awt.*;
+import javax.imageio.ImageIO;
+
 // Card.java - John K. Estell - 8 May 2003
 // last modified: 23 Febraury 2004
 // Implementation of a playing card.  Uses classes Rank and Suit for
@@ -22,20 +26,25 @@ public class Card implements Comparable {
    // instance variables for the card 
    private Suit suitValue;
    private Rank rankValue;
-   private ImageIcon cardImage;
+   private Image cardImage;
    private static boolean sortRankMajorOrder = true;
-
 
   /**
    * Creates a new playing card.
    * @param suit the suit value of this card.
    * @param rank the rank value of this card.
-   * @param cardFace the face image of this card.
+   * @param cardImage the face image of this card.
    */
-   public Card( Suit suit, Rank rank, ImageIcon cardFace ) {
-      cardImage = cardFace;
+   public Card( Suit suit, Rank rank) {
       suitValue = suit;
       rankValue = rank;
+
+      URL imgUrl = getClass().getResource("/assets/" + suit.toString().toUpperCase() + "-" + rank.toString().toUpperCase() + ".png");
+      if (imgUrl == null) {
+         imgUrl = getClass().getResource("/assets/empty.png");
+      }
+      // It avoids dealing with IOException, which ImageIO.read() might throw.
+      cardImage = new ImageIcon(imgUrl).getImage();
    }
     
     
@@ -83,7 +92,7 @@ public class Card implements Comparable {
    * Returns the graphic image of the card.
    * @return an icon containing the graphic image of the card.
    */
-   public ImageIcon getCardImage() {
+   public Image getCardImage() {
       return cardImage;
    }
 
