@@ -1,1 +1,1 @@
-javac -Xlint:unchecked -d classes -cp ./src/ ./src/Game/App.java 
+javac -d classes -cp ./src/ ./src/Game/App.java 

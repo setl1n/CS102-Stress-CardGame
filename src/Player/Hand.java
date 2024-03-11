@@ -1,7 +1,9 @@
 package Player;
 
 import java.util.Arrays;
+import Game.GameLogicUtils;
 import Collections.Deck;
+import Collections.Pile;
 import Collections.DeckComponents.Card;
 
 public class Hand{
@@ -16,9 +18,9 @@ public class Hand{
     }
 
     protected Card popCardAtIndex(int index) {
-        Card cardToReturn = cardsInHand[index];
+        Card toReturn = cardsInHand[index];
         cardsInHand[index] = null;
-        return cardToReturn;
+        return toReturn;
     }
 
     // purposely coded in a way (the algo) to throw null pointer exception 

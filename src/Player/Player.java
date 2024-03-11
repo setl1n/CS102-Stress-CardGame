@@ -5,8 +5,8 @@ import java.util.Arrays;
 import Collections.Deck;
 import Collections.Pile;
 import Collections.DeckComponents.Card;
-import Game.GameLogicUtils;
 import GUI.SoundController;
+import Game.GameLogicUtils;
 
 public class Player {
 
@@ -64,7 +64,6 @@ public class Player {
     }
 
     public void throwCardToPile(int index, Pile pile) {
-
         Card topCardOfPile = pile.peekTopCard();
 
         if (GameLogicUtils.isValidThrow(hand.getCardAtIndex(index), topCardOfPile)) {

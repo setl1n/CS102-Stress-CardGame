@@ -52,8 +52,8 @@ public class Deck extends CardCollection {
         Deck deckToReturn = new Deck(true);
         int cardsToTransfer = this.size() / 2;
         for (int i = 0; i < cardsToTransfer; i++) {
-            Card cardToTrasfer = this.popTopCard();
-            deckToReturn.add(cardToTrasfer);
+            Card cardToTransfer = this.popTopCard();
+            deckToReturn.add(cardToTransfer);
         }
         return deckToReturn;
     }
