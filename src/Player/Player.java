@@ -15,8 +15,8 @@ public class Player {
 
     public Player(Deck deck){
         this.deck = deck;
-        this.hand = new Hand();
-        this.targetPile = 0;
+        hand = new Hand(deck);
+        targetPile = 0;
     }
 
     public void selectTargetPile(char userInput) {
