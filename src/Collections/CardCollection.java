@@ -30,7 +30,7 @@ public class CardCollection {
         return cardCollection.get(cardCollection.size() - 1);
     }
 
-    protected Card popTopCard() throws IndexOutOfBoundsException {
+    protected Card popTopCard() {
         return cardCollection.remove(cardCollection.size() - 1);
     }
 
