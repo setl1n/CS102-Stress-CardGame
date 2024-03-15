@@ -1,7 +1,5 @@
 package Player;
 
-import java.util.Arrays;
-
 import Collections.Deck;
 import Collections.Pile;
 import Collections.DeckComponents.Card;
@@ -15,8 +13,8 @@ public class Player {
 
     public Player(Deck deck){
         this.deck = deck;
-        this.hand = new Hand();
-        this.targetPile = 0;
+        hand = new Hand(deck);
+        targetPile = 0;
     }
 
     public void selectTargetPile(char userInput) {
@@ -31,16 +29,12 @@ public class Player {
     }
 
     public void drawCard() {
-        if (deck.isEmpty()) {
-            return;
-        }
-        // note different method from player.drawcard
         hand.drawCard(deck);
     }
 
     public void drawFourCards() {
         for (int i = 0; i < 4; i++) {
-            this.drawCard();;
+            drawCard();;
         }
     }
 

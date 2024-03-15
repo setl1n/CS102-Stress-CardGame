@@ -32,11 +32,11 @@ public class Game extends JFrame implements KeyListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         addKeyListener(this);
         setVisible(true);
-        // for now auto opencards to start but shld implement for
+        // for now auto creates game and opencards to start but shld implement for
         // both of them to have to press a button at the same time
-        openCardsToStart();
-        player1.drawFourCards();
-        player2.drawFourCards();
+        Game game = new Game();
+        game.openCardsToStart();
+        
     }
 
     public void openCardsToStart() {
