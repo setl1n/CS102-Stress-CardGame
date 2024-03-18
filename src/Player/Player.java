@@ -60,7 +60,7 @@ public class Player {
             game.getPile(targetPile).add(hand.getCardAtIndex(index));
             hand.removeCardAtIndex(index);
             drawCard();
-            GameLogicUtils.resetGameIfNoValidMoves(game);
+            GameLogicUtils.checkNeedToResetGame(game);
             
         } else {
             // invalid move, add forefeit? like cooldown or smth?

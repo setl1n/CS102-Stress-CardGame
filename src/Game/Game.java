@@ -44,7 +44,13 @@ public class Game extends JFrame implements KeyListener {
             player1.openCardToPile(piles[0]);
             player2.openCardToPile(piles[1]);
         }
-        GameLogicUtils.resetGameIfNoValidMoves(this);
+        GameLogicUtils.checkNeedToResetGame(this);
+    }
+
+    public void end(){
+        System.out.println("GAME END");
+        // ask to restart
+        // or end program
     }
 
     public Pile getPile(int index) {

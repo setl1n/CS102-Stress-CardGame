@@ -26,11 +26,27 @@ public class GameLogicUtils {
         System.out.println("INVALID STRESS...");
         return false;
     }
+
+
     
-    public static void resetGameIfNoValidMoves(Game game){
+    public static boolean bothPlayersNoValidMoves(Game game){
         if ((!game.getPlayer1().getPlayerHand().anyValidMoves(game.getBothPiles())) &&
         (!game.getPlayer2().getPlayerHand().anyValidMoves(game.getBothPiles()))){
+            return true;
+        }
+    }
+
+    public static void checkNeedToResetGame(Game game){
+        if (bothPlayersNoValidMoves(game)){
             game.openCardsToStart();
+        }
+    }
+
+    public static void gameEndsWithDraw(Game game){
+        if (bothPlayersNoValidMoves(game) && (game.getPlayer1().getPlayerDeck().isEmpty()) 
+        && (game.getPlayer2().getPlayerDeck().isEmpty())){
+            System.out.println("DRAW");
+            game.end();
         }
     }
 }
