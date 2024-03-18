@@ -2,7 +2,9 @@ package Player;
 
 import java.util.Arrays;
 import Collections.Deck;
+import Collections.Pile;
 import Collections.DeckComponents.Card;
+import Game.GameLogicUtils;
 
 public class Hand{
     private Card[] cardsInHand;
@@ -40,6 +42,16 @@ public class Hand{
             return;
         }
         cardsInHand[index] = deck.popTopCard();
+    }
+
+    public boolean anyValidMoves(Pile[] pile){
+        for (int i = 0; i < 4; i++) {
+            if ((GameLogicUtils.isValidThrow(getCardAtIndex(i), pile[0].peekTopCard())) ||
+            (GameLogicUtils.isValidThrow(getCardAtIndex(i), pile[1].peekTopCard()))){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

@@ -64,6 +64,13 @@ public class CardCollection {
         cardCollection.clear();
     }
 
+    protected void transfer(CardCollection c){
+        for (int i = 0; i < c.getSizeOfCardCollection(); i++){
+            cardCollection.add(c.peekTopCard());
+            c.popTopCard();
+        }
+    }
+
     @Override
     public String toString() {
         return "CardCollection [cardCollection=" + cardCollection + "]";

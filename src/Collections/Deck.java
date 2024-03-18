@@ -41,6 +41,10 @@ public class Deck extends CardCollection {
         return super.popTopCard();
     }
 
+    public void transfer(CardCollection c){
+        super.transfer(c);
+    }
+
     // returns a new deck with top half of deck
     // original deck holds (remaining) bottom half
     //

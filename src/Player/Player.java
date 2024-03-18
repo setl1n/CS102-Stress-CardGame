@@ -42,6 +42,14 @@ public class Player {
         return deck.isEmpty();
     }
 
+    public Deck getPlayerDeck(){
+        return deck;
+    }
+
+    public Hand getPlayerHand(){
+        return hand;
+    }
+
     public void openCardToPile(Pile pileToOpenTo) {
         pileToOpenTo.add(deck.popTopCard());
     }
@@ -52,9 +60,27 @@ public class Player {
             game.getPile(targetPile).add(hand.getCardAtIndex(index));
             hand.removeCardAtIndex(index);
             drawCard();
+            GameLogicUtils.resetGameIfNoValidMoves(game);
+            
         } else {
             // invalid move, add forefeit? like cooldown or smth?
             System.out.println("INVALID MOVE");
+        }
+    }
+
+    public static void Stress(Player opponent, Pile[] piles, Game game){
+        Deck opponentDeck = opponent.getPlayerDeck();
+
+        if (GameLogicUtils.isValidStress(piles[0].peekTopCard(), piles[1].peekTopCard())){
+            // add pile to loser's hand
+            for (Pile p : piles){
+                opponentDeck.transfer(p);
+            }
+            // shuffles opponent's deck
+            opponentDeck.shuffle();
+            // game "restarts"
+            game.openCardsToStart();
+            // GameLogicUtils.resetGameIfNoValidMoves(game);
         }
     }
 
