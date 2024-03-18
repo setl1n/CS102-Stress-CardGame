@@ -24,6 +24,22 @@ public class Game extends JFrame  {
         }
     }
 
+<<<<<<< HEAD
+=======
+    public void run() {
+        setTitle("Stress");
+        setSize(300, 200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        addKeyListener(this);
+        setVisible(true);
+        // for now auto creates game and opencards to start but shld implement for
+        // both of them to have to press a button at the same time
+        Game game = new Game();
+        game.openCardsToStart();
+        
+    }
+
+>>>>>>> main
     public void openCardsToStart() {
         if (!player1.isEmptyDeck() && !player2.isEmptyDeck()) {
             player1.openCardToPile(piles[0]);

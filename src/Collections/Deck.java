@@ -2,8 +2,6 @@ package Collections;
 
 import Collections.DeckComponents.CardComponents.*;
 
-import java.util.Collections;
-
 import javax.swing.ImageIcon;
 import Collections.DeckComponents.*;
 

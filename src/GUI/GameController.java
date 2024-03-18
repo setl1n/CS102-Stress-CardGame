@@ -37,6 +37,7 @@ public class GameController {
         bgImage = new ImageIcon(bgImageUrl).getImage();
     }
 
+    // Just initialise Game() from here, currently copying the code from Game() constructor
     private void initializeGame() {
         // sets up the game
         Deck startingDeck = new Deck(false);
