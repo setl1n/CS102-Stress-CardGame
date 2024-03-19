@@ -36,6 +36,7 @@ public class GameController {
         bgImage = new ImageIcon(bgImageUrl).getImage();
     }
 
+    // TODO: instead of handling logic here, abstract is to "handleAction" method or something in Game class
     public void keyPressed(KeyEvent e) {
         switch (Character.toLowerCase(e.getKeyChar())) {
             case 'q':
