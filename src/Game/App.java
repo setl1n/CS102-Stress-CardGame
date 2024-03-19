@@ -18,7 +18,9 @@ public class App extends JFrame {
         setLocationRelativeTo(null); // Center the window
         
         introPanel = createIntroPanel("/assets/intro.gif");
-        gamePanel = new GameGUI();
+
+        Game game = new Game();
+        gamePanel = new GameGUI(game);
 
         mainPanel.add(introPanel, "Intro");
         mainPanel.add(gamePanel, "Game");
@@ -33,6 +35,8 @@ public class App extends JFrame {
                 public void keyPressed(KeyEvent e) {
                     if (e.getKeyCode() == KeyEvent.VK_SPACE) {
                         cardLayout.show(mainPanel, "Game");
+                        // Here??
+                        game.openCardsToStart();
                         gamePanel.requestFocusInWindow(); // Important for keyboard inputs in the game
                     }
                 }

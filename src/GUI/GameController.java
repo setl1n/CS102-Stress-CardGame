@@ -13,20 +13,19 @@ import Collections.DeckComponents.*;
 import Collections.*;
 import Player.*;
 import Game.GameLogicUtils;
+import Game.Game;
 
 public class GameController {
 
     private static final int CARD_WIDTH = 138;
     private static final int CARD_HEIGHT = 186;
 
-    private Player player1;
-    private Player player2;
-    private Pile[] piles;
+    private Game game;
     private Image bgImage;
 
-    public GameController() {
+    public GameController(Game game) {
+        this.game = game;
         loadBackgroundImage();
-        initializeGame();
     }
 
     private void loadBackgroundImage() {
@@ -37,73 +36,53 @@ public class GameController {
         bgImage = new ImageIcon(bgImageUrl).getImage();
     }
 
-    // Just initialise Game() from here, currently copying the code from Game() constructor
-    private void initializeGame() {
-        // sets up the game
-        Deck startingDeck = new Deck(false);
-        // commented out shuffling for easy debug, utyalls
-        // startingDeck.shuffle();
-        Deck halfDeck = startingDeck.splitAndReturnHalf();
-        player1 = new Player(startingDeck);
-        player2 = new Player(halfDeck);
-        piles = new Pile[2];
-        for (int i = 0; i < 2; i++) {
-            piles[i] = new Pile();
-        }
-
-        openCardsToStart();
-        player1.drawFourCards();
-        player2.drawFourCards();
-    }
-
-    public void openCardsToStart() {
-        if (!player1.isEmptyDeck() && !player2.isEmptyDeck()) {
-            player1.openCardToPile(piles[0]);
-            player2.openCardToPile(piles[1]);
-        }
-    }
-
     public void keyPressed(KeyEvent e) {
         switch (Character.toLowerCase(e.getKeyChar())) {
             case 'q':
-                player1.throwCardToPile(0, piles[player1.getTargetPile()]);
+                game.getPlayer1().throwCardToPile(0, game.getBothPiles()[game.getPlayer1().getTargetPile()]);
                 break;
             case 'w':
-                player1.throwCardToPile(1, piles[player1.getTargetPile()]);
+                game.getPlayer1().throwCardToPile(1, game.getBothPiles()[game.getPlayer1().getTargetPile()]);
                 break;
             case 'e':
-                player1.throwCardToPile(2, piles[player1.getTargetPile()]);
+                game.getPlayer1().throwCardToPile(2, game.getBothPiles()[game.getPlayer1().getTargetPile()]);
                 break;
             case 'r':
-                player1.throwCardToPile(3, piles[player1.getTargetPile()]);
+                game.getPlayer1().throwCardToPile(3, game.getBothPiles()[game.getPlayer1().getTargetPile()]);
                 break;
+                
             case 's':
-                player1.selectTargetPile('l');
+                game.getPlayer1().selectTargetPile('l');
                 break;
             case 'd':
-                player1.selectTargetPile('r');
+                game.getPlayer1().selectTargetPile('r');
                 break;
 
             case 'u':
-                player2.throwCardToPile(0, piles[player2.getTargetPile()]);
+                game.getPlayer2().throwCardToPile(0, game.getBothPiles()[game.getPlayer2().getTargetPile()]);
                 break;
             case 'i':
-                player2.throwCardToPile(1, piles[player2.getTargetPile()]);
+                game.getPlayer2().throwCardToPile(1, game.getBothPiles()[game.getPlayer2().getTargetPile()]);
                 break;
             case 'o':
-                player2.throwCardToPile(2, piles[player2.getTargetPile()]);
+                game.getPlayer2().throwCardToPile(2, game.getBothPiles()[game.getPlayer2().getTargetPile()]);
                 break;
             case 'p':
-                player2.throwCardToPile(3, piles[player2.getTargetPile()]);
+                game.getPlayer2().throwCardToPile(3, game.getBothPiles()[game.getPlayer2().getTargetPile()]);
                 break;
+
             case 'k':
-                player2.selectTargetPile('l');
+                game.getPlayer2().selectTargetPile('l');
                 break;
             case 'l':
-                player2.selectTargetPile('r');
+                game.getPlayer2().selectTargetPile('r');
+                break;
+            default:
+                System.out.println("Invalid key pressed: " + e.getKeyChar());
                 break;
         }
     }
+    
 
     public void draw(Graphics g, int width, int height) {
         drawBackground(g, width, height);
@@ -118,11 +97,11 @@ public class GameController {
 
     private void drawHands(Graphics g, int width, int height) {
         for (int i = 0; i < 4; i++) {
-            Card card = player1.getHand().getCardAtIndex(i);
+            Card card = game.getPlayer1().getHand().getCardAtIndex(i);
             drawCard(g, card, 20 + (CARD_WIDTH + 20) * i, height - CARD_HEIGHT - 20);
         }
         for (int i = 0; i < 4; i++) {
-            Card card = player2.getHand().getCardAtIndex(i);
+            Card card = game.getPlayer2().getHand().getCardAtIndex(i);
             drawCard(g, card, width - (CARD_WIDTH + 20) * (4 - i) - 20, 20);
         }
     }
@@ -133,8 +112,8 @@ public class GameController {
         int pile2X = width / 2 + 10;
         int pile2Y = height / 2 - CARD_HEIGHT / 2;
 
-        Card topCardPile1 = piles[0].peekTopCard();
-        Card topCardPile2 = piles[1].peekTopCard();
+        Card topCardPile1 = game.getPile(0).peekTopCard();
+        Card topCardPile2 = game.getPile(1).peekTopCard();
         drawCard(g, topCardPile1, pile1X, pile1Y);
         drawCard(g, topCardPile2, pile2X, pile2Y);
     }
@@ -145,12 +124,12 @@ public class GameController {
         int pile2X = width / 2 + 10;
         int pile2Y = height / 2 - CARD_HEIGHT / 2;
 
-        if (player1.getTargetPile() == 0) {
+        if (game.getPlayer1().getTargetPile() == 0) {
             drawIndicator(g, "redtri", pile1X + 38, pile1Y + CARD_HEIGHT + 10);
         } else {
             drawIndicator(g, "redtri", pile2X + 40, pile2Y + CARD_HEIGHT + 10);
         }
-        if (player2.getTargetPile() == 0) {
+        if (game.getPlayer2().getTargetPile() == 0) {
             drawIndicator(g, "bluetri", pile1X + 38, pile1Y - 60);
         } else {
             drawIndicator(g, "bluetri", pile2X + 38, pile2Y - 60);

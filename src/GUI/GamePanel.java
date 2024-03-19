@@ -18,7 +18,9 @@ public class GamePanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        // Adjusted to call the correctly named method
+
+        System.out.println("paintComponent called");
+
         controller.draw(g, this.getWidth(), this.getHeight());
     }
 }

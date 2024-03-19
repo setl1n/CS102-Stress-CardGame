@@ -4,13 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import Game.Game;
 
 public class GameGUI extends JPanel {
     private GameController controller;
     private GamePanel gamePanel;
 
-    public GameGUI() {
-        controller = new GameController();
+    public GameGUI(Game game) {
+        controller = new GameController(game);
         initializeGUI();
     }
 
