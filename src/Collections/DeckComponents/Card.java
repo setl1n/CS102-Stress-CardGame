@@ -40,7 +40,6 @@ public class Card implements Comparable {
       rankValue = rank;
 
       String path = "/assets/" + suit.getSymbol().toUpperCase() + "-" + rank.getSymbol().toUpperCase() + ".png";
-      System.out.println("Looking for image at: " + path);
       URL imgUrl = getClass().getResource(path);
       if (imgUrl == null) {
          imgUrl = getClass().getResource("/assets/empty.png");
