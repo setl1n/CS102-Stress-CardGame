@@ -19,12 +19,14 @@ public class Hand{
         }
     }
 
-    protected Card getCardAtIndex(int index) {
+    public Card getCardAtIndex(int index) {
         return cardsInHand[index];
     }
 
-    protected void removeCardAtIndex(int index) {
+    protected Card popCardAtIndex(int index) {
+        Card toReturn = cardsInHand[index];
         cardsInHand[index] = null;
+        return toReturn;
     }
 
     // I think this should be better, removed the previous comments

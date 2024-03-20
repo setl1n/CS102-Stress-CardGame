@@ -1,13 +1,11 @@
 package Game;
 
 import javax.swing.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import Collections.Deck;
 import Collections.Pile;
 import Player.Player;
 
-public class Game extends JFrame implements KeyListener {
+public class Game extends JFrame {
     private Player player1;
     private Player player2;
     private Pile[] piles;
@@ -26,19 +24,6 @@ public class Game extends JFrame implements KeyListener {
         }
     }
 
-    public void run() {
-        setTitle("Stress");
-        setSize(300, 200);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        addKeyListener(this);
-        setVisible(true);
-        // for now auto creates game and opencards to start but shld implement for
-        // both of them to have to press a button at the same time
-        Game game = new Game();
-        game.openCardsToStart();
-        
-    }
-
     public void openCardsToStart() {
         if (!player1.isEmptyDeck() && !player2.isEmptyDeck()) {
             player1.openCardToPile(piles[0]);
@@ -47,7 +32,7 @@ public class Game extends JFrame implements KeyListener {
         GameLogicUtils.checkNeedToResetGame(this);
     }
 
-    public void end(){
+    public void end() {
         System.out.println("GAME END");
         // ask to restart
         // or end program
@@ -56,16 +41,16 @@ public class Game extends JFrame implements KeyListener {
     public Pile getPile(int index) {
         return piles[index];
     }
-    
+
     public Pile[] getBothPiles() {
         return piles;
     }
 
-    public Player getPlayer1(){
+    public Player getPlayer1() {
         return player1;
     }
 
-    public Player getPlayer2(){
+    public Player getPlayer2() {
         return player2;
     }
 
@@ -79,69 +64,56 @@ public class Game extends JFrame implements KeyListener {
         System.out.println("\nPlayer 2 state:\n" + player2);
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        switch (e.getKeyCode()) {
-            // handle card selection
-            case KeyEvent.VK_Q:
-                player1.throwCardToPile(0, this);
+    public void handleKeyPress(char key) {
+        switch (key) {
+            case 'q':
+                player1.throwCardToPile(0, piles);
                 break;
-            case KeyEvent.VK_W:
-                player1.throwCardToPile(1, this);
+            case 'w':
+                player1.throwCardToPile(1, piles);
                 break;
-            case KeyEvent.VK_E:
-                player1.throwCardToPile(2, this);
+            case 'e':
+                player1.throwCardToPile(2, piles);
                 break;
-            case KeyEvent.VK_R:
-                player1.throwCardToPile(3, this);
-                break;
-            case KeyEvent.VK_U:
-                player2.throwCardToPile(0, this);
-                break;
-            case KeyEvent.VK_I:
-                player2.throwCardToPile(1, this);
-                break;
-            case KeyEvent.VK_O:
-                player2.throwCardToPile(2, this);
-                break;
-            case KeyEvent.VK_P:
-                player2.throwCardToPile(3, this);
+            case 'r':
+                player1.throwCardToPile(3, piles);
                 break;
 
-            // handle deck selection
-            case KeyEvent.VK_A:
-                System.out.println("A was pressed");
+            case 'a':
+                player1.selectTargetPile('l');
                 break;
-            case KeyEvent.VK_D:
-                System.out.println("D was pressed");
+            case 'd':
+                player1.selectTargetPile('r');
                 break;
-            case KeyEvent.VK_J:
-                System.out.println("J was pressed");
-                break;
-            case KeyEvent.VK_L:
-                System.out.println("L was pressed");
+            case 's':
+                Player.Stress(player2, piles);
                 break;
 
-            // handle calling stress
-            case KeyEvent.VK_S:
-                System.out.println("S was pressed");
+            case 'u':
+                player2.throwCardToPile(0, piles);
                 break;
-            case KeyEvent.VK_K:
-                System.out.println("K was pressed");
+            case 'i':
+                player2.throwCardToPile(1, piles);
+                break;
+            case 'o':
+                player2.throwCardToPile(2, piles);
+                break;
+            case 'p':
+                player2.throwCardToPile(3, piles);
                 break;
 
-            default:
-                System.out.println("INVALID KEY!!");
-                return;
+            case 'j':
+                player2.selectTargetPile('l');
+                break;
+            case 'l':
+                player2.selectTargetPile('r');
+            case 'k':
+                Player.Stress(player1, piles);
+                break;
+
+            // default:
+            // pause?
         }
         printGameState();
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
     }
 }
