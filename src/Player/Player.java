@@ -3,10 +3,13 @@ package Player;
 import Collections.Deck;
 import Collections.Pile;
 import Collections.DeckComponents.Card;
-import Game.Game;
+import GUI.SoundController;
 import Game.GameLogicUtils;
 
 public class Player {
+
+    private SoundController help = new SoundController();
+
     private Deck deck;
     private Hand hand;
     private int targetPile;
@@ -15,6 +18,14 @@ public class Player {
         this.deck = deck;
         hand = new Hand(deck);
         targetPile = 0;
+    }
+
+    public Hand getHand() {
+        return hand;
+    }
+
+    public int getTargetPile() {
+        return targetPile;
     }
 
     public void selectTargetPile(char userInput) {
@@ -46,12 +57,13 @@ public class Player {
         pileToOpenTo.add(deck.popTopCard());
     }
 
-    public void throwCardToPile(int index, Game game) {
-        Card topCardOfPile = game.getPile(targetPile).peekTopCard();
+    public void throwCardToPile(int index, Pile pile) {
+        Card topCardOfPile = pile.peekTopCard();
+
         if (GameLogicUtils.isValidThrow(hand.getCardAtIndex(index), topCardOfPile)) {
-            game.getPile(targetPile).add(hand.getCardAtIndex(index));
-            hand.removeCardAtIndex(index);
+            pile.add(hand.popCardAtIndex(index));
             drawCard();
+            help.cardSound(); // Play sound after moving the card
         } else {
             // invalid move, add forefeit? like cooldown or smth?
             System.out.println("INVALID MOVE");
@@ -62,5 +74,4 @@ public class Player {
     public String toString() {
         return hand.toString() + "\nTargetPile: " + targetPile + "\nCards left in Deck: " + deck.size();
     }
-    
 }

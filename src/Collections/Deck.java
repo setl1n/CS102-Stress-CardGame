@@ -14,8 +14,7 @@ public class Deck extends CardCollection {
         if (!isEmpty) {
             for (Suit suit : (Iterable<Suit>) Suit.VALUES) {
                 for (Rank rank : (Iterable<Rank>) Rank.VALUES) {
-                    ImageIcon cardFace = new ImageIcon(Card.getFilename(suit, rank));
-                    add(new Card(suit, rank, cardFace));
+                    add(new Card(suit, rank));
                 }
             }
         }
@@ -51,8 +50,8 @@ public class Deck extends CardCollection {
         Deck deckToReturn = new Deck(true);
         int cardsToTransfer = this.size() / 2;
         for (int i = 0; i < cardsToTransfer; i++) {
-            Card cardToTrasfer = this.popTopCard();
-            deckToReturn.add(cardToTrasfer);
+            Card cardToTransfer = this.popTopCard();
+            deckToReturn.add(cardToTransfer);
         }
         return deckToReturn;
     }

@@ -1,5 +1,6 @@
 # Compiled class file
 *.class
+/classes/
 
 # compile/run files for mac users
 compile.sh
