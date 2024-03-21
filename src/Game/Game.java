@@ -1,5 +1,7 @@
 package Game;
 
+import java.util.Scanner;
+
 import javax.swing.*;
 import Collections.Deck;
 import Collections.Pile;
@@ -22,6 +24,7 @@ public class Game extends JFrame {
         for (int i = 0; i < 2; i++) {
             piles[i] = new Pile();
         }
+        openCardsToStart();
     }
 
     public void openCardsToStart() {
@@ -29,13 +32,77 @@ public class Game extends JFrame {
             player1.openCardToPile(piles[0]);
             player2.openCardToPile(piles[1]);
         }
-        GameLogicUtils.checkNeedToResetGame(this);
+        
+    }
+
+    public boolean bothPlayersNoValidMoves(){
+        boolean player1hasValidMoves = getPlayer1().getPlayerHand().anyValidMoves(getBothPiles());
+        boolean player2hasValidMoves = getPlayer2().getPlayerHand().anyValidMoves(getBothPiles());
+        if (!player1hasValidMoves && !player2hasValidMoves){
+            return true;
+        }
+        return false;
+    }
+
+    public void stress(Player opponent){
+        Deck opponentDeck = opponent.getPlayerDeck();
+
+        if (GameLogicUtils.isValidStress(piles[0].peekTopCard(), piles[1].peekTopCard())){
+            // add pile to loser's hand
+            for (Pile p : piles){
+                opponentDeck.transfer(p);
+            }
+            // shuffles opponent's deck
+            opponentDeck.shuffle();
+            // game "restarts"
+            openCardsToStart();
+        }
+    }
+
+    public boolean draw(){
+        boolean player1EmptyDeck = getPlayer1().getPlayerDeck().isEmpty();
+        boolean player2EmptyDeck = getPlayer2().getPlayerDeck().isEmpty();
+        boolean player1EmptyHand = getPlayer1().getPlayerHand().isEmpty();
+        boolean player2EmptyHand = getPlayer2().getPlayerHand().isEmpty();
+
+        if ((bothPlayersNoValidMoves() && player1EmptyDeck && player2EmptyDeck) ||
+        (player1EmptyDeck && player1EmptyHand && player2EmptyDeck && player2EmptyHand)){
+            System.out.println("DRAW");
+            return true;
+            
+        }
+        return false;
+    }
+
+    public boolean win(){
+        boolean player1EmptyDeck = getPlayer1().getPlayerDeck().isEmpty();
+        boolean player2EmptyDeck = getPlayer2().getPlayerDeck().isEmpty();
+        boolean player1EmptyHand = getPlayer1().getPlayerHand().isEmpty();
+        boolean player2EmptyHand = getPlayer2().getPlayerHand().isEmpty();
+
+        if (player1EmptyDeck && player1EmptyHand && (!player2EmptyDeck || !player2EmptyHand)){
+            System.out.println("PLAYER 1 WINS");
+            return true;
+        } else if (player2EmptyDeck && player2EmptyHand && (!player1EmptyDeck || !player1EmptyHand)){
+            System.out.println("PLAYER 2 WINS");
+            return true;
+        } 
+        return false;
+
     }
 
     public void end() {
-        System.out.println("GAME END");
-        // ask to restart
-        // or end program
+        System.out.println("Press spacebar to play a new game! Else, press '.' to exit.");
+       
+    }
+
+    public void checkGameState(){
+        if (draw() || win()){
+            end();
+        } else if (bothPlayersNoValidMoves()){
+            openCardsToStart();
+        }
+
     }
 
     public Pile getPile(int index) {
@@ -86,7 +153,7 @@ public class Game extends JFrame {
                 player1.selectTargetPile('r');
                 break;
             case 's':
-                Player.Stress(player2, piles);
+                stress(player2);
                 break;
 
             case 'u':
@@ -108,12 +175,20 @@ public class Game extends JFrame {
             case 'l':
                 player2.selectTargetPile('r');
             case 'k':
-                Player.Stress(player1, piles);
+                stress(player1);
+                break;
+
+            case ' ':
+                Game game = new Game();
+                break;
+            case '.': 
+                System.out.println("Thanks for playing!");
                 break;
 
             // default:
             // pause?
         }
         printGameState();
+        checkGameState();
     }
 }

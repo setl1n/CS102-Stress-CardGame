@@ -47,13 +47,24 @@ public class Hand{
     }
 
     public boolean anyValidMoves(Pile[] pile){
-        for (int i = 0; i < 4; i++) {
-            if ((GameLogicUtils.isValidThrow(getCardAtIndex(i), pile[0].peekTopCard())) ||
-            (GameLogicUtils.isValidThrow(getCardAtIndex(i), pile[1].peekTopCard()))){
+        for (Card card : cardsInHand) {
+            if ((GameLogicUtils.isValidThrow(card, pile[0].peekTopCard())) ||
+            (GameLogicUtils.isValidThrow(card, pile[1].peekTopCard()))){
                 return true;
             }
         }
         return false;
+    }
+
+    public boolean isEmpty() {
+        boolean isEmpty = true;
+        for (Card card : cardsInHand) {
+            if (card != null) {
+                isEmpty = false;
+                break;
+            }
+        }
+        return isEmpty;
     }
 
     @Override
