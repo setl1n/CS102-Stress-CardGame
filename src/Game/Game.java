@@ -36,8 +36,8 @@ public class Game extends JFrame {
     }
 
     public boolean bothPlayersNoValidMoves(){
-        boolean player1hasValidMoves = getPlayer1().getPlayerHand().anyValidMoves(getBothPiles());
-        boolean player2hasValidMoves = getPlayer2().getPlayerHand().anyValidMoves(getBothPiles());
+        boolean player1hasValidMoves = player1.getPlayerHand().anyValidMoves(piles);
+        boolean player2hasValidMoves = player2.getPlayerHand().anyValidMoves(piles);
         if (!player1hasValidMoves && !player2hasValidMoves){
             return true;
         }
@@ -60,10 +60,10 @@ public class Game extends JFrame {
     }
 
     public boolean draw(){
-        boolean player1EmptyDeck = getPlayer1().getPlayerDeck().isEmpty();
-        boolean player2EmptyDeck = getPlayer2().getPlayerDeck().isEmpty();
-        boolean player1EmptyHand = getPlayer1().getPlayerHand().isEmpty();
-        boolean player2EmptyHand = getPlayer2().getPlayerHand().isEmpty();
+        boolean player1EmptyDeck = player1.getPlayerDeck().isEmpty();
+        boolean player2EmptyDeck = player2.getPlayerDeck().isEmpty();
+        boolean player1EmptyHand = player1.getPlayerHand().isEmpty();
+        boolean player2EmptyHand = player2.getPlayerHand().isEmpty();
 
         if ((bothPlayersNoValidMoves() && player1EmptyDeck && player2EmptyDeck) ||
         (player1EmptyDeck && player1EmptyHand && player2EmptyDeck && player2EmptyHand)){
@@ -75,10 +75,10 @@ public class Game extends JFrame {
     }
 
     public boolean win(){
-        boolean player1EmptyDeck = getPlayer1().getPlayerDeck().isEmpty();
-        boolean player2EmptyDeck = getPlayer2().getPlayerDeck().isEmpty();
-        boolean player1EmptyHand = getPlayer1().getPlayerHand().isEmpty();
-        boolean player2EmptyHand = getPlayer2().getPlayerHand().isEmpty();
+        boolean player1EmptyDeck = player1.getPlayerDeck().isEmpty();
+        boolean player2EmptyDeck = player2.getPlayerDeck().isEmpty();
+        boolean player1EmptyHand = player1.getPlayerHand().isEmpty();
+        boolean player2EmptyHand = player2.getPlayerHand().isEmpty();
 
         if (player1EmptyDeck && player1EmptyHand && (!player2EmptyDeck || !player2EmptyHand)){
             System.out.println("PLAYER 1 WINS");
