@@ -17,20 +17,17 @@ public class GameLogicUtils {
         return (difference == 12 || difference == 0 || difference == 1);
     }
 
-    public static boolean isValidStress(Card card1, Card card2){
-        Rank card1Rank = card1.getRank();
-        Rank card2Rank = card2.getRank();
-        
-        if (card1Rank == card2Rank){
-            System.out.println("STRESS!");
-            return true;
+    public static boolean isValidStress(Pile[] piles) {
+        int size = piles.length;
+        Rank firstCardRank = piles[0].peekTopCard();
+        for (int i = 1; i < size; i++) {
+            if (firstCardRank != piles[i].peekTopCard()) {
+                return false;
+            }
         }
+        return true;
 
-        System.out.println("INVALID STRESS...");
-        return false;
     }
-
-
     
     public static boolean bothPlayersNoValidMoves(Game game){
         if ((!game.getPlayer1().getPlayerHand().anyValidMoves(game.getBothPiles())) &&

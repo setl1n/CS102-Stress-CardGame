@@ -80,20 +80,7 @@ public class Player {
         }
     }
 
-    public static void Stress(Player opponent, Pile[] piles){
-        Deck opponentDeck = opponent.getPlayerDeck();
-
-        if (GameLogicUtils.isValidStress(piles[0].peekTopCard(), piles[1].peekTopCard())){
-            // add pile to loser's hand
-            for (Pile p : piles){
-                opponentDeck.transfer(p);
-            }
-            // shuffles opponent's deck
-            opponentDeck.shuffle();
-            // game "restarts"
-            GameLogicUtils.resetGameIfNoValidMoves(game);
-        }
-    }
+    
 
     @Override
     public String toString() {

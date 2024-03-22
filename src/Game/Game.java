@@ -1,16 +1,39 @@
 package Game;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.swing.*;
 import Collections.Deck;
 import Collections.Pile;
+import Collections.DeckComponents.Card;
 import Player.Player;
 
 public class Game extends JFrame {
+    private final static int NUMOFPILES = 2;
     private Player player1;
     private Player player2;
     private Pile[] piles;
+    private final Map<Character, Runnable> actions = new HashMap<>();
 
     public Game() {
+
+        // maps actions to runnable
+        actions.put('q', () -> player1.throwCardToPile(0, piles));
+        actions.put('w', () -> player1.throwCardToPile(1, piles));
+        actions.put('e', () -> player1.throwCardToPile(2, piles));
+        actions.put('r', () -> player1.throwCardToPile(3, piles));
+        actions.put('a', () -> player1.selectTargetPile('l'));
+        actions.put('d', () -> player1.selectTargetPile('r'));
+        actions.put('s', () -> this.stress(player2));
+        actions.put('u', () -> player2.throwCardToPile(0, piles));
+        actions.put('i', () -> player2.throwCardToPile(1, piles));
+        actions.put('o', () -> player2.throwCardToPile(2, piles));
+        actions.put('p', () -> player2.throwCardToPile(3, piles));
+        actions.put('j', () -> player2.selectTargetPile('l'));
+        actions.put('l', () -> player2.selectTargetPile('r'));
+        actions.put('k', () -> this.stress(player1));
+
         // sets up the game
         Deck startingDeck = new Deck(false);
         // commented out shuffling for easy debug, utyalls
@@ -18,8 +41,8 @@ public class Game extends JFrame {
         Deck halfDeck = startingDeck.splitAndReturnHalf();
         player1 = new Player(startingDeck);
         player2 = new Player(halfDeck);
-        piles = new Pile[2];
-        for (int i = 0; i < 2; i++) {
+        piles = new Pile[NUMOFPILES];
+        for (int i = 0; i < NUMOFPILES; i++) {
             piles[i] = new Pile();
         }
     }
@@ -65,55 +88,31 @@ public class Game extends JFrame {
     }
 
     public void handleKeyPress(char key) {
-        switch (key) {
-            case 'q':
-                player1.throwCardToPile(0, piles);
-                break;
-            case 'w':
-                player1.throwCardToPile(1, piles);
-                break;
-            case 'e':
-                player1.throwCardToPile(2, piles);
-                break;
-            case 'r':
-                player1.throwCardToPile(3, piles);
-                break;
-
-            case 'a':
-                player1.selectTargetPile('l');
-                break;
-            case 'd':
-                player1.selectTargetPile('r');
-                break;
-            case 's':
-                Player.Stress(player2, piles);
-                break;
-
-            case 'u':
-                player2.throwCardToPile(0, piles);
-                break;
-            case 'i':
-                player2.throwCardToPile(1, piles);
-                break;
-            case 'o':
-                player2.throwCardToPile(2, piles);
-                break;
-            case 'p':
-                player2.throwCardToPile(3, piles);
-                break;
-
-            case 'j':
-                player2.selectTargetPile('l');
-                break;
-            case 'l':
-                player2.selectTargetPile('r');
-            case 'k':
-                Player.Stress(player1, piles);
-                break;
-
-            // default:
-            // pause?
+        Runnable action = actions.get(key);
+        if (action != null) {
+            action.run();
+        } else {
+            System.out.println("Invalid Move!");
         }
         printGameState();
     }
+
+    public void stress(Player opponent) {
+        Deck opponentDeck = opponent.getPlayerDeck();
+
+        if (GameLogicUtils.isValidStress(piles)){
+            // add pile to loser's hand
+            for (Pile p : piles){
+                opponentDeck.transfer(p);
+            }
+            // shuffles opponent's deck
+            opponentDeck.shuffle();
+            // game "restarts"
+            openCardsToStart();
+        } else {
+            System.out.println("Invalid Stress");
+            // insert penalty here
+        }
+    }
+    
 }
