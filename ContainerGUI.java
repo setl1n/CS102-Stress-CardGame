@@ -1,5 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /*
  * okay hear me out
@@ -15,9 +20,30 @@ import java.awt.*;
  * convert the values of each panel/margin to set dimensions, especially for
  * parent containers (calculate them? i guess) and set them as final
  * variables so we dont get shot by lay foo
+ * 
+ * refactor this messy code, maybe make them class specific methods instead,
+ * i think it will make it might easier to read and debug
  */
 
 public class ContainerGUI {
+
+    private static List<JPanel> animationPanels = new ArrayList<>();
+    private static final Map<String, JPanel> panelRegistry = new HashMap<>();
+
+    /*
+     * i havent implemented this but this gives us the ability to reference
+     * panels by name so we can access them regardless of hierarchy, i have
+     * more code in my chatGPT conversations to extend this functionality
+     */
+
+    private static void registerPanel(String name, JPanel panel) {
+        panelRegistry.put(name, panel);
+    }
+    
+    public static JPanel getPanelByName(String name) {
+        return panelRegistry.get(name);
+    }
+    
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(ContainerGUI::createAndShowGUI);
@@ -59,6 +85,24 @@ public class ContainerGUI {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
+        frame.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyChar() == 'g' || e.getKeyChar() == 'G') {
+
+                    /*
+                     * added a keypress listener to create an animation relative
+                     * to a specified panel (for better control)
+                     */
+
+
+                    createAnimation(player1Panel, frame);
+                    player1Panel.revalidate();
+                    player1Panel.repaint();
+                }
+            }
+        });
     }
 
     private static JPanel createPlayerPanel(String playerName) {
@@ -180,4 +224,42 @@ public class ContainerGUI {
     
         return deckPanel;
     }
+
+    private static void createAnimation(JPanel basePanel, JFrame frame) {
+        JPanel animationPanel = new JPanel(new BorderLayout());
+        animationPanel.setOpaque(false);
+        animationPanel.setSize(100, 100);
+
+        // Add GIF to the panel
+        ImageIcon gifIcon = new ImageIcon("./images/redstress.gif");
+        JLabel gifLabel = new JLabel(gifIcon);
+        animationPanel.add(gifLabel, BorderLayout.CENTER);
+
+        // Calculate and set the position for the animation panel
+        Point baseLocation = SwingUtilities.convertPoint(basePanel, 0, 0, frame.getLayeredPane());
+        animationPanel.setLocation(baseLocation.x + (basePanel.getWidth() - animationPanel.getWidth()) / 2,
+                                   baseLocation.y + (basePanel.getHeight() - animationPanel.getHeight()) / 2);
+
+        // Add the animation panel to the frame's layered pane
+        frame.getLayeredPane().add(animationPanel, JLayeredPane.POPUP_LAYER);
+        frame.getLayeredPane().moveToFront(animationPanel);
+        animationPanel.setVisible(true);
+
+        // Keep track of this panel for potential removal later
+        animationPanels.add(animationPanel);
+
+        // Setup removal for this specific animation
+        Timer timer = new Timer(3000, e -> removeAnimation(frame, animationPanel));
+        timer.setRepeats(false);
+        timer.start();
+    }
+
+    // Method to remove a specific animation panel
+    private static void removeAnimation(JFrame frame, JPanel animationPanel) {
+        frame.getLayeredPane().remove(animationPanel);
+        frame.getLayeredPane().revalidate();
+        frame.getLayeredPane().repaint();
+        animationPanels.remove(animationPanel); // Remove the reference from the list
+    }
+    
 }
