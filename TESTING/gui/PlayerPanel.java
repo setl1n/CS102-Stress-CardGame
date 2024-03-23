@@ -3,7 +3,7 @@ package gui;
 import javax.swing.*;
 import java.awt.*;
 
-import game.Player;
+import game.ExamplePlayer;
 
 public class PlayerPanel extends JPanel {
 
@@ -12,9 +12,9 @@ public class PlayerPanel extends JPanel {
      * to the instance that its referencing in a
      * bidirectional manner
      */
-    private Player player;
+    private ExamplePlayer player;
 
-    public PlayerPanel(Player player) {
+    public PlayerPanel(ExamplePlayer player) {
 
         this.player = player;
         this.player.setPlayerPanel(this);
