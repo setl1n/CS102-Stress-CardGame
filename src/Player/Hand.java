@@ -6,17 +6,11 @@ import Collections.Pile;
 import Collections.DeckComponents.Card;
 import Game.GameLogicUtils;
 
-public class Hand{
-    private Card[] cardsInHand;
+public class Hand {
+    private Card[] cardsInHand = new Card[SIZE_OF_HAND];
     private static final int SIZE_OF_HAND = 4;
 
-    public Hand(Deck deck) {
-        cardsInHand = new Card[SIZE_OF_HAND];
-        for (int i = 0; i < SIZE_OF_HAND; i++) {
-
-            // this would throw IndexOutOfBoundsException if deck has less than 4 cards, but should not happen in normal flow of game
-            cardsInHand[i] = deck.popTopCard();
-        }
+    public Hand() {
     }
 
     public Card getCardAtIndex(int index) {
@@ -46,10 +40,10 @@ public class Hand{
         cardsInHand[index] = deck.popTopCard();
     }
 
-    public boolean anyValidMoves(Pile[] pile){
+    public boolean anyValidMoves(Pile[] pile) {
         for (Card card : cardsInHand) {
             if ((GameLogicUtils.isValidThrow(card, pile[0].peekTopCard())) ||
-            (GameLogicUtils.isValidThrow(card, pile[1].peekTopCard()))){
+                    (GameLogicUtils.isValidThrow(card, pile[1].peekTopCard()))) {
                 return true;
             }
         }

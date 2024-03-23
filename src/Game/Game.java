@@ -37,6 +37,7 @@ public class Game extends JFrame {
         // commented out shuffling for easy debug, utyalls
         // startingDeck.shuffle();
         Deck halfDeck = startingDeck.splitAndReturnHalf();
+        halfDeck.changeColour();
         player1 = new Player("Player 1", startingDeck);
         player2 = new Player("Player 2", halfDeck);
         piles = new Pile[NUM_OF_PILES];

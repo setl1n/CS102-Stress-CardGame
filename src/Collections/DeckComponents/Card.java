@@ -2,7 +2,6 @@ package Collections.DeckComponents;
 
 import java.net.URL;
 import java.awt.*;
-import javax.imageio.ImageIO;
 
 // Card.java - John K. Estell - 8 May 2003
 // last modified: 23 Febraury 2004

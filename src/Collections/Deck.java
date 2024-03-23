@@ -1,11 +1,17 @@
 package Collections;
 
-import Collections.DeckComponents.CardComponents.*;
+import Collections.DeckComponents.Card;
+import Collections.DeckComponents.CardComponents.Rank;
+import Collections.DeckComponents.CardComponents.Suit;
+import java.awt.Image;
+import java.net.URL;
 
 import javax.swing.ImageIcon;
-import Collections.DeckComponents.*;
 
 public class Deck extends CardCollection {
+    private Image deckImage;
+    private char colour;
+
     /**
      * Creates a shuffled deck of 52 cards
      */
@@ -18,11 +24,56 @@ public class Deck extends CardCollection {
                 }
             }
         }
+
+        // defaults red deck
+        colour = 'r';
+        updateImageToSize();
+    }
+
+    public void changeColour() {
+        if (colour == 'r') {
+            colour = 'b';
+        } else {
+            colour = 'r';
+        }
+        updateImageToSize();
+    }
+
+    public void updateImageToSize() {
+        int cardsInDeck = super.size();
+        if (cardsInDeck == 0) {
+            String path = "/assets/emptyDeck.png";
+            URL imgUrl = getClass().getResource(path);
+            deckImage = new ImageIcon(imgUrl).getImage();
+            return;
+        }
+
+        String colourPath = colour == 'r' ? "red" : "blu";
+        String thickness = "Med";
+
+        if (cardsInDeck < 5) {
+            thickness = "Single";
+        } else if (cardsInDeck < 15) {
+            thickness = "Thin";
+        } else if (cardsInDeck < 30) {
+            thickness = "Med";
+        } else {
+            thickness = "Thick";
+        }
+
+        String path = "/assets/" + colourPath + "Deck" + thickness + ".png";
+        URL imgUrl = getClass().getResource(path);
+        if (imgUrl == null) {
+            imgUrl = getClass().getResource("/assets/empty.png");
+        }
+        // It avoids dealing with IOException, which ImageIO.read() might throw.
+        deckImage = new ImageIcon(imgUrl).getImage();
     }
 
     // makes shuffle available to caller as shuffle is protected in cardcollection
     // checked with chatgpt, this is good OOP as it's more important to encapsulate
-    // alternatively, need to make arraylist cardcollections protected, which is worse than 
+    // alternatively, need to make arraylist cardcollections protected, which is
+    // worse than
     // having a "layer" in the child class for shuffle
     public void shuffle() {
         super.shuffle();
@@ -36,19 +87,23 @@ public class Deck extends CardCollection {
         return super.size();
     }
 
-    public Card popTopCard(){
+    public Card popTopCard() {
         return super.popTopCard();
     }
 
-    public void transfer(CardCollection c){
+    public void transfer(CardCollection c) {
         super.transfer(c);
+    }
+
+    public Image getDeckImage() {
+        return deckImage;
     }
 
     // returns a new deck with top half of deck
     // original deck holds (remaining) bottom half
     //
-    // note: order of cards that gets added to new deck gets reversed 
-    //      while bottom half of old cards stay in order
+    // note: order of cards that gets added to new deck gets reversed
+    // while bottom half of old cards stay in order
     // -should not affect implementation, just for own's knowledge
     public Deck splitAndReturnHalf() {
         Deck deckToReturn = new Deck(true);

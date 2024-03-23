@@ -18,8 +18,8 @@ public class PilePanel extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER; // Center the component
         
         // Example pile panels
-        add(new CardPanel("Pile 1"), gbc);
-        add(new CardPanel("Pile 2"), gbc);
+//        add(new CardPanel("Pile 1"), gbc);
+//        add(new CardPanel("Pile 2"), gbc);
 
 
     }

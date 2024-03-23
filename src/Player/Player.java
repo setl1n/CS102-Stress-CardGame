@@ -13,14 +13,14 @@ public class Player {
     private SoundController help = new SoundController();
     private String name;
     private Deck deck;
-    private Hand hand;
+    private Hand hand = new Hand();
     private PlayerPanel playerPanel;
     private int targetPileIndex;
 
     public Player(String name, Deck deck) {
         this.name = name;
         this.deck = deck;
-        hand = new Hand(deck);
+        drawFourCards();
         targetPileIndex = 0;
     }
 

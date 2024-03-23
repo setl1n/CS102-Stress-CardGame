@@ -29,9 +29,9 @@ public class PlayerPanel extends JPanel {
             setLayout(new FlowLayout(FlowLayout.LEFT, 15, 15));
 
             for (int i = 0; i < 4; i++) {
-                add(new CardPanel("Card " + (i + 1)));
+                add(new CardPanel(player.getHand().getCardAtIndex(i)));
             }
-            add(new CardPanel("Deck"));
+            add(new DeckPanel(player.getDeck()));
             JPanel numPanel = createNumPanel();
             add(numPanel);
 
@@ -41,9 +41,9 @@ public class PlayerPanel extends JPanel {
 
             JPanel numPanel = createNumPanel();
             add(numPanel);
-            add(new CardPanel("Deck"));
+            add(new DeckPanel(player.getDeck()));
             for (int i = 0; i < 4; i++) {
-                add(new CardPanel("Card " + (i + 1)));
+                add(new CardPanel(player.getHand().getCardAtIndex(i)));
             }
         }
     }
