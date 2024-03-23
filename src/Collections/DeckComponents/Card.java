@@ -27,7 +27,6 @@ public class Card implements Comparable {
    private Suit suitValue;
    private Rank rankValue;
    private Image cardImage;
-   private static boolean sortRankMajorOrder = true;
 
   /**
    * Creates a new playing card.
@@ -123,27 +122,6 @@ public class Card implements Comparable {
    public String suitToString() {
       return suitValue.toString();
    }
-
-
-  /**
-   * Specifies that cards are to be sorted in rank-major order.  Cards are ordered
-   * first by their rank value; cards of the same rank are then ordered by their
-   * suit value.
-   */
-   public static void setRankMajorSort() {
-      sortRankMajorOrder = true;
-   }
-   
-   
-  /**
-   * Specifies that cards are to be sorted in suit-major order.  Cards are ordered
-   * first by their suit value; cards of the same suit are then ordered by their
-   * rank value.
-   */
-   public static void setSuitMajorSort() {
-      sortRankMajorOrder = false;
-   }
-   
    
   /**
    * Compares two cards for the purposes of sorting.  
@@ -155,21 +133,7 @@ public class Card implements Comparable {
    */
    public int compareTo( Object otherCardObject ) {
       Card otherCard = (Card) otherCardObject;
-      int suitDiff = suitValue.compareTo( otherCard.suitValue );
-      int rankDiff = rankValue.compareTo( otherCard.rankValue );
-      
-      if ( sortRankMajorOrder ) {
-         if ( rankDiff != 0 )
-            return rankDiff;
-         else
-            return suitDiff;
-      }
-      else {
-         if ( suitDiff != 0 )
-            return suitDiff;
-         else
-            return rankDiff;
-      }
+      return rankValue.compareTo(otherCard.rankValue);
    }
 
 

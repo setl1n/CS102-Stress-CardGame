@@ -33,7 +33,7 @@ public class Deck extends CardCollection {
     }
 
     public int size() {
-        return getSizeOfCardCollection();
+        return super.size();
     }
 
     public Card popTopCard(){

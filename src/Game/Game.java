@@ -1,7 +1,10 @@
 package Game;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.*;
 import Collections.Deck;
@@ -10,7 +13,7 @@ import Collections.DeckComponents.Card;
 import Player.Player;
 
 public class Game extends JFrame {
-    private final static int NUMOFPILES = 2;
+    private final static int NUM_OF_PILES = 2;
     private Player player1;
     private Player player2;
     private Pile[] piles;
@@ -41,8 +44,8 @@ public class Game extends JFrame {
         Deck halfDeck = startingDeck.splitAndReturnHalf();
         player1 = new Player(startingDeck);
         player2 = new Player(halfDeck);
-        piles = new Pile[NUMOFPILES];
-        for (int i = 0; i < NUMOFPILES; i++) {
+        piles = new Pile[NUM_OF_PILES];
+        for (int i = 0; i < NUM_OF_PILES; i++) {
             piles[i] = new Pile();
         }
     }
@@ -96,6 +99,7 @@ public class Game extends JFrame {
         }
         printGameState();
     }
+
 
     public void stress(Player opponent) {
         Deck opponentDeck = opponent.getPlayerDeck();

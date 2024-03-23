@@ -45,7 +45,6 @@ public class GameController {
             // remove before submission, what should we implement?
             System.out.println("INVALID KEY INPUT");
         }
-
     }
     
     private boolean isValidInput(char key) {
