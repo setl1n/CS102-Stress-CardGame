@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class CardImageLoader {
     private static final Map<String, Image> cardImages = new HashMap<>();
-    private static final String basePath = "/assets/";
+    private static final String basePath = "/assets/images";
 
     public static Image getCardImage(String cardName) {
         if (cardImages.containsKey(cardName)) {

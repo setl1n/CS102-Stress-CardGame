@@ -8,11 +8,15 @@ import java.awt.*;
 import Collections.Deck;
 
 public class DeckPanel extends JPanel {
+
+    static final int width = 150;
+    static final int height = 210;
+
     public DeckPanel(Deck deck) {
-        setPreferredSize(new Dimension(150, 210));
+        setPreferredSize(new Dimension(width, height));
         setLayout(new BorderLayout());
 
-        Image image = deck.getDeckImage().getScaledInstance(150, 210, Image.SCALE_SMOOTH);
+        Image image = deck.getDeckImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
         JLabel labelComponent = new JLabel(new ImageIcon(image), JLabel.CENTER);
         add(labelComponent, BorderLayout.CENTER);
     }

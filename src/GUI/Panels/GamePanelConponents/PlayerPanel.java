@@ -1,4 +1,5 @@
 package GUI.Panels.GamePanelConponents;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -15,12 +16,10 @@ public class PlayerPanel extends JPanel {
      * to the instance that its referencing in a
      * bidirectional manner
      */
-    private Player player;
 
     public PlayerPanel(Player player) {
 
-        this.player = player;
-        this.player.setPlayerPanel(this);
+        player.setPlayerPanel(this);
 
         setPreferredSize(new Dimension(1080, 220));
 

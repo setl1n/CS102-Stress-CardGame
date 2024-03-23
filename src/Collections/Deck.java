@@ -41,8 +41,9 @@ public class Deck extends CardCollection {
 
     public void updateImageToSize() {
         int cardsInDeck = super.size();
+        System.out.println(cardsInDeck);
         if (cardsInDeck == 0) {
-            String path = "/assets/emptyDeck.png";
+            String path = "/assets/images/emptyDeck.png";
             URL imgUrl = getClass().getResource(path);
             deckImage = new ImageIcon(imgUrl).getImage();
             return;
@@ -61,9 +62,11 @@ public class Deck extends CardCollection {
             thickness = "Thick";
         }
 
-        String path = "/assets/" + colourPath + "Deck" + thickness + ".png";
+        String path = "/assets/images/" + colourPath + "Deck" + thickness + ".png";
+        System.out.println(path);
         URL imgUrl = getClass().getResource(path);
         if (imgUrl == null) {
+            System.out.println("rip");
             imgUrl = getClass().getResource("/assets/empty.png");
         }
         // It avoids dealing with IOException, which ImageIO.read() might throw.
