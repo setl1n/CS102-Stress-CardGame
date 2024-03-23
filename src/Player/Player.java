@@ -10,7 +10,6 @@ import Game.GameLogicUtils;
 public class Player {
 
     private SoundController help = new SoundController();
-
     private Deck deck;
     private Hand hand;
     private int targetPileIndex;
@@ -29,15 +28,8 @@ public class Player {
         return targetPileIndex;
     }
 
-    public void selectTargetPile(char userInput) {
-        if (userInput == 'l') {
-            this.targetPileIndex = 0;
-        } else if (userInput == 'r'){
-            this.targetPileIndex = 1;
-        } else{
-            // debug statement, remove before submission
-            System.out.println("INVALID USER INPUT, TARGET DECK WAS NOT CHANGED");
-        }
+    public void setTargetPileIndex(int targetPileIndex) {
+        this.targetPileIndex = targetPileIndex;
     }
 
     public void drawCard() {
@@ -46,7 +38,7 @@ public class Player {
 
     public void drawFourCards() {
         for (int i = 0; i < 4; i++) {
-            drawCard();;
+            drawCard();
         }
     }
 
@@ -54,12 +46,8 @@ public class Player {
         return deck.isEmpty();
     }
 
-    public Deck getPlayerDeck(){
+    public Deck getDeck(){
         return deck;
-    }
-
-    public Hand getPlayerHand(){
-        return hand;
     }
 
     public void openCardToPile(Pile pileToOpenTo) {

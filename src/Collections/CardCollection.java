@@ -39,7 +39,7 @@ public class CardCollection {
      * 
      * @return the number of cards present in the full card collection.
      */
-    protected int getSizeOfCardCollection() {
+    protected int size() {
         return cardCollection.size();
     }
 
@@ -65,7 +65,7 @@ public class CardCollection {
     }
 
     protected void transfer(CardCollection c){
-        for (int i = 0; i < c.getSizeOfCardCollection(); i++){
+        for (int i = 0; i < c.size(); i++){
             cardCollection.add(c.peekTopCard());
             c.popTopCard();
         }

@@ -1,18 +1,37 @@
 package Game;
 
-import java.util.Scanner;
-
+import java.util.*;
 import javax.swing.*;
 import Collections.Deck;
 import Collections.Pile;
 import Player.Player;
+import java.awt.event.KeyEvent;
 
 public class Game extends JFrame {
+    private final static int NUM_OF_PILES = 2;
     private Player player1;
     private Player player2;
     private Pile[] piles;
+    private final Map<Character, Runnable> actions = new HashMap<>();
 
     public Game() {
+
+        // maps actions to runnable
+        actions.put('q', () -> player1.throwCardToPile(0, piles));
+        actions.put('w', () -> player1.throwCardToPile(1, piles));
+        actions.put('e', () -> player1.throwCardToPile(2, piles));
+        actions.put('r', () -> player1.throwCardToPile(3, piles));
+        actions.put('a', () -> player1.setTargetPileIndex(0));
+        actions.put('d', () -> player1.setTargetPileIndex(1));
+        actions.put('s', () -> this.stress(player2));
+        actions.put('u', () -> player2.throwCardToPile(0, piles));
+        actions.put('i', () -> player2.throwCardToPile(1, piles));
+        actions.put('o', () -> player2.throwCardToPile(2, piles));
+        actions.put('p', () -> player2.throwCardToPile(3, piles));
+        actions.put('j', () -> player2.setTargetPileIndex(0));
+        actions.put('l', () -> player2.setTargetPileIndex(1));
+        actions.put('k', () -> this.stress(player1));
+
         // sets up the game
         Deck startingDeck = new Deck(false);
         // commented out shuffling for easy debug, utyalls
@@ -20,8 +39,8 @@ public class Game extends JFrame {
         Deck halfDeck = startingDeck.splitAndReturnHalf();
         player1 = new Player(startingDeck);
         player2 = new Player(halfDeck);
-        piles = new Pile[2];
-        for (int i = 0; i < 2; i++) {
+        piles = new Pile[NUM_OF_PILES];
+        for (int i = 0; i < NUM_OF_PILES; i++) {
             piles[i] = new Pile();
         }
         openCardsToStart();
@@ -36,34 +55,21 @@ public class Game extends JFrame {
     }
 
     public boolean bothPlayersNoValidMoves(){
-        boolean player1hasValidMoves = player1.getPlayerHand().anyValidMoves(piles);
-        boolean player2hasValidMoves = player2.getPlayerHand().anyValidMoves(piles);
+        boolean player1hasValidMoves = player1.getHand().anyValidMoves(piles);
+        boolean player2hasValidMoves = player2.getHand().anyValidMoves(piles);
         if (!player1hasValidMoves && !player2hasValidMoves){
             return true;
         }
         return false;
     }
 
-    public void stress(Player opponent){
-        Deck opponentDeck = opponent.getPlayerDeck();
-
-        if (GameLogicUtils.isValidStress(piles[0].peekTopCard(), piles[1].peekTopCard())){
-            // add pile to loser's hand
-            for (Pile p : piles){
-                opponentDeck.transfer(p);
-            }
-            // shuffles opponent's deck
-            opponentDeck.shuffle();
-            // game "restarts"
-            openCardsToStart();
-        }
-    }
+    
 
     public boolean draw(){
-        boolean player1EmptyDeck = player1.getPlayerDeck().isEmpty();
-        boolean player2EmptyDeck = player2.getPlayerDeck().isEmpty();
-        boolean player1EmptyHand = player1.getPlayerHand().isEmpty();
-        boolean player2EmptyHand = player2.getPlayerHand().isEmpty();
+        boolean player1EmptyDeck = player1.getDeck().isEmpty();
+        boolean player2EmptyDeck = player2.getDeck().isEmpty();
+        boolean player1EmptyHand = player1.getHand().isEmpty();
+        boolean player2EmptyHand = player2.getHand().isEmpty();
 
         if ((bothPlayersNoValidMoves() && player1EmptyDeck && player2EmptyDeck) ||
         (player1EmptyDeck && player1EmptyHand && player2EmptyDeck && player2EmptyHand)){
@@ -75,10 +81,10 @@ public class Game extends JFrame {
     }
 
     public boolean win(){
-        boolean player1EmptyDeck = player1.getPlayerDeck().isEmpty();
-        boolean player2EmptyDeck = player2.getPlayerDeck().isEmpty();
-        boolean player1EmptyHand = player1.getPlayerHand().isEmpty();
-        boolean player2EmptyHand = player2.getPlayerHand().isEmpty();
+        boolean player1EmptyDeck = player1.getDeck().isEmpty();
+        boolean player2EmptyDeck = player2.getDeck().isEmpty();
+        boolean player1EmptyHand = player1.getHand().isEmpty();
+        boolean player2EmptyHand = player2.getHand().isEmpty();
 
         if (player1EmptyDeck && player1EmptyHand && (!player2EmptyDeck || !player2EmptyHand)){
             System.out.println("PLAYER 1 WINS");
@@ -131,64 +137,37 @@ public class Game extends JFrame {
         System.out.println("\nPlayer 2 state:\n" + player2);
     }
 
-    public void handleKeyPress(char key) {
-        switch (key) {
-            case 'q':
-                player1.throwCardToPile(0, piles);
-                break;
-            case 'w':
-                player1.throwCardToPile(1, piles);
-                break;
-            case 'e':
-                player1.throwCardToPile(2, piles);
-                break;
-            case 'r':
-                player1.throwCardToPile(3, piles);
-                break;
 
-            case 'a':
-                player1.selectTargetPile('l');
-                break;
-            case 'd':
-                player1.selectTargetPile('r');
-                break;
-            case 's':
-                stress(player2);
-                break;
-
-            case 'u':
-                player2.throwCardToPile(0, piles);
-                break;
-            case 'i':
-                player2.throwCardToPile(1, piles);
-                break;
-            case 'o':
-                player2.throwCardToPile(2, piles);
-                break;
-            case 'p':
-                player2.throwCardToPile(3, piles);
-                break;
-
-            case 'j':
-                player2.selectTargetPile('l');
-                break;
-            case 'l':
-                player2.selectTargetPile('r');
-            case 'k':
-                stress(player1);
-                break;
-
-            case ' ':
-                Game game = new Game();
-                break;
-            case '.': 
-                System.out.println("Thanks for playing!");
-                break;
-
-            // default:
-            // pause?
+    public void handleKeyPress(KeyEvent e) {
+        char key = Character.toLowerCase(e.getKeyChar());
+        Runnable action = actions.get(key);
+        if (action != null) {
+            action.run();
+        } else {
+            // handle penalty here?
+            System.out.println("ACTIONS MAP RETURNS NULL, INVALID MOVE");
         }
         printGameState();
         checkGameState();
     }
+
+
+    public void stress(Player opponent) {
+        Deck opponentDeck = opponent.getDeck();
+
+        if (GameLogicUtils.isValidStress(piles)){
+            // add pile to loser's hand
+            for (Pile p : piles){
+                opponentDeck.transfer(p);
+            }
+            // shuffles opponent's deck
+            opponentDeck.shuffle();
+            // game "restarts"
+            openCardsToStart();
+        } else {
+            System.out.println("Invalid Stress");
+            // insert penalty here
+        }
+    }
+    
 }
