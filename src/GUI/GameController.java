@@ -28,6 +28,10 @@ public class GameController {
         loadBackgroundImage();
     }
 
+    public Game getGame() {
+        return game;
+    }
+
     private void loadBackgroundImage() {
         URL bgImageUrl = getClass().getResource("/assets/bg.jpg");
         if (bgImageUrl == null) {
@@ -36,20 +40,7 @@ public class GameController {
         bgImage = new ImageIcon(bgImageUrl).getImage();
     }
 
-    // TODO: instead of handling logic here, abstract is to "handleAction" method or something in Game class
-    public void keyPressed(KeyEvent e) {
-        char key = Character.toLowerCase(e.getKeyChar());
-        if (isValidInput(key)){
-            game.handleKeyPress(key);
-        } else {
-            // remove before submission, what should we implement?
-            System.out.println("INVALID KEY INPUT");
-        }
-    }
-    
-    private boolean isValidInput(char key) {
-        return "qweruiopasdjkl".contains(String.valueOf(key));
-    }
+
 
     public void draw(Graphics g, int width, int height) {
         drawBackground(g, width, height);

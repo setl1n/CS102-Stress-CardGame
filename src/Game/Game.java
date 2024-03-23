@@ -4,8 +4,8 @@ import java.util.*;
 import javax.swing.*;
 import Collections.Deck;
 import Collections.Pile;
-import Collections.DeckComponents.Card;
 import Player.Player;
+import java.awt.event.KeyEvent;
 
 public class Game extends JFrame {
     private final static int NUM_OF_PILES = 2;
@@ -21,15 +21,15 @@ public class Game extends JFrame {
         actions.put('w', () -> player1.throwCardToPile(1, piles));
         actions.put('e', () -> player1.throwCardToPile(2, piles));
         actions.put('r', () -> player1.throwCardToPile(3, piles));
-        actions.put('a', () -> player1.selectTargetPile('l'));
-        actions.put('d', () -> player1.selectTargetPile('r'));
+        actions.put('a', () -> player1.setTargetPileIndex(0));
+        actions.put('d', () -> player1.setTargetPileIndex(1));
         actions.put('s', () -> this.stress(player2));
         actions.put('u', () -> player2.throwCardToPile(0, piles));
         actions.put('i', () -> player2.throwCardToPile(1, piles));
         actions.put('o', () -> player2.throwCardToPile(2, piles));
         actions.put('p', () -> player2.throwCardToPile(3, piles));
-        actions.put('j', () -> player2.selectTargetPile('l'));
-        actions.put('l', () -> player2.selectTargetPile('r'));
+        actions.put('j', () -> player2.setTargetPileIndex(0));
+        actions.put('l', () -> player2.setTargetPileIndex(1));
         actions.put('k', () -> this.stress(player1));
 
         // sets up the game
@@ -55,8 +55,8 @@ public class Game extends JFrame {
     }
 
     public boolean bothPlayersNoValidMoves(){
-        boolean player1hasValidMoves = player1.getPlayerHand().anyValidMoves(piles);
-        boolean player2hasValidMoves = player2.getPlayerHand().anyValidMoves(piles);
+        boolean player1hasValidMoves = player1.getHand().anyValidMoves(piles);
+        boolean player2hasValidMoves = player2.getHand().anyValidMoves(piles);
         if (!player1hasValidMoves && !player2hasValidMoves){
             return true;
         }
@@ -66,10 +66,10 @@ public class Game extends JFrame {
     
 
     public boolean draw(){
-        boolean player1EmptyDeck = player1.getPlayerDeck().isEmpty();
-        boolean player2EmptyDeck = player2.getPlayerDeck().isEmpty();
-        boolean player1EmptyHand = player1.getPlayerHand().isEmpty();
-        boolean player2EmptyHand = player2.getPlayerHand().isEmpty();
+        boolean player1EmptyDeck = player1.getDeck().isEmpty();
+        boolean player2EmptyDeck = player2.getDeck().isEmpty();
+        boolean player1EmptyHand = player1.getHand().isEmpty();
+        boolean player2EmptyHand = player2.getHand().isEmpty();
 
         if ((bothPlayersNoValidMoves() && player1EmptyDeck && player2EmptyDeck) ||
         (player1EmptyDeck && player1EmptyHand && player2EmptyDeck && player2EmptyHand)){
@@ -81,10 +81,10 @@ public class Game extends JFrame {
     }
 
     public boolean win(){
-        boolean player1EmptyDeck = player1.getPlayerDeck().isEmpty();
-        boolean player2EmptyDeck = player2.getPlayerDeck().isEmpty();
-        boolean player1EmptyHand = player1.getPlayerHand().isEmpty();
-        boolean player2EmptyHand = player2.getPlayerHand().isEmpty();
+        boolean player1EmptyDeck = player1.getDeck().isEmpty();
+        boolean player2EmptyDeck = player2.getDeck().isEmpty();
+        boolean player1EmptyHand = player1.getHand().isEmpty();
+        boolean player2EmptyHand = player2.getHand().isEmpty();
 
         if (player1EmptyDeck && player1EmptyHand && (!player2EmptyDeck || !player2EmptyHand)){
             System.out.println("PLAYER 1 WINS");
@@ -137,12 +137,15 @@ public class Game extends JFrame {
         System.out.println("\nPlayer 2 state:\n" + player2);
     }
 
-    public void handleKeyPress(char key) {
+
+    public void handleKeyPress(KeyEvent e) {
+        char key = Character.toLowerCase(e.getKeyChar());
         Runnable action = actions.get(key);
         if (action != null) {
             action.run();
         } else {
-            System.out.println("Invalid Move!");
+            // handle penalty here?
+            System.out.println("ACTIONS MAP RETURNS NULL, INVALID MOVE");
         }
         printGameState();
         checkGameState();
@@ -150,7 +153,7 @@ public class Game extends JFrame {
 
 
     public void stress(Player opponent) {
-        Deck opponentDeck = opponent.getPlayerDeck();
+        Deck opponentDeck = opponent.getDeck();
 
         if (GameLogicUtils.isValidStress(piles)){
             // add pile to loser's hand
