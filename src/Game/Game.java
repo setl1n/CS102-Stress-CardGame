@@ -1,11 +1,6 @@
 package Game;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
+import java.util.*;
 import javax.swing.*;
 import Collections.Deck;
 import Collections.Pile;
@@ -48,6 +43,7 @@ public class Game extends JFrame {
         for (int i = 0; i < NUM_OF_PILES; i++) {
             piles[i] = new Pile();
         }
+        openCardsToStart();
     }
 
     public void openCardsToStart() {
@@ -55,13 +51,64 @@ public class Game extends JFrame {
             player1.openCardToPile(piles[0]);
             player2.openCardToPile(piles[1]);
         }
-        GameLogicUtils.checkNeedToResetGame(this);
+        
+    }
+
+    public boolean bothPlayersNoValidMoves(){
+        boolean player1hasValidMoves = player1.getPlayerHand().anyValidMoves(piles);
+        boolean player2hasValidMoves = player2.getPlayerHand().anyValidMoves(piles);
+        if (!player1hasValidMoves && !player2hasValidMoves){
+            return true;
+        }
+        return false;
+    }
+
+    
+
+    public boolean draw(){
+        boolean player1EmptyDeck = player1.getPlayerDeck().isEmpty();
+        boolean player2EmptyDeck = player2.getPlayerDeck().isEmpty();
+        boolean player1EmptyHand = player1.getPlayerHand().isEmpty();
+        boolean player2EmptyHand = player2.getPlayerHand().isEmpty();
+
+        if ((bothPlayersNoValidMoves() && player1EmptyDeck && player2EmptyDeck) ||
+        (player1EmptyDeck && player1EmptyHand && player2EmptyDeck && player2EmptyHand)){
+            System.out.println("DRAW");
+            return true;
+            
+        }
+        return false;
+    }
+
+    public boolean win(){
+        boolean player1EmptyDeck = player1.getPlayerDeck().isEmpty();
+        boolean player2EmptyDeck = player2.getPlayerDeck().isEmpty();
+        boolean player1EmptyHand = player1.getPlayerHand().isEmpty();
+        boolean player2EmptyHand = player2.getPlayerHand().isEmpty();
+
+        if (player1EmptyDeck && player1EmptyHand && (!player2EmptyDeck || !player2EmptyHand)){
+            System.out.println("PLAYER 1 WINS");
+            return true;
+        } else if (player2EmptyDeck && player2EmptyHand && (!player1EmptyDeck || !player1EmptyHand)){
+            System.out.println("PLAYER 2 WINS");
+            return true;
+        } 
+        return false;
+
     }
 
     public void end() {
-        System.out.println("GAME END");
-        // ask to restart
-        // or end program
+        System.out.println("Press spacebar to play a new game! Else, press '.' to exit.");
+       
+    }
+
+    public void checkGameState(){
+        if (draw() || win()){
+            end();
+        } else if (bothPlayersNoValidMoves()){
+            openCardsToStart();
+        }
+
     }
 
     public Pile getPile(int index) {
@@ -98,6 +145,7 @@ public class Game extends JFrame {
             System.out.println("Invalid Move!");
         }
         printGameState();
+        checkGameState();
     }
 
 

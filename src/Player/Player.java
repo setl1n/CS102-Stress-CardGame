@@ -74,13 +74,12 @@ public class Player {
             targetPile.add(hand.popCardAtIndex(index));
             drawCard();
             help.cardSound(); // Play sound after moving the card
+            
         } else {
             // invalid move, add forefeit? like cooldown or smth?
             System.out.println("INVALID MOVE");
         }
     }
-
-    
 
     @Override
     public String toString() {
