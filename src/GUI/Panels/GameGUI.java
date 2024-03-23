@@ -1,11 +1,17 @@
-package GUI;
+package GUI.Panels;
 
 import javax.swing.*;
+
+import GUI.GameController;
+import GUI.GamePanel;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import Game.Game;
 
+
+// need to call .repaint somewhere
 public class GameGUI extends JPanel {
     private GameController controller;
     private GamePanel gamePanel;

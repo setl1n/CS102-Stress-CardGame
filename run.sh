@@ -1,1 +1,1 @@
-java -cp classes Game/App
+java -cp classes App
