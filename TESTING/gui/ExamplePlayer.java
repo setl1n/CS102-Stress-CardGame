@@ -1,13 +1,8 @@
-package TESTING.gui;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import gui.PlayerPanel;
-
 public class ExamplePlayer {
     private String name;
-    private List<Card> cards = new ArrayList<>();
     private PlayerPanel playerPanel;
 
     public ExamplePlayer(String name) {
@@ -22,8 +17,8 @@ public class ExamplePlayer {
         this.playerPanel = playerPanel;
     }
 
-    public void addCard(Card card) {
-        cards.add(card);
+    public void addCard() {
+        //cards.add(card);
         if (playerPanel != null) {
             playerPanel.repaint();
         }
