@@ -2,9 +2,11 @@ package GUI;
 
 import java.awt.CardLayout;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.Timer;
 
-import GUI.Panels.GameGUI;
+import GUI.Panels.GamePanel;
 import GUI.Panels.IntroPanel;
 import Game.Game;
 import Game.GameState;
@@ -27,7 +29,7 @@ public class MainGUI extends JFrame {
 
         mainPanel.add(new IntroPanel("/assets/intro.gif"), "GIFIntro");
         mainPanel.add(new IntroPanel("/assets/intro2.png"), "PNGIntro");
-        mainPanel.add(new GameGUI(game), "Game");
+        mainPanel.add(new GamePanel(game), "Game");
 
         setContentPane(mainPanel);
         changeGIFtoPNGAftAnimation();

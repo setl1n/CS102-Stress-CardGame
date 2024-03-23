@@ -1,9 +1,6 @@
-package GUI.Panels;
+package ARCHIVE;
 
 import javax.swing.*;
-
-import GUI.GameController;
-import GUI.GamePanel;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;

@@ -4,17 +4,21 @@ import Collections.Deck;
 import Collections.Pile;
 import Collections.DeckComponents.Card;
 import GUI.SoundController;
+import GUI.Panels.GamePanelConponents.PlayerPanel;
 import Game.Game;
 import Game.GameLogicUtils;
 
 public class Player {
 
     private SoundController help = new SoundController();
+    private String name;
     private Deck deck;
     private Hand hand;
+    private PlayerPanel playerPanel;
     private int targetPileIndex;
 
-    public Player(Deck deck){
+    public Player(String name, Deck deck) {
+        this.name = name;
         this.deck = deck;
         hand = new Hand(deck);
         targetPileIndex = 0;
@@ -32,8 +36,15 @@ public class Player {
         this.targetPileIndex = targetPileIndex;
     }
 
+    public void setPlayerPanel(PlayerPanel playerPanel) {
+        this.playerPanel = playerPanel;
+    }
+
     public void drawCard() {
         hand.drawCard(deck);
+        if (playerPanel != null) {
+            playerPanel.repaint();
+        }
     }
 
     public void drawFourCards() {
@@ -46,12 +57,19 @@ public class Player {
         return deck.isEmpty();
     }
 
-    public Deck getDeck(){
+    public Deck getDeck() {
         return deck;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void openCardToPile(Pile pileToOpenTo) {
         pileToOpenTo.add(deck.popTopCard());
+        if (playerPanel != null) {
+            playerPanel.repaint();
+        }
     }
 
     public void throwCardToPile(int index, Pile[] piles) {
@@ -62,7 +80,9 @@ public class Player {
             targetPile.add(hand.popCardAtIndex(index));
             drawCard();
             help.cardSound(); // Play sound after moving the card
-            
+            if (playerPanel != null) {
+                playerPanel.repaint();
+            }
         } else {
             // invalid move, add forefeit? like cooldown or smth?
             System.out.println("INVALID MOVE");
