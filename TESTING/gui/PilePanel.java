@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class PilePanel extends JPanel {
+    
     private CardPanel pile1;
     private CardPanel pile2;
     private IndicatorPanel indicator1; // Using IndicatorPanel for Player 1
