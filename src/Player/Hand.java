@@ -63,6 +63,6 @@ public class Hand {
 
     @Override
     public String toString() {
-        return "Hand [cardsInHand=" + Arrays.toString(cardsInHand) + "]";
+        return "Cards: " + Arrays.toString(cardsInHand);
     }
 }

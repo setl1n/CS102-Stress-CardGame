@@ -89,9 +89,9 @@ public class Game{
         if (draw() || win()){
             end();
         } else if (bothPlayersNoValidMoves()){
+            System.out.println("FREEZE SCREEN!!! PRESS \"S\" AND \"K\" TO CONTINUE");
             GameState.STATE = GameState.NOVALIDMOVES;
         }
-
     }
 
     public Pile getPile(int index) {

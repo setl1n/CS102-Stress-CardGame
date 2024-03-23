@@ -59,7 +59,6 @@ public class MainControls extends KeyAdapter {
                 break;
             // freeze screen conditions
             case STRESS, NOVALIDMOVES:
-                System.out.println("FREEZE SCREEN!!! PRESS \"S\" AND \"K\" TO CONTINUE");
                 if (pressedKeys.contains(KeyEvent.VK_S) && pressedKeys.contains(KeyEvent.VK_K)) {
                     game.openCardsToStart();
                     GameState.STATE = GameState.PLAYING;
