@@ -32,7 +32,7 @@ public class GameGUI extends JPanel {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                controller.keyPressed(e);
+                controller.getGame().handleKeyPress(e);
                 gamePanel.repaint();
             }
         });

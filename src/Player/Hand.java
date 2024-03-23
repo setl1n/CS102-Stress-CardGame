@@ -8,11 +8,11 @@ import Game.GameLogicUtils;
 
 public class Hand{
     private Card[] cardsInHand;
-    private static final int SIZEOFHAND = 4;
+    private static final int SIZE_OF_HAND = 4;
 
     public Hand(Deck deck) {
-        cardsInHand = new Card[SIZEOFHAND];
-        for (int i = 0; i < SIZEOFHAND; i++) {
+        cardsInHand = new Card[SIZE_OF_HAND];
+        for (int i = 0; i < SIZE_OF_HAND; i++) {
 
             // this would throw IndexOutOfBoundsException if deck has less than 4 cards, but should not happen in normal flow of game
             cardsInHand[i] = deck.popTopCard();
@@ -36,10 +36,10 @@ public class Hand{
             return;
         }
         int index = 0;
-        while (cardsInHand[index] != null && index < SIZEOFHAND) {
+        while (cardsInHand[index] != null && index < SIZE_OF_HAND) {
             index++;
         }
-        if (index == SIZEOFHAND) {
+        if (index == SIZE_OF_HAND) {
             System.out.println("Hand is already full");
             return;
         }
