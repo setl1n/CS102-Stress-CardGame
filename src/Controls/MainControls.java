@@ -1,4 +1,5 @@
-package GUI;
+package Controls;
+
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -6,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import Collections.Pile;
+import GUI.MainGUI;
 import Game.Game;
 import Game.GameState;
 import Player.Player;

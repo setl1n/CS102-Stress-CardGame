@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import Controls.MainControls;
 import GUI.Panels.GamePanel;
 import GUI.Panels.IntroPanel;
 import Game.Game;

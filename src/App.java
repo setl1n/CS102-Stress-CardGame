@@ -1,6 +1,5 @@
 import javax.swing.SwingUtilities;
 
-import GUI.MainControls;
 import GUI.MainGUI;
 import Game.Game;
 
