@@ -14,12 +14,12 @@ public class GameLogicUtils {
         System.out.println("card2 symbol: " + card2Rank.getSymbol());
 
         int difference = Math.abs(card1Rank.compareTo(card2Rank));
-        return (difference == 12 || difference == 0 || difference == 1);
+        return difference == 12 || difference == 0 || difference == 1;
     }
 
     public static boolean isValidStress(Pile[] piles) {
         int size = piles.length;
-        Rank firstCardRank = piles[0].peekTopCard();
+        Card firstCardRank = piles[0].peekTopCard();
         for (int i = 1; i < size; i++) {
             if (firstCardRank != piles[i].peekTopCard()) {
                 return false;
