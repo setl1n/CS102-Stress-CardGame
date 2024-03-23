@@ -3,8 +3,12 @@ import javax.swing.*;
 import java.awt.*;
 
 public class CardPanel extends JPanel {
+
+    static final int width = 138;
+    static final int height = 186;
+
     public CardPanel(String label) {
-        setPreferredSize(new Dimension(138, 186));
+        setPreferredSize(new Dimension(width, height));
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
 

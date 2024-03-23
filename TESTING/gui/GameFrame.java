@@ -25,14 +25,11 @@ public class GameFrame extends JFrame {
 
         /*
          * Pile: CENTRE OF SCREEN
+         * Indicators: RELATIVE TO PILE
          */
 
         PilePanel pilePanel = new PilePanel();
         add(pilePanel, BorderLayout.CENTER);
-
-        /*
-         * Indicators
-         */
 
         pack();
         setLocationRelativeTo(null);
