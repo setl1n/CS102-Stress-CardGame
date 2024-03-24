@@ -3,24 +3,42 @@ package GUI.Panels.GamePanelConponents;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
+
+import Player.Player;
 
 public class IndicatorPanel extends JPanel {
 
-    private JPanel indicator;
+    static final int width = 40;
+    static final int height = 40;
 
-    public IndicatorPanel(Color color) {
+    private JPanel indicator;
+    private Image indicatorImage;
+
+    public IndicatorPanel(Player player) {
         // Use FlowLayout to control the position of the indicator
         setLayout(new FlowLayout(FlowLayout.LEFT,0 ,0));
-
-        setPreferredSize(new Dimension(175, 40));
-        setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        setPreferredSize(new Dimension(185, 50));
+        this.setOpaque(false);
 
         indicator = new JPanel();
-        indicator.setPreferredSize(new Dimension(40, 40)); // Setting size of the inner panel
-        indicator.setOpaque(true);
-        indicator.setBackground(color);
+        indicator.setPreferredSize(new Dimension(width, height)); // Setting size of the inner panel
+        indicator.setOpaque(false);
+
+        // create image
+        System.out.println(player.getName());
+        String path = "/assets/images/" + player.getName() + "-" + "indicator.png";
+        URL imgUrl = getClass().getResource(path);
+        if (imgUrl == null) {
+            imgUrl = getClass().getResource("/assets/empty.png");
+        }
+
+        indicatorImage = new ImageIcon(imgUrl).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        JLabel labelComponent = new JLabel(new ImageIcon(indicatorImage), JLabel.CENTER);
+        indicator.add(labelComponent, BorderLayout.CENTER);
 
         add(indicator);
+        player.setIndicatorPanel(this);
 
     }
 

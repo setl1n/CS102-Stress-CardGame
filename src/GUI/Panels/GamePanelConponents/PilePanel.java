@@ -14,6 +14,7 @@ public class PilePanel extends JPanel {
     public PilePanel(Pile pile) {
 
         pile.setPilePanel(this);
+        this.setOpaque(false);
 
         setPreferredSize(new Dimension(width, height));
         setLayout(new BorderLayout());

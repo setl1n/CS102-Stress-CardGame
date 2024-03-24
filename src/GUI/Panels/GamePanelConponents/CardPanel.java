@@ -18,6 +18,7 @@ public class CardPanel extends JPanel {
     public CardPanel(Card card) {
         setPreferredSize(new Dimension(width, height));
         setLayout(new BorderLayout());
+        this.setOpaque(false);
 
         Image image = card.getCardImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
         JLabel labelComponent = new JLabel(new ImageIcon(image), JLabel.CENTER);

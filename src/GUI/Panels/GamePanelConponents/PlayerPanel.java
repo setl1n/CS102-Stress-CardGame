@@ -20,6 +20,7 @@ public class PlayerPanel extends JPanel {
     public PlayerPanel(Player player) {
 
         player.setPlayerPanel(this);
+        this.setOpaque(false);
 
         setPreferredSize(new Dimension(1080, 220));
 

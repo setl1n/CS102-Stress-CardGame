@@ -37,8 +37,9 @@ public class MainGUI extends JFrame {
 
     private void changeGIFtoPNGAftAnimation() {
         Timer timer = new Timer(2500, e -> {
-            if (GameState.STATE == GameState.START_SCREEN)
+            if (GameState.STATE == GameState.START_SCREEN) {
                 cardLayout.show(mainPanel, "PNGIntro");
+            }
         });
         timer.setRepeats(false);
         timer.start();

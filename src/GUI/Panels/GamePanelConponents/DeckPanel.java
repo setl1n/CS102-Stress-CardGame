@@ -15,6 +15,7 @@ public class DeckPanel extends JPanel {
     public DeckPanel(Deck deck) {
         setPreferredSize(new Dimension(width, height));
         setLayout(new BorderLayout());
+        this.setOpaque(false);
 
         Image image = deck.getDeckImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
         JLabel labelComponent = new JLabel(new ImageIcon(image), JLabel.CENTER);

@@ -4,12 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 
 import Collections.Pile;
+import Player.Player;
 
 public class PileContainer extends JPanel {
 
-    public PileContainer(Pile pile1, Pile pile2) {
+    public PileContainer(Pile pile1, Pile pile2, Player player1, Player player2) {
         setLayout(new GridBagLayout());
         setPreferredSize(new Dimension(300, 240));
+        this.setOpaque(false);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
@@ -18,7 +20,7 @@ public class PileContainer extends JPanel {
          * INDICATOR 2
          * need to add indicator to player maybe? or game, unsure
          */
-        IndicatorPanel indicator2 = new IndicatorPanel(Color.BLUE); // Initialize with BLUE for player 2
+        IndicatorPanel indicator2 = new IndicatorPanel(player2); // Initialize with BLUE for player 2
         gbc.gridwidth = 2; // Span across two columns
         add(indicator2, gbc);
 
@@ -52,7 +54,7 @@ public class PileContainer extends JPanel {
         /*
          * INDICATOR 1
          */
-        IndicatorPanel indicator1 = new IndicatorPanel(Color.RED);
+        IndicatorPanel indicator1 = new IndicatorPanel(player1);
         add(indicator1, gbc); // Add indicator 1 below the piles
 
     }
