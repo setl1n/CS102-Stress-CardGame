@@ -1,5 +1,5 @@
 
-package GUI.Panels.GamePanelConponents;
+package GUI.gamecontainer.pilecontainer;
 
 import javax.swing.*;
 import java.awt.*;

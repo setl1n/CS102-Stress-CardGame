@@ -4,8 +4,9 @@ import Collections.Deck;
 import Collections.Pile;
 import Collections.DeckComponents.Card;
 import GUI.SoundController;
-import GUI.Panels.GamePanelConponents.PlayerPanel;
-import GUI.Panels.GamePanelConponents.IndicatorPanel;
+import GUI.gamecontainer.pilecontainer.IndicatorPanel;
+import GUI.gamecontainer.playercontainer.PlayerPanel;
+
 import java.io.*;
 import Game.Game;
 import Game.GameLogicUtils;

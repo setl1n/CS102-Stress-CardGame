@@ -1,4 +1,4 @@
-package GUI.Panels.GamePanelConponents;
+package GUI.gamecontainer.playercontainer;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

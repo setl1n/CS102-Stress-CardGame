@@ -1,4 +1,4 @@
-package GUI.Panels.GamePanelConponents;
+package GUI.gamecontainer.playercontainer;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;

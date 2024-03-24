@@ -7,8 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import Controls.MainControls;
-import GUI.Panels.GamePanel;
-import GUI.Panels.IntroPanel;
+import GUI.gamecontainer.GamePanel;
+import GUI.startcontainer.IntroPanel;
 import Game.Game;
 import Game.GameState;
 

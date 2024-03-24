@@ -1,7 +1,7 @@
 package Collections;
 
 import Collections.DeckComponents.Card;
-import GUI.Panels.GamePanelConponents.PilePanel;
+import GUI.gamecontainer.pilecontainer.PilePanel;
 
 public class Pile extends CardCollection {
     private Card topCard;

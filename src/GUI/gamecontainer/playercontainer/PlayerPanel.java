@@ -1,9 +1,8 @@
-package GUI.Panels.GamePanelConponents;
+package GUI.gamecontainer.playercontainer;
 
 import java.net.URL;
 import java.awt.*;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
