@@ -37,7 +37,6 @@ public class GamePanel extends JPanel {
         }
         this.repaint(); 
 
-
         PlayerPanel player1Panel = new PlayerPanel(player1);
         add(player1Panel, BorderLayout.SOUTH);
 
