@@ -1,27 +1,28 @@
 package GUI.Panels.GamePanelConponents;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
+
+import Collections.Pile;
+import Collections.DeckComponents.Card;
 
 public class PilePanel extends JPanel {
-    public PilePanel() {
-        setLayout(new GridBagLayout());
-        setPreferredSize(new Dimension(300, 186));
 
-        /*
-         * i will look further into why this works
-         */
+    static final int width = 138;
+    static final int height = 186;
 
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(15, 7, 15, 7); // Margin around components
+    public PilePanel(Pile pile) {
 
-        gbc.anchor = GridBagConstraints.CENTER; // Center the component
-        
-        // Example pile panels
-//        add(new CardPanel("Pile 1"), gbc);
-//        add(new CardPanel("Pile 2"), gbc);
+        pile.setPilePanel(this);
+        this.setOpaque(false);
 
+        setPreferredSize(new Dimension(width, height));
+        setLayout(new BorderLayout());
+
+        Card topCard = pile.peekTopCard();
+        Image image = topCard.getCardImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        JLabel labelComponent = new JLabel(new ImageIcon(image), JLabel.CENTER);
+        add(labelComponent, BorderLayout.CENTER);
 
     }
 }
-

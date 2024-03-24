@@ -5,6 +5,8 @@ import Collections.Pile;
 import Collections.DeckComponents.Card;
 import GUI.SoundController;
 import GUI.Panels.GamePanelConponents.PlayerPanel;
+import GUI.Panels.GamePanelConponents.IndicatorPanel;
+import java.io.*;
 import Game.Game;
 import Game.GameLogicUtils;
 
@@ -15,6 +17,7 @@ public class Player {
     private Deck deck;
     private Hand hand = new Hand();
     private PlayerPanel playerPanel;
+    private IndicatorPanel indicatorPanel;
     private int targetPileIndex;
 
     public Player(String name, Deck deck) {
@@ -38,6 +41,10 @@ public class Player {
 
     public void setPlayerPanel(PlayerPanel playerPanel) {
         this.playerPanel = playerPanel;
+    }
+
+    public void setIndicatorPanel(IndicatorPanel indicatorPanel) {
+        this.indicatorPanel = indicatorPanel;
     }
 
     public void drawCard() {
