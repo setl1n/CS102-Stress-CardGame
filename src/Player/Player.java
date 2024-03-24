@@ -27,6 +27,10 @@ public class Player {
         targetPileIndex = 0;
     }
 
+    /*
+     * Getter Methods
+     */
+
     public Hand getHand() {
         return hand;
     }
@@ -35,17 +39,21 @@ public class Player {
         return targetPileIndex;
     }
 
-    public void setTargetPileIndex(int targetPileIndex) {
-        this.targetPileIndex = targetPileIndex;
+    public Deck getDeck() {
+        return deck;
     }
 
-    public void setPlayerPanel(PlayerPanel playerPanel) {
-        this.playerPanel = playerPanel;
+    public String getName() {
+        return name;
     }
 
-    public void setIndicatorPanel(IndicatorPanel indicatorPanel) {
-        this.indicatorPanel = indicatorPanel;
+    public boolean isEmptyDeck() {
+        return deck.isEmpty();
     }
+
+    /*
+     * Gameplay Methods
+     */
 
     public void drawCard() {
         hand.drawCard(deck);
@@ -58,18 +66,6 @@ public class Player {
         for (int i = 0; i < 4; i++) {
             drawCard();
         }
-    }
-
-    public boolean isEmptyDeck() {
-        return deck.isEmpty();
-    }
-
-    public Deck getDeck() {
-        return deck;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public void openCardToPile(Pile pileToOpenTo) {
@@ -95,6 +91,34 @@ public class Player {
             System.out.println("INVALID MOVE");
         }
     }
+
+    public void setTargetPileIndex(int targetPileIndex) {
+        this.targetPileIndex = targetPileIndex;
+        if (indicatorPanel != null) {
+
+            if (targetPileIndex == 0) {
+                indicatorPanel.setPositionToLeft();
+
+            } else if (targetPileIndex == 1) {
+                indicatorPanel.setPositionToRight();
+            }
+
+            indicatorPanel.repaint();
+        }
+    }
+
+    /*
+     * GUI Specific Methods
+     */
+
+    public void setPlayerPanel(PlayerPanel playerPanel) {
+        this.playerPanel = playerPanel;
+    }
+
+    public void setIndicatorPanel(IndicatorPanel indicatorPanel) {
+        this.indicatorPanel = indicatorPanel;
+    }
+
 
     @Override
     public String toString() {
