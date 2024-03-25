@@ -41,9 +41,12 @@ public class Hand {
     }
 
     public boolean anyValidMoves(Pile[] pile) {
+        if (GameLogicUtils.isValidStress(pile)) {
+            return true;
+        }
         for (Card card : cardsInHand) {
-            if ((GameLogicUtils.isValidThrow(card, pile[0].peekTopCard())) ||
-                    (GameLogicUtils.isValidThrow(card, pile[1].peekTopCard()))) {
+            if ( GameLogicUtils.isValidThrow(card, pile[0].peekTopCard()) ||
+                 GameLogicUtils.isValidThrow(card, pile[1].peekTopCard()) ) {
                 return true;
             }
         }
