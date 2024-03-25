@@ -12,13 +12,24 @@ public class DeckPanel extends JPanel {
     static final int width = 150;
     static final int height = 210;
 
+    private Deck deck;
+    private JLabel deckLabel;
+
     public DeckPanel(Deck deck) {
+        this.deck = deck;
         setPreferredSize(new Dimension(width, height));
         setLayout(new BorderLayout());
         this.setOpaque(false);
 
         Image image = deck.getDeckImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
-        JLabel labelComponent = new JLabel(new ImageIcon(image), JLabel.CENTER);
-        add(labelComponent, BorderLayout.CENTER);
+        deckLabel = new JLabel(new ImageIcon(image), JLabel.CENTER);
+        add(deckLabel, BorderLayout.CENTER);
+    }
+
+    public void updateDeck() {
+        deck.updateImageToSize();
+        Image image = deck.getDeckImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        deckLabel.setIcon(new ImageIcon(image));
+        deckLabel.repaint();
     }
 }

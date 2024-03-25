@@ -90,6 +90,8 @@ public class Player {
 
             if (playerPanel != null) {
                 playerPanel.updateCardPanel(index, hand.getCardAtIndex(index));
+                playerPanel.updateNumPanel();
+                playerPanel.updateDeckPanel();
             }
 
         } else {

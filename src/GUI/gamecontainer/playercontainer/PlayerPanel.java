@@ -22,13 +22,16 @@ public class PlayerPanel extends JPanel {
 
     private Player player;
 
-    private ArrayList<CardPanel> cardPanels = new ArrayList<CardPanel>();
-
+    private ArrayList<CardPanel> cardPanels = new ArrayList<>();
+    private ArrayList<JLabel> numLabels = new ArrayList<>();
+    private DeckPanel deckPanel;
+    
     private Image digit1Image;
     private Image digit2Image;
 
     public PlayerPanel(Player player) {
 
+        this.player = player;
         player.setPlayerPanel(this);
         this.setOpaque(false);
         setPreferredSize(new Dimension(1080, 240));
@@ -43,7 +46,8 @@ public class PlayerPanel extends JPanel {
                 add(temp);
             }
 
-            add(new DeckPanel(player.getDeck()));
+            this.deckPanel = new DeckPanel(player.getDeck());
+            add(deckPanel);
             JPanel numPanel = createNumPanel(player);
             add(numPanel);
 
@@ -53,7 +57,8 @@ public class PlayerPanel extends JPanel {
 
             JPanel numPanel = createNumPanel(player);
             add(numPanel);
-            add(new DeckPanel(player.getDeck()));
+            this.deckPanel = new DeckPanel(player.getDeck());
+            add(deckPanel);
 
             for (int i = 0; i < 4; i++) {
                 CardPanel temp = new CardPanel(player.getHand().getCardAtIndex(i));
@@ -91,6 +96,7 @@ public class PlayerPanel extends JPanel {
 
         digit1Image = new ImageIcon(imgUrl).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         JLabel labelComponent = new JLabel(new ImageIcon(digit1Image), JLabel.CENTER);
+        numLabels.add(labelComponent);
         numPanel.add(labelComponent);
 
         // create digit 2
@@ -102,6 +108,7 @@ public class PlayerPanel extends JPanel {
 
         digit2Image = new ImageIcon(imgUrl).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         labelComponent = new JLabel(new ImageIcon(digit2Image), JLabel.CENTER);
+        numLabels.add(labelComponent);
         numPanel.add(labelComponent);
 
         return numPanel;
@@ -111,6 +118,40 @@ public class PlayerPanel extends JPanel {
         CardPanel cardPanel = cardPanels.get(idx);
         cardPanel.update(card);
     }
+
+    public void updateDeckPanel() {
+        deckPanel.updateDeck();
+    }
+
+    public void updateNumPanel() {
+        int num = player.getDeck().size();
+        
+        // first digit
+        System.out.println("num is " + num);
+        String path = "/assets/" + (num / 10) + ".png";
+        URL imgUrl = getClass().getResource(path);
+        if (imgUrl == null) {
+            imgUrl = getClass().getResource("/assets/0.png");
+        }
+        JLabel numLabel = numLabels.get(0);
+        Image image = new ImageIcon(imgUrl).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        numLabel.setIcon(new ImageIcon(image));
+        numLabel.repaint();
+
+        // second digit
+        path = "/assets/" + (num % 10) + ".png";
+        imgUrl = getClass().getResource(path);
+        if (imgUrl == null) {
+            imgUrl = getClass().getResource("/assets/0.png");
+        }
+        numLabel = numLabels.get(1);
+        image = new ImageIcon(imgUrl).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        numLabel.setIcon(new ImageIcon(image));
+        numLabel.repaint();
+        
+        System.out.println("changed");
+    }
+
 
 }
 
