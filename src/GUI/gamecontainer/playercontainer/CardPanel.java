@@ -15,14 +15,22 @@ public class CardPanel extends JPanel {
     static final int width = 138;
     static final int height = 186;
 
+    private JLabel jLabel;
+
     public CardPanel(Card card) {
         setPreferredSize(new Dimension(width, height));
         setLayout(new BorderLayout());
         this.setOpaque(false);
 
         Image image = card.getCardImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
-        JLabel labelComponent = new JLabel(new ImageIcon(image), JLabel.CENTER);
-        add(labelComponent, BorderLayout.CENTER);
+        jLabel = new JLabel(new ImageIcon(image), JLabel.CENTER);
+        add(jLabel, BorderLayout.CENTER);
+    }
+
+    public void update(Card card) {
+        Image image = card.getCardImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        jLabel.setIcon(new ImageIcon(image));
+        jLabel.repaint();
     }
 }
 

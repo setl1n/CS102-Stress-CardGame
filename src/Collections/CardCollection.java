@@ -14,7 +14,7 @@ public class CardCollection {
     /**
      * The following assumes that index 0 of the array is the bottom card
      */
-    protected void add(Card card) {
+    public void add(Card card) {
         cardCollection.add(card);
     }
 
@@ -26,7 +26,7 @@ public class CardCollection {
     //     }
     // }
 
-    protected Card peekTopCard() {
+    public Card peekTopCard() {
         return cardCollection.get(cardCollection.size() - 1);
     }
 

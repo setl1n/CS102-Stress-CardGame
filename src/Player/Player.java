@@ -17,8 +17,10 @@ public class Player {
     private String name;
     private Deck deck;
     private Hand hand = new Hand();
+
     private PlayerPanel playerPanel;
     private IndicatorPanel indicatorPanel;
+
     private int targetPileIndex;
 
     public Player(String name, Deck deck) {
@@ -58,9 +60,6 @@ public class Player {
 
     public void drawCard() {
         hand.drawCard(deck);
-        if (playerPanel != null) {
-            playerPanel.repaint();
-        }
     }
 
     public void drawFourCards() {
@@ -81,12 +80,18 @@ public class Player {
         Card topCardOfPile = targetPile.peekTopCard();
 
         if (GameLogicUtils.isValidThrow(hand.getCardAtIndex(index), topCardOfPile)) {
-            targetPile.add(hand.popCardAtIndex(index));
+
+            Card thrownCard = hand.popCardAtIndex(index);
+
+            targetPile.add(thrownCard);
+            
             drawCard();
             help.cardSound(); // Play sound after moving the card
+
             if (playerPanel != null) {
-                playerPanel.repaint();
+                playerPanel.updateCardPanel(index, hand.getCardAtIndex(index));
             }
+
         } else {
             // invalid move, add forefeit? like cooldown or smth?
             System.out.println("INVALID MOVE");
@@ -104,7 +109,7 @@ public class Player {
                 indicatorPanel.setPositionToRight();
             }
 
-            indicatorPanel.repaint();
+            // indicatorPanel.repaint();
         }
     }
 

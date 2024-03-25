@@ -23,7 +23,7 @@ public class Pile extends CardCollection {
     private void updateTopCard() {
         this.topCard = super.peekTopCard();
         if (pilePanel != null) {
-            pilePanel.repaint();
+            pilePanel.updatePilePanel(topCard);
         }
     }
 

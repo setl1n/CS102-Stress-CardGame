@@ -1,5 +1,7 @@
 package GUI.gamecontainer.playercontainer;
 
+import java.util.*;
+
 import java.net.URL;
 import java.awt.*;
 
@@ -8,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Player.Player;
+import Collections.DeckComponents.Card;
 
 public class PlayerPanel extends JPanel {
 
@@ -18,6 +21,9 @@ public class PlayerPanel extends JPanel {
      */
 
     private Player player;
+
+    private ArrayList<CardPanel> cardPanels = new ArrayList<CardPanel>();
+
     private Image digit1Image;
     private Image digit2Image;
 
@@ -25,7 +31,6 @@ public class PlayerPanel extends JPanel {
 
         player.setPlayerPanel(this);
         this.setOpaque(false);
-
         setPreferredSize(new Dimension(1080, 240));
 
         if ("Player 1".equals(player.getName())) {
@@ -33,8 +38,11 @@ public class PlayerPanel extends JPanel {
             setLayout(new FlowLayout(FlowLayout.LEFT, 15, 15));
 
             for (int i = 0; i < 4; i++) {
-                add(new CardPanel(player.getHand().getCardAtIndex(i)));
+                CardPanel temp = new CardPanel(player.getHand().getCardAtIndex(i));
+                cardPanels.add(temp);
+                add(temp);
             }
+
             add(new DeckPanel(player.getDeck()));
             JPanel numPanel = createNumPanel(player);
             add(numPanel);
@@ -46,8 +54,11 @@ public class PlayerPanel extends JPanel {
             JPanel numPanel = createNumPanel(player);
             add(numPanel);
             add(new DeckPanel(player.getDeck()));
+
             for (int i = 0; i < 4; i++) {
-                add(new CardPanel(player.getHand().getCardAtIndex(i)));
+                CardPanel temp = new CardPanel(player.getHand().getCardAtIndex(i));
+                cardPanels.add(temp);
+                add(temp);
             }
         }
     }
@@ -68,11 +79,15 @@ public class PlayerPanel extends JPanel {
         }
         
         String path = "/assets/" + (num / 10) + ".png";
-        System.out.println(path);
         URL imgUrl = getClass().getResource(path);
         if (imgUrl == null) {
             imgUrl = getClass().getResource("/assets/0.png");
         }
+
+        /*
+         * should condense imageicon to jlabel in one function
+         * or filepath to jlabel instead, with error handling
+         */
 
         digit1Image = new ImageIcon(imgUrl).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         JLabel labelComponent = new JLabel(new ImageIcon(digit1Image), JLabel.CENTER);
@@ -91,5 +106,11 @@ public class PlayerPanel extends JPanel {
 
         return numPanel;
     }
+
+    public void updateCardPanel(int idx, Card card) {
+        CardPanel cardPanel = cardPanels.get(idx);
+        cardPanel.update(card);
+    }
+
 }
 
