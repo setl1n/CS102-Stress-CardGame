@@ -44,7 +44,13 @@ public final class GUIUtility {
     }
 
     public static void renderCard(JLabel label, Card card, int width, int height) {
-        Image image = card.getCardImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        Image image;
+        if (card != null) {
+            image = card.getCardImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        } else {
+            URL imgUrl = GUIUtility.class.getResource("/assets/emptycard.png");
+            image = new ImageIcon(imgUrl).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        }
         label.setIcon(new ImageIcon(image));
         label.repaint();
     }

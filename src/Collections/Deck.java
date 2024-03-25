@@ -42,7 +42,8 @@ public class Deck extends CardCollection {
     public void updateImageToSize() {
         int cardsInDeck = super.size();
         if (cardsInDeck == 0) {
-            String path = "/assets/images/emptyDeck.png";
+            
+            String path = "/assets/" + colour + "DeckEmpty.png";
             URL imgUrl = getClass().getResource(path);
             deckImage = new ImageIcon(imgUrl).getImage();
             return;

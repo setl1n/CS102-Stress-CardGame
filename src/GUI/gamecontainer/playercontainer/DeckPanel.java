@@ -28,6 +28,5 @@ public class DeckPanel extends JPanel {
     public void updateDeck() {
         deck.updateImageToSize();
         GUIUtility.renderDeck(deckLabel, deck, width, height);
-
     }
 }
