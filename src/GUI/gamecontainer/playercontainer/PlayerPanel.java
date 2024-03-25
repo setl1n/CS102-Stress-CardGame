@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Player.Player;
+import GUI.GUIUtility;
 import Collections.DeckComponents.Card;
 
 public class PlayerPanel extends JPanel {
@@ -25,9 +26,6 @@ public class PlayerPanel extends JPanel {
     private ArrayList<CardPanel> cardPanels = new ArrayList<>();
     private ArrayList<JLabel> numLabels = new ArrayList<>();
     private DeckPanel deckPanel;
-    
-    private Image digit1Image;
-    private Image digit2Image;
 
     public PlayerPanel(Player player) {
 
@@ -40,32 +38,34 @@ public class PlayerPanel extends JPanel {
 
             setLayout(new FlowLayout(FlowLayout.LEFT, 15, 15));
 
-            for (int i = 0; i < 4; i++) {
-                CardPanel temp = new CardPanel(player.getHand().getCardAtIndex(i));
-                cardPanels.add(temp);
-                add(temp);
-            }
-
-            this.deckPanel = new DeckPanel(player.getDeck());
-            add(deckPanel);
-            JPanel numPanel = createNumPanel(player);
-            add(numPanel);
+            addHand();
+            addDeck();
+            addNum();
 
         } else if ("Player 2".equals(player.getName())) {
 
             setLayout(new FlowLayout(FlowLayout.RIGHT, 15, 15));
-
-            JPanel numPanel = createNumPanel(player);
-            add(numPanel);
-            this.deckPanel = new DeckPanel(player.getDeck());
-            add(deckPanel);
-
-            for (int i = 0; i < 4; i++) {
-                CardPanel temp = new CardPanel(player.getHand().getCardAtIndex(i));
-                cardPanels.add(temp);
-                add(temp);
-            }
+            addNum();
+            addDeck();
+            addHand();
         }
+    }
+
+    public void addHand() {
+        for (int i = 0; i < 4; i++) {
+            CardPanel temp = new CardPanel(player.getHand().getCardAtIndex(i));
+            cardPanels.add(temp);
+            add(temp);
+        }
+    }
+
+    public void addDeck() {
+        this.deckPanel = new DeckPanel(player.getDeck());
+        add(deckPanel);
+    }
+
+    public void addNum() {
+        add(createNumPanel(player));
     }
 
     private JPanel createNumPanel(Player player) {
@@ -75,39 +75,21 @@ public class PlayerPanel extends JPanel {
         numPanel.setLayout(new FlowLayout(FlowLayout.LEFT,0 ,0));
         numPanel.setPreferredSize(new Dimension(120, 50));
 
-        int num = 20;
+        int num = 21;
 
         if (player != null) {
             num = player.getDeck().size();
-            // create digit 1
-            System.out.println(player.getName());
         }
         
+
         String path = "/assets/" + (num / 10) + ".png";
-        URL imgUrl = getClass().getResource(path);
-        if (imgUrl == null) {
-            imgUrl = getClass().getResource("/assets/0.png");
-        }
-
-        /*
-         * should condense imageicon to jlabel in one function
-         * or filepath to jlabel instead, with error handling
-         */
-
-        digit1Image = new ImageIcon(imgUrl).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-        JLabel labelComponent = new JLabel(new ImageIcon(digit1Image), JLabel.CENTER);
+        JLabel labelComponent = GUIUtility.renderLabel(path, "/assets/0.png", 50, 50);
         numLabels.add(labelComponent);
         numPanel.add(labelComponent);
 
         // create digit 2
         path = "/assets/" + (num % 10) + ".png";
-        imgUrl = getClass().getResource(path);
-        if (imgUrl == null) {
-            imgUrl = getClass().getResource("/assets/0.png");
-        }
-
-        digit2Image = new ImageIcon(imgUrl).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-        labelComponent = new JLabel(new ImageIcon(digit2Image), JLabel.CENTER);
+        labelComponent = GUIUtility.renderLabel(path, "/assets/0.png", 50, 50);
         numLabels.add(labelComponent);
         numPanel.add(labelComponent);
 
@@ -124,32 +106,17 @@ public class PlayerPanel extends JPanel {
     }
 
     public void updateNumPanel() {
+
         int num = player.getDeck().size();
         
         // first digit
-        System.out.println("num is " + num);
         String path = "/assets/" + (num / 10) + ".png";
-        URL imgUrl = getClass().getResource(path);
-        if (imgUrl == null) {
-            imgUrl = getClass().getResource("/assets/0.png");
-        }
-        JLabel numLabel = numLabels.get(0);
-        Image image = new ImageIcon(imgUrl).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-        numLabel.setIcon(new ImageIcon(image));
-        numLabel.repaint();
+        GUIUtility.renderLabel(numLabels.get(0), path, "/assets/0.png", 50, 50);
 
         // second digit
         path = "/assets/" + (num % 10) + ".png";
-        imgUrl = getClass().getResource(path);
-        if (imgUrl == null) {
-            imgUrl = getClass().getResource("/assets/0.png");
-        }
-        numLabel = numLabels.get(1);
-        image = new ImageIcon(imgUrl).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-        numLabel.setIcon(new ImageIcon(image));
-        numLabel.repaint();
+        GUIUtility.renderLabel(numLabels.get(1), path, "/assets/0.png", 50, 50);
         
-        System.out.println("changed");
     }
 
 

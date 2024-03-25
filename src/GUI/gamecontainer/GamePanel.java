@@ -28,14 +28,8 @@ public class GamePanel extends JPanel {
         player2 = game.getPlayer2();
 
         this.setOpaque(false);
-
         setLayout(new BorderLayout());
-    
-        URL imageUrl = getClass().getResource("/assets/bg.jpg");
-        if (imageUrl != null) {
-            bgImage = new ImageIcon(imageUrl);
-        }
-        this.repaint(); 
+        renderBackground();
 
         PlayerPanel player1Panel = new PlayerPanel(player1);
         add(player1Panel, BorderLayout.SOUTH);
@@ -46,6 +40,14 @@ public class GamePanel extends JPanel {
         PileContainer pilePanel = new PileContainer(game.getPile(0), game.getPile(1),
                                                     player1, player2);
         add(pilePanel, BorderLayout.CENTER);
+    }
+
+    public void renderBackground() {
+        URL imageUrl = getClass().getResource("/assets/bg.jpg");
+        if (imageUrl != null) {
+            bgImage = new ImageIcon(imageUrl);
+        }
+        this.repaint(); 
     }
 
     @Override

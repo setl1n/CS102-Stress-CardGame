@@ -9,28 +9,26 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Collections.DeckComponents.Card;
+import GUI.GUIUtility;
 
 public class CardPanel extends JPanel {
 
     static final int width = 138;
     static final int height = 186;
 
-    private JLabel jLabel;
+    private JLabel cardLabel;
 
     public CardPanel(Card card) {
         setPreferredSize(new Dimension(width, height));
         setLayout(new BorderLayout());
         this.setOpaque(false);
 
-        Image image = card.getCardImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
-        jLabel = new JLabel(new ImageIcon(image), JLabel.CENTER);
-        add(jLabel, BorderLayout.CENTER);
+        cardLabel = GUIUtility.renderCard(card, width, height);
+        add(cardLabel, BorderLayout.CENTER);
     }
 
     public void update(Card card) {
-        Image image = card.getCardImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
-        jLabel.setIcon(new ImageIcon(image));
-        jLabel.repaint();
+        GUIUtility.renderCard(cardLabel, card, width, height);
     }
 }
 

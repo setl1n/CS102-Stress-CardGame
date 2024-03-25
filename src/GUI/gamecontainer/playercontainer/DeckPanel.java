@@ -1,11 +1,11 @@
 package GUI.gamecontainer.playercontainer;
 
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.*;
 
 import Collections.Deck;
+import GUI.GUIUtility;
 
 public class DeckPanel extends JPanel {
 
@@ -21,15 +21,13 @@ public class DeckPanel extends JPanel {
         setLayout(new BorderLayout());
         this.setOpaque(false);
 
-        Image image = deck.getDeckImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
-        deckLabel = new JLabel(new ImageIcon(image), JLabel.CENTER);
+        deckLabel = GUIUtility.renderDeck(deck, width, height);
         add(deckLabel, BorderLayout.CENTER);
     }
 
     public void updateDeck() {
         deck.updateImageToSize();
-        Image image = deck.getDeckImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
-        deckLabel.setIcon(new ImageIcon(image));
-        deckLabel.repaint();
+        GUIUtility.renderDeck(deckLabel, deck, width, height);
+
     }
 }

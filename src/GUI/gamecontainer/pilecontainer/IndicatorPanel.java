@@ -3,8 +3,8 @@ package GUI.gamecontainer.pilecontainer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.net.URL;
 
+import GUI.GUIUtility;
 import Player.Player;
 
 public class IndicatorPanel extends JPanel {
@@ -16,28 +16,20 @@ public class IndicatorPanel extends JPanel {
     private Image indicatorImage;
 
     public IndicatorPanel(Player player) {
-        // Use FlowLayout to control the position of the indicator
+
         setLayout(new FlowLayout(FlowLayout.LEFT,0 ,0));
         setPreferredSize(new Dimension(185, 50));
         this.setOpaque(false);
 
         indicator = new JPanel();
-        indicator.setPreferredSize(new Dimension(width, height)); // Setting size of the inner panel
+        indicator.setPreferredSize(new Dimension(width, height));
         indicator.setOpaque(false);
 
-        // create image
-        System.out.println(player.getName());
         String path = "/assets/" + player.getName() + "-" + "indicator.png";
-        URL imgUrl = getClass().getResource(path);
-        if (imgUrl == null) {
-            imgUrl = getClass().getResource("/assets/empty.png");
-        }
-
-        indicatorImage = new ImageIcon(imgUrl).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
-        JLabel labelComponent = new JLabel(new ImageIcon(indicatorImage), JLabel.CENTER);
-        indicator.add(labelComponent, BorderLayout.CENTER);
-
+        JLabel indicatorLabel = GUIUtility.renderLabel(path, "/assets/empty.png", width, height);
+        indicator.add(indicatorLabel, BorderLayout.CENTER);
         add(indicator);
+
         player.setIndicatorPanel(this);
 
     }
