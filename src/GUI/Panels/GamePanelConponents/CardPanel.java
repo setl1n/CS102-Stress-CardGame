@@ -20,7 +20,11 @@ public class CardPanel extends JPanel {
         setLayout(new BorderLayout());
         this.setOpaque(false);
 
-        Image image = card.getCardImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        Image image = new ImageIcon(getClass().getResource("/assets/empty.png")).getImage();
+        if (card != null) {
+            image = card.getCardImage();
+        }
+        image = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
         JLabel labelComponent = new JLabel(new ImageIcon(image), JLabel.CENTER);
         add(labelComponent, BorderLayout.CENTER);
     }
