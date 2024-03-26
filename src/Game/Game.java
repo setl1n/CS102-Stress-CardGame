@@ -25,15 +25,15 @@ public class Game{
 
     public void openCardsFromDeck() {
         // Check if both players have at least one card to open.
-        if (GameState.STATE == GameState.NO_VALID_MOVES_BOTH_PLAYERS_HAVE_CARDS_IN_DECK) {
+        if (doBothPlayersHaveAtLeast1CardInDeck()) {
             player1.openCardToPile(piles[0]);
             player2.openCardToPile(piles[1]);
 
-        } else if (GameState.STATE == GameState.NO_VALID_MOVES_PLAYER1_HAS_CARDS_IN_DECK) {
+        } else if (doesPlayer1HaveAtLeast2CardsInDeck()) {
             player1.openCardToPile(piles[0]);
             player1.openCardToPile(piles[1]);
             
-        } else if (GameState.STATE == GameState.NO_VALID_MOVES_PLAYER2_HAS_CARDS_IN_DECK) {
+        } else if (doesPlayer2HaveAtLeast2CardsInDeck()) {
             player2.openCardToPile(piles[0]);
             player2.openCardToPile(piles[1]);
         }
@@ -95,15 +95,9 @@ public class Game{
 
         } else if (areBothPlayersOutOfMoves()) {
 
-            if (doBothPlayersHaveAtLeast1CardInDeck()) {
+            if (doBothPlayersHaveAtLeast1CardInDeck() || doesPlayer1HaveAtLeast2CardsInDeck() || doesPlayer2HaveAtLeast2CardsInDeck()) {
                 System.out.println("FREEZE SCREEN!!! PRESS \"S\" AND \"K\" TO CONTINUE");
-                GameState.STATE = GameState.NO_VALID_MOVES_BOTH_PLAYERS_HAVE_CARDS_IN_DECK;
-
-            } else if (doesPlayer1HaveAtLeast2CardsInDeck()) {
-                GameState.STATE = GameState.NO_VALID_MOVES_PLAYER1_HAS_CARDS_IN_DECK;
-
-            } else if (doesPlayer2HaveAtLeast2CardsInDeck()) {
-                GameState.STATE = GameState.NO_VALID_MOVES_PLAYER2_HAS_CARDS_IN_DECK;
+                GameState.STATE = GameState.NO_VALID_MOVES;
 
             } else {
                 GameState.STATE = GameState.STALEMATE;

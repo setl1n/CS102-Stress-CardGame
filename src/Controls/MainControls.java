@@ -60,8 +60,7 @@ public class MainControls extends KeyAdapter {
                 }
                 break;
             // freeze screen conditions
-            case STRESS, NO_VALID_MOVES_BOTH_PLAYERS_HAVE_CARDS_IN_DECK, NO_VALID_MOVES_PLAYER1_HAS_CARDS_IN_DECK,
-                    NO_VALID_MOVES_PLAYER2_HAS_CARDS_IN_DECK:
+            case STRESS, NO_VALID_MOVES:
                 switch (newKeyPress) {
                     case KeyEvent.VK_A -> player1.setTargetPileIndex(0);
                     case KeyEvent.VK_D -> player1.setTargetPileIndex(1);
