@@ -1,10 +1,10 @@
 package Controls;
 
-
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import Collections.Pile;
 import GUI.MainGUI;
@@ -27,11 +27,13 @@ public class MainControls extends KeyAdapter {
     public void keyPressed(KeyEvent e) {
         int newKeyPress = e.getKeyCode();
         pressedKeys.add(newKeyPress);
+        Player player1 = game.getPlayer1();
+        Player player2 = game.getPlayer2();
+        Pile[] piles = game.getBothPiles();
         switch (GameState.STATE) {
             // start screen
             case START_SCREEN:
                 if (newKeyPress == KeyEvent.VK_SPACE) {
-                    game.openCardsToStart();
                     GUI.changeToPanel("Game");
                     GameState.STATE = GameState.PLAYING;
                 }
@@ -40,9 +42,6 @@ public class MainControls extends KeyAdapter {
                 break;
             // standard gameplay conditions
             case PLAYING:
-                Player player1 = game.getPlayer1();
-                Player player2 = game.getPlayer2();
-                Pile[] piles = game.getBothPiles();
                 switch (newKeyPress) {
                     case KeyEvent.VK_Q -> player1.throwCardToPile(0, piles);
                     case KeyEvent.VK_W -> player1.throwCardToPile(1, piles);
@@ -62,6 +61,12 @@ public class MainControls extends KeyAdapter {
                 break;
             // freeze screen conditions
             case STRESS, NOVALIDMOVES:
+                switch (newKeyPress) {
+                    case KeyEvent.VK_A -> player1.setTargetPileIndex(0);
+                    case KeyEvent.VK_D -> player1.setTargetPileIndex(1);
+                    case KeyEvent.VK_J -> player2.setTargetPileIndex(0);
+                    case KeyEvent.VK_L -> player2.setTargetPileIndex(1);
+                }
                 if (pressedKeys.contains(KeyEvent.VK_S) && pressedKeys.contains(KeyEvent.VK_K)) {
                     game.openCardsToStart();
                     GameState.STATE = GameState.PLAYING;
@@ -70,9 +75,13 @@ public class MainControls extends KeyAdapter {
                 break;
             // end game conditions
             case STALEMATE, RED_WINS, BLU_WINS, EDGECASE:
+                System.out.println("END CONDITION DETECTED");
+                switch (newKeyPress) {
+                    case KeyEvent.VK_PERIOD -> GUI.dispose();
+                }
                 break;
         }
-        System.out.println("Keys Pressed: " + pressedKeys.toString());
+        System.out.println("Keys Pressed: " + pressedKeys.stream().map(i -> (char) i.intValue()).collect(Collectors.toList()));
         game.printGameInfo();
         game.checkGameState();
     }

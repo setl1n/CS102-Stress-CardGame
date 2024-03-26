@@ -15,11 +15,10 @@ public class PlayerPanel extends JPanel {
 
     private Player player;
     private ArrayList<CardPanel> cardPanels = new ArrayList<>();
-    private ArrayList<JLabel> numLabels = new ArrayList<>();
+    private NumPanel numPanel;
     private DeckPanel deckPanel;
 
     public PlayerPanel(Player player) {
-
         this.player = player;
         player.setPlayerPanel(this);
         this.setOpaque(false);
@@ -31,12 +30,12 @@ public class PlayerPanel extends JPanel {
 
             addHand();
             addDeck();
-            addNum();
+            addNumPanel();
 
         } else if ("Player 2".equals(player.getName())) {
 
             setLayout(new FlowLayout(FlowLayout.RIGHT, 15, 15));
-            addNum();
+            addNumPanel();
             addDeck();
             addHand();
         }
@@ -55,8 +54,10 @@ public class PlayerPanel extends JPanel {
         add(deckPanel);
     }
 
-    public void addNum() {
-        add(createNumPanel(player));
+    public void addNumPanel() {
+        NumPanel temp = new NumPanel(player.getDeck());
+        this.numPanel = temp;
+        add(temp);
     }
 
     public CardPanel getCardPanelAtIndex(int index) {
@@ -65,33 +66,6 @@ public class PlayerPanel extends JPanel {
 
     public Player getPlayer() {
         return player;
-    }
-
-    private JPanel createNumPanel(Player player) {
-
-        JPanel numPanel = new JPanel();
-        numPanel.setOpaque(false);
-        numPanel.setLayout(new FlowLayout(FlowLayout.LEFT,0 ,0));
-        numPanel.setPreferredSize(new Dimension(120, 50));
-
-        int num = 21;
-
-        if (player != null) {
-            num = player.getDeck().size();
-        }
-
-        String path = "/assets/" + (num / 10) + ".png";
-        JLabel labelComponent = GUIUtility.renderLabel(path, "/assets/0.png", 50, 50);
-        numLabels.add(labelComponent);
-        numPanel.add(labelComponent);
-
-        // create digit 2
-        path = "/assets/" + (num % 10) + ".png";
-        labelComponent = GUIUtility.renderLabel(path, "/assets/0.png", 50, 50);
-        numLabels.add(labelComponent);
-        numPanel.add(labelComponent);
-
-        return numPanel;
     }
 
     public void updateCardPanel(int idx, Card card) {
@@ -104,17 +78,7 @@ public class PlayerPanel extends JPanel {
     }
 
     public void updateNumPanel() {
-
-        int num = player.getDeck().size();
-        
-        // first digit
-        String path = "/assets/" + (num / 10) + ".png";
-        GUIUtility.renderLabel(numLabels.get(0), path, "/assets/0.png", 50, 50);
-
-        // second digit
-        path = "/assets/" + (num % 10) + ".png";
-        GUIUtility.renderLabel(numLabels.get(1), path, "/assets/0.png", 50, 50);
-        
+        numPanel.updateNum();
     }
 
 

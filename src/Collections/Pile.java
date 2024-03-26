@@ -5,14 +5,9 @@ import GUI.GUIUtility;
 import GUI.gamecontainer.pilecontainer.PilePanel;
 
 public class Pile extends CardCollection {
-    private Card topCard;
     private PilePanel pilePanel;
 
     public Pile(){
-    }
-
-    public Card peekTopCard(){
-        return topCard;
     }
 
     @Override
@@ -22,9 +17,8 @@ public class Pile extends CardCollection {
     }
 
     private void updateTopCard() {
-        this.topCard = super.peekTopCard();
         if (pilePanel != null) {
-            pilePanel.updatePilePanel(topCard);
+            pilePanel.updatePilePanel(super.peekTopCard());
         }
     }
 
