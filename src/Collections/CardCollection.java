@@ -31,8 +31,8 @@ public class CardCollection {
     }
 
     protected Card popTopCard() {
-        return cardCollection.remove(cardCollection.size() - 1);
-    }
+        Card temp = cardCollection.remove(cardCollection.size() - 1);
+            }
 
     /**
      * The size of a card collection.
@@ -65,7 +65,8 @@ public class CardCollection {
     }
 
     protected void transfer(CardCollection c){
-        for (int i = 0; i < c.size(); i++){
+        int size = c.size();
+        for (int i = 0; i < size; i++){
             cardCollection.add(c.peekTopCard());
             c.popTopCard();
         }

@@ -45,7 +45,7 @@ public class Deck extends CardCollection {
     public void updateImageToSize() {
         int cardsInDeck = super.size();
         if (cardsInDeck == 0) {
-            
+
             String path = "/assets/" + colour + "DeckEmpty.png";
             URL imgUrl = getClass().getResource(path);
             deckImage = new ImageIcon(imgUrl).getImage();
@@ -92,12 +92,18 @@ public class Deck extends CardCollection {
     }
 
     public Card popTopCard() {
-        return super.popTopCard();
+        Card topCard = super.popTopCard();
+        if (numPanel != null) {
+            numPanel.updateNum();
+        }
+        return topCard;
     }
 
     public void transfer(CardCollection c) {
         super.transfer(c);
-        numPanel.updateNum();
+        if (numPanel != null) {
+            numPanel.updateNum();
+        }
     }
 
     public Image getDeckImage() {
