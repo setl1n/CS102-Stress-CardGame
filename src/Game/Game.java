@@ -55,11 +55,13 @@ public class Game{
             // If either player has exactly one card while the other has none,
             // declare the game a draw since neither can fulfill the "take 2 cards" requirement.
             System.out.println("DRAW due to insufficient cards");
+            GameState.STATE = GameState.STALEMATE;
             end();
         } else {
             // Any other scenario (both players have exactly one card, or both have none)
             // should also result in a draw.
             System.out.println("DRAW due to both players having insufficient cards");
+            GameState.STATE = GameState.STALEMATE;
             end();
         }
     }
