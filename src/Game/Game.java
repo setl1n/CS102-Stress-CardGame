@@ -20,7 +20,7 @@ public class Game{
         SoundUtility.bgmSound();
         Deck startingDeck = new Deck(false);
         // commented out shuffling for easy debug, utyalls
-        // startingDeck.shuffle();
+        startingDeck.shuffle();
         Deck halfDeck = startingDeck.splitAndReturnHalf();
         halfDeck.changeColour();
         player1 = new Player("Player 1", startingDeck);
