@@ -2,10 +2,8 @@ package GUI.gamecontainer.playercontainer;
 
 import java.util.*;
 
-import java.net.URL;
 import java.awt.*;
 
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -15,14 +13,7 @@ import Collections.DeckComponents.Card;
 
 public class PlayerPanel extends JPanel {
 
-    /*
-     * this is the example of linking the panel
-     * to the instance that its referencing in a
-     * bidirectional manner
-     */
-
     private Player player;
-
     private ArrayList<CardPanel> cardPanels = new ArrayList<>();
     private ArrayList<JLabel> numLabels = new ArrayList<>();
     private DeckPanel deckPanel;
@@ -80,7 +71,6 @@ public class PlayerPanel extends JPanel {
         if (player != null) {
             num = player.getDeck().size();
         }
-        
 
         String path = "/assets/" + (num / 10) + ".png";
         JLabel labelComponent = GUIUtility.renderLabel(path, "/assets/0.png", 50, 50);
