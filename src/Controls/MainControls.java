@@ -25,6 +25,9 @@ public class MainControls extends KeyAdapter {
     public void keyPressed(KeyEvent e) {
         int newKeyPress = e.getKeyCode();
         pressedKeys.add(newKeyPress);
+        Player player1 = game.getPlayer1();
+        Player player2 = game.getPlayer2();
+        Pile[] piles = game.getBothPiles();
         switch (GameState.STATE) {
             // start screen
             case START_SCREEN:
@@ -38,9 +41,6 @@ public class MainControls extends KeyAdapter {
                 break;
             // standard gameplay conditions
             case PLAYING:
-                Player player1 = game.getPlayer1();
-                Player player2 = game.getPlayer2();
-                Pile[] piles = game.getBothPiles();
                 switch (newKeyPress) {
                     case KeyEvent.VK_Q -> player1.throwCardToPile(0, piles);
                     case KeyEvent.VK_W -> player1.throwCardToPile(1, piles);
@@ -60,6 +60,12 @@ public class MainControls extends KeyAdapter {
                 break;
             // freeze screen conditions
             case STRESS, NOVALIDMOVES:
+                switch (newKeyPress) {
+                    case KeyEvent.VK_A -> player1.setTargetPileIndex(0);
+                    case KeyEvent.VK_D -> player1.setTargetPileIndex(1);
+                    case KeyEvent.VK_J -> player2.setTargetPileIndex(0);
+                    case KeyEvent.VK_L -> player2.setTargetPileIndex(1);
+                }
                 if (pressedKeys.contains(KeyEvent.VK_S) && pressedKeys.contains(KeyEvent.VK_K)) {
                     game.openCardsToStart();
                     GameState.STATE = GameState.PLAYING;

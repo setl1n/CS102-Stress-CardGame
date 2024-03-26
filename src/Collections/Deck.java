@@ -62,7 +62,7 @@ public class Deck extends CardCollection {
             thickness = "Thick";
         }
 
-        String path = "/assets/images/" + colourPath + "Deck" + thickness + ".png";
+        String path = "/assets/" + colourPath + "Deck" + thickness + ".png";
         URL imgUrl = getClass().getResource(path);
         if (imgUrl == null) {
             imgUrl = getClass().getResource("/assets/empty.png");
