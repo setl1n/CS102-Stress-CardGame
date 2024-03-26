@@ -6,11 +6,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import Controls.MainControls;
+import game.*;
+import controls.MainControls;
 import GUI.gamecontainer.GamePanel;
 import GUI.startcontainer.IntroPanel;
-import Game.Game;
-import Game.GameState;
 
 public class MainGUI extends JFrame {
     private CardLayout cardLayout = new CardLayout();

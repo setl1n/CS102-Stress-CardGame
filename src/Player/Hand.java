@@ -1,10 +1,9 @@
-package Player;
+package player;
 
-import java.util.Arrays;
-import Collections.Deck;
-import Collections.Pile;
-import Collections.DeckComponents.Card;
-import Game.GameLogicUtils;
+import java.util.*;
+import collections.*;
+import collections.deckcomponents.*;
+import game.*;
 
 public class Hand {
     private Card[] cardsInHand = new Card[SIZE_OF_HAND];
@@ -40,7 +39,7 @@ public class Hand {
         cardsInHand[index] = deck.popTopCard();
     }
 
-    public boolean anyValidMoves(Pile[] pile) {
+    public boolean hasValidMoves(Pile[] pile) {
         if (GameLogicUtils.isValidStress(pile)) {
             return true;
         }

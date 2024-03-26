@@ -8,9 +8,9 @@ import javax.swing.JPanel;
 
 import GUI.gamecontainer.pilecontainer.PileContainer;
 import GUI.gamecontainer.playercontainer.PlayerPanel;
-import Game.Game;
+import game.*;
 
-import Player.Player;
+import player.*;
 
 public class GamePanel extends JPanel {
 

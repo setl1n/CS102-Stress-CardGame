@@ -1,4 +1,4 @@
-package Controls;
+package controls;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -6,11 +6,12 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import Collections.Pile;
+import collections.*;
 import GUI.MainGUI;
-import Game.Game;
-import Game.GameState;
-import Player.Player;
+import game.Game;
+import game.GameState;
+import collections.*;
+import player.*;
 
 public class MainControls extends KeyAdapter {
     private Set<Integer> pressedKeys = new HashSet<>();
@@ -59,7 +60,8 @@ public class MainControls extends KeyAdapter {
                 }
                 break;
             // freeze screen conditions
-            case STRESS, NOVALIDMOVES:
+            case STRESS, NO_VALID_MOVES_BOTH_PLAYERS_HAVE_CARDS_IN_DECK, NO_VALID_MOVES_PLAYER1_HAS_CARDS_IN_DECK,
+                    NO_VALID_MOVES_PLAYER2_HAS_CARDS_IN_DECK:
                 switch (newKeyPress) {
                     case KeyEvent.VK_A -> player1.setTargetPileIndex(0);
                     case KeyEvent.VK_D -> player1.setTargetPileIndex(1);
@@ -67,13 +69,13 @@ public class MainControls extends KeyAdapter {
                     case KeyEvent.VK_L -> player2.setTargetPileIndex(1);
                 }
                 if (pressedKeys.contains(KeyEvent.VK_S) && pressedKeys.contains(KeyEvent.VK_K)) {
-                    game.openCardsToStart();
+                    game.openCardsFromDeck();
                     GameState.STATE = GameState.PLAYING;
                 }
                 // play stress cut screen, lock
                 break;
             // end game conditions
-            case STALEMATE, RED_WINS, BLU_WINS, EDGECASE:
+            case STALEMATE, PLAYER1_WINS, PLAYER2_WINS:
                 System.out.println("END CONDITION DETECTED");
                 switch (newKeyPress) {
                     case KeyEvent.VK_PERIOD -> GUI.dispose();

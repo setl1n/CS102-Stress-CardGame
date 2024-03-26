@@ -1,21 +1,20 @@
-package Collections;
+package collections;
 
 import java.awt.Image;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
 
-import Collections.DeckComponents.Card;
-import Collections.DeckComponents.CardComponents.Rank;
-import Collections.DeckComponents.CardComponents.Suit;
+import collections.deckcomponents.*;
 import GUI.gamecontainer.playercontainer.NumPanel;
+import collections.deckcomponents.cardcomponents.*;
 
 public class Deck extends CardCollection {
     private Image deckImage;
     private char colour;
     private NumPanel numPanel;
 
-    /**
+    /*
      * Creates a shuffled deck of 52 cards
      */
     public Deck(Boolean isEmpty) {

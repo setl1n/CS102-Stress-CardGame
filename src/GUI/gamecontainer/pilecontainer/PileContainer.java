@@ -3,8 +3,8 @@ package GUI.gamecontainer.pilecontainer;
 import javax.swing.*;
 import java.awt.*;
 
-import Collections.Pile;
-import Player.Player;
+import collections.*;
+import player.*;
 
 public class PileContainer extends JPanel {
 

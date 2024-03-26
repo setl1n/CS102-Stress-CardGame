@@ -3,10 +3,9 @@ package GUI;
 import java.awt.*;
 import javax.swing.*;
 
-import Collections.DeckComponents.Card;
-import Collections.Deck;
-
 import java.net.URL;
+import collections.*;
+import collections.deckcomponents.*;
 
 public final class GUIUtility {
 
