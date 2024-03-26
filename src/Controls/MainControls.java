@@ -4,6 +4,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import Collections.Pile;
 import GUI.MainGUI;
@@ -32,7 +33,6 @@ public class MainControls extends KeyAdapter {
             // start screen
             case START_SCREEN:
                 if (newKeyPress == KeyEvent.VK_SPACE) {
-                    game.openCardsToStart();
                     GUI.changeToPanel("Game");
                     GameState.STATE = GameState.PLAYING;
                 }
@@ -80,7 +80,7 @@ public class MainControls extends KeyAdapter {
                 }
                 break;
         }
-        System.out.println("Keys Pressed: " + pressedKeys.toString());
+        System.out.println("Keys Pressed: " + pressedKeys.stream().map(i -> (char) i.intValue()).collect(Collectors.toList()));
         game.printGameInfo();
         game.checkGameState();
     }
