@@ -1,6 +1,5 @@
 package Controls;
 
-
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
@@ -69,6 +68,10 @@ public class MainControls extends KeyAdapter {
                 break;
             // end game conditions
             case STALEMATE, RED_WINS, BLU_WINS, EDGECASE:
+                System.out.println("END CONDITION DETECTED");
+                switch (newKeyPress) {
+                    case KeyEvent.VK_PERIOD -> GUI.dispose();
+                }
                 break;
         }
         System.out.println("Keys Pressed: " + pressedKeys.toString());

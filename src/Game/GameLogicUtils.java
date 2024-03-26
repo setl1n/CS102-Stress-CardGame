@@ -8,6 +8,9 @@ import Player.*;
 public class GameLogicUtils {
 
     public static boolean isValidThrow(Card card1, Card card2) {
+        if (card1 == null || card2 == null) {
+            return false;
+        }
         int difference = Math.abs(card1.compareTo(card2));
         return difference == 12 || difference == 0 || difference == 1;
     }

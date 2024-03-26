@@ -30,11 +30,40 @@ public class Game{
     }
 
     public void openCardsToStart() {
-        if (!player1.isEmptyDeck() && !player2.isEmptyDeck()) {
+        // Check if both players have at least one card to open.
+        if (!player1.getDeck().isEmpty() && !player2.getDeck().isEmpty()) {
             player1.openCardToPile(piles[0]);
             player2.openCardToPile(piles[1]);
+        } else {
+            // Handle edge cases when one or both players don't have enough cards
+            handleOpeningCardShortages();
         }
-        
+    }
+    
+    private void handleOpeningCardShortages() {
+        // Scenario when one player has no cards but the other has more than one
+        if (player1.getDeck().isEmpty() && player2.getDeck().size() > 1) {
+            // Take two cards from Player 2 and open to the piles
+            player2.openCardToPile(piles[0]);
+            player2.openCardToPile(piles[1]);
+        } else if (player2.getDeck().isEmpty() && player1.getDeck().size() > 1) {
+            // Take two cards from Player 1 and open to the piles
+            player1.openCardToPile(piles[0]);
+            player1.openCardToPile(piles[1]);
+        } else if ((player1.getDeck().isEmpty() && player2.getDeck().size() == 1) ||
+                   (player2.getDeck().isEmpty() && player1.getDeck().size() == 1)) {
+            // If either player has exactly one card while the other has none,
+            // declare the game a draw since neither can fulfill the "take 2 cards" requirement.
+            System.out.println("DRAW due to insufficient cards");
+            GameState.STATE = GameState.STALEMATE;
+            end();
+        } else {
+            // Any other scenario (both players have exactly one card, or both have none)
+            // should also result in a draw.
+            System.out.println("DRAW due to both players having insufficient cards");
+            GameState.STATE = GameState.STALEMATE;
+            end();
+        }
     }
 
     public boolean bothPlayersNoValidMoves(){
@@ -71,9 +100,11 @@ public class Game{
 
         if (player1EmptyDeck && player1EmptyHand && (!player2EmptyDeck || !player2EmptyHand)){
             System.out.println("PLAYER 1 WINS");
+            GameState.STATE = GameState.RED_WINS;
             return true;
         } else if (player2EmptyDeck && player2EmptyHand && (!player1EmptyDeck || !player1EmptyHand)){
             System.out.println("PLAYER 2 WINS");
+            GameState.STATE = GameState.BLU_WINS;
             return true;
         } 
         return false;
