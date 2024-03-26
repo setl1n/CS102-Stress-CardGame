@@ -100,9 +100,11 @@ public class Game{
 
         if (player1EmptyDeck && player1EmptyHand && (!player2EmptyDeck || !player2EmptyHand)){
             System.out.println("PLAYER 1 WINS");
+            GameState.STATE = GameState.RED_WINS;
             return true;
         } else if (player2EmptyDeck && player2EmptyHand && (!player1EmptyDeck || !player1EmptyHand)){
             System.out.println("PLAYER 2 WINS");
+            GameState.STATE = GameState.BLU_WINS;
             return true;
         } 
         return false;
