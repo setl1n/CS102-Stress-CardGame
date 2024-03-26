@@ -1,16 +1,19 @@
 package Collections;
 
-import Collections.DeckComponents.Card;
-import Collections.DeckComponents.CardComponents.Rank;
-import Collections.DeckComponents.CardComponents.Suit;
 import java.awt.Image;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
 
+import Collections.DeckComponents.Card;
+import Collections.DeckComponents.CardComponents.Rank;
+import Collections.DeckComponents.CardComponents.Suit;
+import GUI.gamecontainer.playercontainer.NumPanel;
+
 public class Deck extends CardCollection {
     private Image deckImage;
     private char colour;
+    private NumPanel numPanel;
 
     /**
      * Creates a shuffled deck of 52 cards
@@ -94,6 +97,7 @@ public class Deck extends CardCollection {
 
     public void transfer(CardCollection c) {
         super.transfer(c);
+        numPanel.updateNum();
     }
 
     public Image getDeckImage() {
@@ -114,5 +118,9 @@ public class Deck extends CardCollection {
             deckToReturn.add(cardToTransfer);
         }
         return deckToReturn;
+    }
+
+    public void setNumPanel(NumPanel numPanel) {
+        this.numPanel = numPanel;
     }
 }
