@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import Collections.DeckComponents.Card;
+import Player.Player;
 import Collections.Deck;
 
 import java.net.URL;
@@ -68,6 +69,48 @@ public final class GUIUtility {
         Image image = deck.getDeckImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
         label.setIcon(new ImageIcon(image));
         label.repaint();
+    }
+
+    /*
+    * ANIMATION RENDERING
+    */
+    public static void renderCardTransition(JPanel targetPanel, Player player, String gifPath) {
+        // Automatically find the JFrame that encases the targetPanel
+        JFrame frame = (JFrame) SwingUtilities.getAncestorOfClass(JFrame.class, targetPanel);
+        if (frame == null) {
+            System.err.println("No enclosing JFrame found for the target panel.");
+            return;
+        }
+        JLayeredPane layeredPane = frame.getLayeredPane();
+        
+        if ("Player 1".equals(player.getName())) {
+            gifPath += "red.png";
+        } else {
+            gifPath += "blue.png";
+        }
+
+        URL gifUrl = GUIUtility.class.getResource(gifPath);
+        if (gifUrl == null) {
+            System.err.println("GIF file not found: " + gifPath);
+            return;
+        }
+        ImageIcon gifIcon = new ImageIcon(gifUrl);
+        JLabel gifLabel = new JLabel(gifIcon);
+        gifLabel.setOpaque(false);
+
+        Rectangle bounds = SwingUtilities.convertRectangle(targetPanel.getParent(), targetPanel.getBounds(), frame.getLayeredPane());
+        gifLabel.setBounds(bounds);
+
+        layeredPane.add(gifLabel, JLayeredPane.POPUP_LAYER);
+        layeredPane.moveToFront(gifLabel);
+
+        int delay = 100;
+        Timer timer = new Timer(delay, e -> {
+            layeredPane.remove(gifLabel);
+            layeredPane.repaint(bounds);
+        });
+        timer.setRepeats(false);
+        timer.start();
     }
 
 }

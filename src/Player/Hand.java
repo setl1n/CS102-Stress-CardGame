@@ -4,6 +4,7 @@ import java.util.Arrays;
 import Collections.Deck;
 import Collections.Pile;
 import Collections.DeckComponents.Card;
+import GUI.GUIUtility;
 import Game.GameLogicUtils;
 
 public class Hand {

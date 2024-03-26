@@ -4,6 +4,7 @@ import java.util.*;
 import javax.swing.*;
 import Collections.Deck;
 import Collections.Pile;
+import GUI.GUIUtility;
 import GUI.SoundUtility;
 import Player.Player;
 import java.awt.event.KeyEvent;

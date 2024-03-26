@@ -3,6 +3,7 @@ package Player;
 import Collections.Deck;
 import Collections.Pile;
 import Collections.DeckComponents.Card;
+import GUI.GUIUtility;
 import GUI.SoundUtility;
 import GUI.gamecontainer.pilecontainer.IndicatorPanel;
 import GUI.gamecontainer.playercontainer.PlayerPanel;
@@ -80,8 +81,9 @@ public class Player {
 
         if (GameLogicUtils.isValidThrow(hand.getCardAtIndex(index), topCardOfPile)) {
 
+            GUIUtility.renderCardTransition(playerPanel.getCardPanelAtIndex(index), this, "/assets/transition");
+            GUIUtility.renderCardTransition(targetPile.getPilePanel(), this, "/assets/transition");
             Card thrownCard = hand.popCardAtIndex(index);
-
             targetPile.add(thrownCard);
             
             drawCard();

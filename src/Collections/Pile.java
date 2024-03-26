@@ -1,6 +1,7 @@
 package Collections;
 
 import Collections.DeckComponents.Card;
+import GUI.GUIUtility;
 import GUI.gamecontainer.pilecontainer.PilePanel;
 
 public class Pile extends CardCollection {
@@ -29,6 +30,10 @@ public class Pile extends CardCollection {
 
     public void setPilePanel(PilePanel pilePanel) {
         this.pilePanel = pilePanel;
+    }
+
+    public PilePanel getPilePanel() {
+        return pilePanel;
     }
 
 }

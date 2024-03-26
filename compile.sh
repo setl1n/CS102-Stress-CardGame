@@ -1,3 +1,3 @@
 javac -d classes -cp ./src/ ./src/App.java 
 
-cp -r ./images ./classes/assetss
+cp -r ./images ./classes/assets/

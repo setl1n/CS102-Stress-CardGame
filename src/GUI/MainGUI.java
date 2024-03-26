@@ -13,6 +13,7 @@ import Game.Game;
 import Game.GameState;
 
 public class MainGUI extends JFrame {
+
     private CardLayout cardLayout = new CardLayout();
     private JPanel mainPanel = new JPanel(cardLayout);
 
@@ -65,4 +66,5 @@ public class MainGUI extends JFrame {
     public void setMainPanel(JPanel mainPanel) {
         this.mainPanel = mainPanel;
     }
+
 }

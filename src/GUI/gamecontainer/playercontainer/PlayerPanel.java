@@ -59,6 +59,14 @@ public class PlayerPanel extends JPanel {
         add(createNumPanel(player));
     }
 
+    public CardPanel getCardPanelAtIndex(int index) {
+        return cardPanels.get(index);
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
     private JPanel createNumPanel(Player player) {
 
         JPanel numPanel = new JPanel();
