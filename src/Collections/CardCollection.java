@@ -21,9 +21,9 @@ public class CardCollection {
     // commented out as prob not needed, not sure yet tho
     // rmb to delete cardnot found exception too if this method is not implemented
     // protected void removeCardFromTop(Card card) throws CardNotFoundException {
-    //     if (!cardCollection.remove(card)) {
-    //         throw new CardNotFoundException();
-    //     }
+    // if (!cardCollection.remove(card)) {
+    // throw new CardNotFoundException();
+    // }
     // }
 
     public Card peekTopCard() {
@@ -31,8 +31,8 @@ public class CardCollection {
     }
 
     protected Card popTopCard() {
-        Card temp = cardCollection.remove(cardCollection.size() - 1);
-            }
+        return cardCollection.remove(cardCollection.size() - 1);
+    }
 
     /**
      * The size of a card collection.
@@ -64,9 +64,9 @@ public class CardCollection {
         cardCollection.clear();
     }
 
-    protected void transfer(CardCollection c){
+    protected void transfer(CardCollection c) {
         int size = c.size();
-        for (int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             cardCollection.add(c.peekTopCard());
             c.popTopCard();
         }
