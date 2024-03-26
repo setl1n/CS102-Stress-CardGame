@@ -4,6 +4,7 @@ import java.util.*;
 import javax.swing.*;
 import Collections.Deck;
 import Collections.Pile;
+import GUI.SoundUtility;
 import Player.Player;
 import java.awt.event.KeyEvent;
 
@@ -15,6 +16,7 @@ public class Game{
 
     public Game() {
         // sets up the game
+        SoundUtility.bgmSound();
         Deck startingDeck = new Deck(false);
         // commented out shuffling for easy debug, utyalls
         // startingDeck.shuffle();

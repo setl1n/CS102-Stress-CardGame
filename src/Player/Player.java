@@ -3,7 +3,7 @@ package Player;
 import Collections.Deck;
 import Collections.Pile;
 import Collections.DeckComponents.Card;
-import GUI.SoundController;
+import GUI.SoundUtility;
 import GUI.gamecontainer.pilecontainer.IndicatorPanel;
 import GUI.gamecontainer.playercontainer.PlayerPanel;
 
@@ -13,7 +13,6 @@ import Game.GameLogicUtils;
 
 public class Player {
 
-    private SoundController help = new SoundController();
     private String name;
     private Deck deck;
     private Hand hand = new Hand();
@@ -86,7 +85,7 @@ public class Player {
             targetPile.add(thrownCard);
             
             drawCard();
-            help.cardSound(); // Play sound after moving the card
+            SoundUtility.cardSound(); // Play sound after moving the card
 
             if (playerPanel != null) {
                 playerPanel.updateCardPanel(index, hand.getCardAtIndex(index));
@@ -102,6 +101,7 @@ public class Player {
 
     public void setTargetPileIndex(int targetPileIndex) {
         this.targetPileIndex = targetPileIndex;
+
         if (indicatorPanel != null) {
 
             if (targetPileIndex == 0) {
@@ -109,9 +109,10 @@ public class Player {
 
             } else if (targetPileIndex == 1) {
                 indicatorPanel.setPositionToRight();
-            }
 
-            // indicatorPanel.repaint();
+            } else {
+                System.out.println("### INVALID TARGETPILE INDEX ###");
+            }
         }
     }
 
