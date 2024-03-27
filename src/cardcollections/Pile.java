@@ -31,6 +31,9 @@ public class Pile extends CardCollection {
     public String toString() {
         return String.format("Top Card: %s\n", isEmpty()? "Pile is Empty" : peekTopCard());
     }
+    public PilePanel getPilePanel() {
+        return pilePanel;
+    }
 
 }
                                                                                                                          

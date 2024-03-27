@@ -60,6 +60,14 @@ public class PlayerPanel extends JPanel {
         add(temp);
     }
 
+    public CardPanel getCardPanelAtIndex(int index) {
+        return cardPanels.get(index);
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
     public void updateCardPanel(int idx, Card card) {
         CardPanel cardPanel = cardPanels.get(idx);
         cardPanel.update(card);

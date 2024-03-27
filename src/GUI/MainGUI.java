@@ -12,6 +12,7 @@ import GUI.gamecontainer.GamePanel;
 import GUI.startcontainer.IntroPanel;
 
 public class MainGUI extends JFrame {
+
     private CardLayout cardLayout = new CardLayout();
     private JPanel mainPanel = new JPanel(cardLayout);
 
@@ -64,4 +65,5 @@ public class MainGUI extends JFrame {
     public void setMainPanel(JPanel mainPanel) {
         this.mainPanel = mainPanel;
     }
+
 }

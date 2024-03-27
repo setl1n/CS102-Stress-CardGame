@@ -78,8 +78,9 @@ public class Player {
 
         if (GameLogicUtils.isValidThrow(hand.getCardAtIndex(index), topCardOfPile)) {
 
+            GUIUtility.renderCardTransition(playerPanel.getCardPanelAtIndex(index), this, "/assets/transition");
+            GUIUtility.renderCardTransition(targetPile.getPilePanel(), this, "/assets/transition");
             Card thrownCard = hand.popCardAtIndex(index);
-
             targetPile.add(thrownCard);
             
             drawCard();
