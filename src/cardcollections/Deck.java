@@ -89,7 +89,7 @@ public class Deck extends CardCollection {
 
     public boolean isEmpty() {
         return super.isEmpty();
-    } 
+    }
 
     public Card popTopCard() {
         Card topCard = super.popTopCard();
@@ -130,7 +130,7 @@ public class Deck extends CardCollection {
         this.numPanel = numPanel;
     }
 
-    @Override 
+    @Override
     public String toString() {
         return "\nCards left in Deck: " + size();
     }
