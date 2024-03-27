@@ -127,8 +127,10 @@ public class Game{
 
             opponentDeck.shuffle();
 
-            openCardsFromDeck();
+            opponent.drawFourCards();
 
+            openCardsFromDeck();
+            
             // gameState = GameState.STRESS;
 
         } else {
