@@ -10,7 +10,6 @@ import cardcollections.*;
 import GUI.MainGUI;
 import game.Game;
 import game.GameState;
-import cardcollections.*;
 import player.*;
 
 public class MainControls extends KeyAdapter {
@@ -35,10 +34,14 @@ public class MainControls extends KeyAdapter {
             case START_SCREEN:
                 if (newKeyPress == KeyEvent.VK_SPACE) {
                     GUI.changeToPanel("Game");
-                    game.setGameState(GameState.PLAYING);
+                    game.setGameState(GameState.OPEN_FIRST_CARDS);
                 }
                 break;
             case OPEN_FIRST_CARDS:
+                if (pressedKeys.contains(KeyEvent.VK_S) && pressedKeys.contains(KeyEvent.VK_K)) {
+                    game.openCardsFromDeck();
+                    game.setGameState(GameState.PLAYING);
+                }
                 break;
             // standard gameplay conditions
             case PLAYING:

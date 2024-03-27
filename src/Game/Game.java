@@ -22,7 +22,6 @@ public class Game{
         player2 = new Player("Player 2", halfDeck);
         piles = new Pile[]{new Pile(), new Pile()};
         gameState = GameState.START_SCREEN;
-        openCardsFromDeck();
     }
 
     

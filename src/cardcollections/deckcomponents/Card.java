@@ -41,7 +41,7 @@ public class Card implements Comparable<Card> {
       String path = "/assets/" + suit.getSymbol().toUpperCase() + "-" + rank.getSymbol().toUpperCase() + ".png";
       URL imgUrl = getClass().getResource(path);
       if (imgUrl == null) {
-         imgUrl = getClass().getResource("/assets/empty.png");
+         imgUrl = getClass().getResource("/assets/emptyCard.png");
       }
       // It avoids dealing with IOException, which ImageIO.read() might throw.
       cardImage = new ImageIcon(imgUrl).getImage();
