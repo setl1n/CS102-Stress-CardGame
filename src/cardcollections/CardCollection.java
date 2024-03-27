@@ -5,7 +5,7 @@ import java.util.*;
 
 public class CardCollection {
 
-    private ArrayList<Card> cardCollection;
+    private List<Card> cardCollection;
 
     protected CardCollection() {
         this.cardCollection = new ArrayList<Card>();

@@ -22,7 +22,6 @@ public class Game{
         player2 = new Player("Player 2", halfDeck);
         piles = new Pile[]{new Pile(), new Pile()};
         gameState = GameState.START_SCREEN;
-        openCardsFromDeck();
     }
 
     
@@ -82,10 +81,10 @@ public class Game{
         }
     }
 
-    public void end() {
-        System.out.println("Press spacebar to play a new game! Else, press '.' to exit.");
+    // public void end() {
+    //     System.out.println("Press spacebar to play a new game! Else, press '.' to exit.");
        
-    }
+    // }
 
     public Pile getPile(int index) {
         return piles[index];
@@ -128,8 +127,10 @@ public class Game{
 
             opponentDeck.shuffle();
 
-            openCardsFromDeck();
+            opponent.drawFourCards();
 
+            openCardsFromDeck();
+            
             // gameState = GameState.STRESS;
 
         } else {

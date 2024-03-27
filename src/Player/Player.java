@@ -49,6 +49,9 @@ public class Player {
 
     private void drawCard() {
         hand.drawCard(deck);
+        if (playerPanel != null) {
+            playerPanel.updateAll();
+        }
     }
 
     public void drawFourCards() {
@@ -61,7 +64,9 @@ public class Player {
         pileToOpenTo.add(deck.popTopCard());
         if (playerPanel != null) {
             playerPanel.repaint();
+            playerPanel.updateAll();
         }
+
     }
 
     public void throwCardToPile(int index, Pile[] piles) {

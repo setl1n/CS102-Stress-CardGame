@@ -48,7 +48,7 @@ public final class GUIUtility {
         if (card != null) {
             image = card.getCardImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
         } else {
-            URL imgUrl = GUIUtility.class.getResource("/assets/emptycard.png");
+            URL imgUrl = GUIUtility.class.getResource("/assets/emptyCard.png");
             image = new ImageIcon(imgUrl).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
         }
         label.setIcon(new ImageIcon(image));
