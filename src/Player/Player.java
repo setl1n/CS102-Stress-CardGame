@@ -3,7 +3,7 @@ package player;
 import cardcollections.deckcomponents.*;
 import game.*;
 import cardcollections.*;
-import GUI.SoundUtility;
+import GUI.*;
 import GUI.gamecontainer.pilecontainer.IndicatorPanel;
 import GUI.gamecontainer.playercontainer.PlayerPanel;
 

@@ -5,6 +5,7 @@ import javax.swing.*;
 
 import java.net.URL;
 import cardcollections.*;
+import player.*;
 import cardcollections.deckcomponents.*;
 
 public final class GUIUtility {
