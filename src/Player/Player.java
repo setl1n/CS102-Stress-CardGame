@@ -52,6 +52,7 @@ public class Player {
         if (playerPanel != null) {
             playerPanel.updateAll();
         }
+        SoundUtility.cardSound();
     }
 
     public void drawFourCards() {
@@ -66,7 +67,7 @@ public class Player {
             playerPanel.repaint();
             playerPanel.updateAll();
         }
-
+        SoundUtility.cardSound();
     }
 
     public void throwCardToPile(int index, Pile[] piles) {
@@ -84,9 +85,7 @@ public class Player {
             SoundUtility.cardSound(); // Play sound after moving the card
 
             if (playerPanel != null) {
-                playerPanel.updateCardPanel(index, hand.getCardAtIndex(index));
-                playerPanel.updateNumPanel();
-                playerPanel.updateDeckPanel();
+                playerPanel.updateAll();
             }
 
         } else {
