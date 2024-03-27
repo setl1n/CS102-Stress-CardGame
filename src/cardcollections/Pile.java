@@ -7,9 +7,6 @@ import GUI.gamecontainer.pilecontainer.PilePanel;
 public class Pile extends CardCollection {
     private PilePanel pilePanel;
 
-    public Pile(){
-    }
-
     @Override
     public void add(Card card) {
         super.add(card);

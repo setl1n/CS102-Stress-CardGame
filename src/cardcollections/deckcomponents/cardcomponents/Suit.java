@@ -35,7 +35,7 @@ public final class Suit implements Comparable {
   /**
    * List of all suit values.  Primarily for use with iteration.
    */
-   public final static java.util.List VALUES = 
+   public final static List<Suit> VALUES = 
       Collections.unmodifiableList( 
          Arrays.asList( new Suit[] { CLUBS, DIAMONDS, HEARTS, SPADES } ) );
    
@@ -85,7 +85,7 @@ public final class Suit implements Comparable {
    */   
    public int compareTo( Object otherSuitObject ) {
       Suit otherSuit = (Suit) otherSuitObject;
-      return VALUES.indexOf( this ) - VALUES.indexOf( otherSuit );
+      return VALUES.indexOf(this) - VALUES.indexOf(otherSuit);
    } 
     
 }

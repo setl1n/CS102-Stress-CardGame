@@ -39,14 +39,14 @@ public class CardCollection {
      * 
      * @return the number of cards present in the full card collection.
      */
-    protected int size() {
+    public int size() {
         return cardCollection.size();
     }
 
     /**
      * Shuffles the cards present in the card collection.
      */
-    protected void shuffle() {
+    public void shuffle() {
         Collections.shuffle(cardCollection);
     }
 
@@ -56,19 +56,14 @@ public class CardCollection {
      * @return <code>true</code> if there are no cards left to be dealt from the
      *         deck.
      */
-    protected boolean isEmpty() {
+    public boolean isEmpty() {
         return cardCollection.isEmpty();
-    }
-
-    protected void clear() {
-        cardCollection.clear();
     }
 
     protected void transfer(CardCollection c) {
         int size = c.size();
         for (int i = 0; i < size; i++) {
-            cardCollection.add(c.peekTopCard());
-            c.popTopCard();
+            cardCollection.add(c.popTopCard());
         }
     }
 

@@ -20,8 +20,8 @@ public class Deck extends CardCollection {
     public Deck(Boolean isEmpty) {
         super();
         if (!isEmpty) {
-            for (Suit suit : (Iterable<Suit>) Suit.VALUES) {
-                for (Rank rank : (Iterable<Rank>) Rank.VALUES) {
+            for (Suit suit : Suit.VALUES) {
+                for (Rank rank : Rank.VALUES) {
                     add(new Card(suit, rank));
                 }
             }
@@ -78,17 +78,7 @@ public class Deck extends CardCollection {
     // alternatively, need to make arraylist cardcollections protected, which is
     // worse than
     // having a "layer" in the child class for shuffle
-    public void shuffle() {
-        super.shuffle();
-    }
-
-    public boolean isEmpty() {
-        return super.isEmpty();
-    }
-
-    public int size() {
-        return super.size();
-    }
+ 
 
     public Card popTopCard() {
         Card topCard = super.popTopCard();
