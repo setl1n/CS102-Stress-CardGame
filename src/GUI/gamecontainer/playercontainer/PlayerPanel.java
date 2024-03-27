@@ -81,6 +81,14 @@ public class PlayerPanel extends JPanel {
         numPanel.updateNum();
     }
 
+    public void updateAll() {
+        updateDeckPanel();
+        updateNumPanel();
+        for (int i = 0; i < 4; i++) {
+            updateCardPanel(i, player.getHand().getCardAtIndex(i));
+        }
+    }
+
 
 }
 

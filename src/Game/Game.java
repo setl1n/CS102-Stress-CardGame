@@ -81,10 +81,10 @@ public class Game{
         }
     }
 
-    public void end() {
-        System.out.println("Press spacebar to play a new game! Else, press '.' to exit.");
+    // public void end() {
+    //     System.out.println("Press spacebar to play a new game! Else, press '.' to exit.");
        
-    }
+    // }
 
     public Pile getPile(int index) {
         return piles[index];
