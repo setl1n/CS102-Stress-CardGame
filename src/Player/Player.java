@@ -35,10 +35,6 @@ public class Player {
         return hand;
     }
 
-    public int getTargetPile() {
-        return targetPileIndex;
-    }
-
     public Deck getDeck() {
         return deck;
     }
@@ -47,15 +43,11 @@ public class Player {
         return name;
     }
 
-    public boolean isEmptyDeck() {
-        return deck.isEmpty();
-    }
-
     /*
      * Gameplay Methods
      */
 
-    public void drawCard() {
+    private void drawCard() {
         hand.drawCard(deck);
     }
 

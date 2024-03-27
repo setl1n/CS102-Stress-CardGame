@@ -25,6 +25,22 @@ public class Game{
         openCardsFromDeck();
     }
 
+    
+    private boolean areBothPlayersOutOfMoves() {
+        return !player1.getHand().hasValidMoves(piles) && !player2.getHand().hasValidMoves(piles);
+    }
+    
+    private boolean doBothPlayersHaveAtLeast1CardInDeck() {
+        return !player1.getDeck().isEmpty() && !player2.getDeck().isEmpty();
+    }
+    
+    private boolean doesPlayer1HaveAtLeast2CardsInDeck() {
+        return player1.getDeck().size() >= 2;
+    }
+    private boolean doesPlayer2HaveAtLeast2CardsInDeck() {
+        return player2.getDeck().size() >= 2;
+    }
+    
     public void openCardsFromDeck() {
 
         if (doBothPlayersHaveAtLeast1CardInDeck()) {
@@ -41,22 +57,7 @@ public class Game{
         }
         
     }
-
-    private boolean areBothPlayersOutOfMoves() {
-        return !player1.getHand().hasValidMoves(piles) && !player2.getHand().hasValidMoves(piles);
-    }
-
-    private boolean doBothPlayersHaveAtLeast1CardInDeck() {
-        return !player1.getDeck().isEmpty() && !player2.getDeck().isEmpty();
-    }
-
-    private boolean doesPlayer1HaveAtLeast2CardsInDeck() {
-        return player1.getDeck().size() >= 2;
-    }
-    private boolean doesPlayer2HaveAtLeast2CardsInDeck() {
-        return player2.getDeck().size() >= 2;
-    }
-
+    
     public void updateGameState(){
         boolean isPlayer1HandEmpty = player1.getHand().isEmpty();
         boolean isPlayer2HandEmpty = player2.getHand().isEmpty();

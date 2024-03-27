@@ -14,14 +14,14 @@ public class Hand {
         return cardsInHand[index];
     }
 
-    protected Card popCardAtIndex(int index) {
+    Card popCardAtIndex(int index) {
         Card toReturn = cardsInHand[index];
         cardsInHand[index] = null;
         return toReturn;
     }
 
     // I think this should be better, removed the previous comments
-    protected void drawCard(Deck deck) {
+    void drawCard(Deck deck) {
         if (deck.isEmpty()) {
             System.out.println("Deck is empty!");
             return;
