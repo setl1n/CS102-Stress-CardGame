@@ -58,8 +58,4 @@ public class CardCollection {
         }
     }
 
-    @Override
-    public String toString() {
-        return "CardCollection [cardCollection=" + cardCollection + "]";
-    }
 }

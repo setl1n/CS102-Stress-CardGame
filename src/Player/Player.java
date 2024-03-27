@@ -129,6 +129,6 @@ public class Player {
 
     @Override
     public String toString() {
-        return hand + "\nTargetPile: " + (targetPileIndex == 0 ? "Pile 1" : "Pile 2") + deck;
+        return name + ":\n" + "TargetPile: " + (targetPileIndex == 0 ? "Pile 1" : "Pile 2") + hand + deck;
     }
 }

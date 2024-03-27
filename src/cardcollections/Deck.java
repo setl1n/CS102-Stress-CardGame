@@ -132,6 +132,6 @@ public class Deck extends CardCollection {
 
     @Override
     public String toString() {
-        return "\nCards left in Deck: " + size();
+        return String.format("Cards left in Deck: %s\n", size());
     }
 }
