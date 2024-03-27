@@ -5,7 +5,7 @@ import java.awt.*;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import collections.*;
+import cardcollections.*;
 import GUI.GUIUtility;
 
 public class NumPanel extends JPanel {

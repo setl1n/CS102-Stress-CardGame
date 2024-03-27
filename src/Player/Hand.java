@@ -1,16 +1,14 @@
 package player;
 
 import java.util.*;
-import collections.*;
-import collections.deckcomponents.*;
+import cardcollections.*;
+import cardcollections.deckcomponents.*;
 import game.*;
 
 public class Hand {
     private Card[] cardsInHand = new Card[SIZE_OF_HAND];
     private static final int SIZE_OF_HAND = 4;
 
-    public Hand() {
-    }
 
     public Card getCardAtIndex(int index) {
         return cardsInHand[index];

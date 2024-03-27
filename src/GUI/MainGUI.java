@@ -32,12 +32,12 @@ public class MainGUI extends JFrame {
         mainPanel.add(new GamePanel(game), "Game");
 
         setContentPane(mainPanel);
-        changeGIFtoPNGAftAnimation();
+        changeGIFtoPNGAftAnimation(game);
     }
 
-    private void changeGIFtoPNGAftAnimation() {
+    private void changeGIFtoPNGAftAnimation(Game game) {
         Timer timer = new Timer(2500, e -> {
-            if (GameState.STATE == GameState.START_SCREEN) {
+            if (game.getGameState() == GameState.START_SCREEN) {
                 cardLayout.show(mainPanel, "PNGIntro");
             }
         });

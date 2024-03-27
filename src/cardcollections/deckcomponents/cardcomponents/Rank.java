@@ -1,4 +1,4 @@
-package collections.deckcomponents.cardcomponents;
+package cardcollections.deckcomponents.cardcomponents;
 
 // Rank.java - John K. Estell - 8 May 2003
 // last modified: 16 Febraury 2004

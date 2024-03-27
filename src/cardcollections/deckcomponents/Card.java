@@ -1,4 +1,4 @@
-package collections.deckcomponents;
+package cardcollections.deckcomponents;
 
 import java.net.URL;
 import java.awt.*;
@@ -9,7 +9,7 @@ import java.awt.*;
 // expressing the card value.
 
 import javax.swing.*;
-import collections.deckcomponents.cardcomponents.*;
+import cardcollections.deckcomponents.cardcomponents.*;
 
 /**
  * Representation of a single playing card. A card consists of a suit value

@@ -9,5 +9,4 @@ public enum GameState {
     PLAYER1_WINS,
     PLAYER2_WINS,
     NO_VALID_MOVES;
-    public static GameState STATE = START_SCREEN;
 }

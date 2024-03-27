@@ -4,8 +4,8 @@ import java.awt.*;
 import javax.swing.*;
 
 import java.net.URL;
-import collections.*;
-import collections.deckcomponents.*;
+import cardcollections.*;
+import cardcollections.deckcomponents.*;
 
 public final class GUIUtility {
 

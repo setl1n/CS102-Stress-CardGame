@@ -6,11 +6,11 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import collections.*;
+import cardcollections.*;
 import GUI.MainGUI;
 import game.Game;
 import game.GameState;
-import collections.*;
+import cardcollections.*;
 import player.*;
 
 public class MainControls extends KeyAdapter {
@@ -30,12 +30,12 @@ public class MainControls extends KeyAdapter {
         Player player1 = game.getPlayer1();
         Player player2 = game.getPlayer2();
         Pile[] piles = game.getBothPiles();
-        switch (GameState.STATE) {
+        switch (game.getGameState()) {
             // start screen
             case START_SCREEN:
                 if (newKeyPress == KeyEvent.VK_SPACE) {
                     GUI.changeToPanel("Game");
-                    GameState.STATE = GameState.PLAYING;
+                    game.setGameState(GameState.PLAYING);
                 }
                 break;
             case OPEN_FIRST_CARDS:
@@ -69,7 +69,7 @@ public class MainControls extends KeyAdapter {
                 }
                 if (pressedKeys.contains(KeyEvent.VK_S) && pressedKeys.contains(KeyEvent.VK_K)) {
                     game.openCardsFromDeck();
-                    GameState.STATE = GameState.PLAYING;
+                    game.setGameState(GameState.PLAYING);
                 }
                 // play stress cut screen, lock
                 break;
@@ -82,8 +82,8 @@ public class MainControls extends KeyAdapter {
                 break;
         }
         System.out.println("Keys Pressed: " + pressedKeys.stream().map(i -> (char) i.intValue()).collect(Collectors.toList()));
-        game.printGameInfo();
-        game.checkGameState();
+        System.out.println(game);
+        game.updateGameState();
     }
 
     @Override

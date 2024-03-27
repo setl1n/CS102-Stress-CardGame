@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 
 
-import collections.deckcomponents.*;
+import cardcollections.deckcomponents.*;
 import GUI.GUIUtility;
 
 public class CardPanel extends JPanel {

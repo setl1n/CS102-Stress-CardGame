@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 
 import player.*;
 import GUI.GUIUtility;
-import collections.deckcomponents.*;
+import cardcollections.deckcomponents.*;
 
 public class PlayerPanel extends JPanel {
 

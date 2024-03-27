@@ -3,7 +3,7 @@ package GUI.gamecontainer.pilecontainer;
 import javax.swing.*;
 import java.awt.*;
 
-import collections.*;
+import cardcollections.*;
 import player.*;
 
 public class PileContainer extends JPanel {

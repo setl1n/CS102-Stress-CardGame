@@ -1,8 +1,8 @@
 package player;
 
-import collections.deckcomponents.*;
+import cardcollections.deckcomponents.*;
 import game.*;
-import collections.*;
+import cardcollections.*;
 import GUI.SoundUtility;
 import GUI.gamecontainer.pilecontainer.IndicatorPanel;
 import GUI.gamecontainer.playercontainer.PlayerPanel;
