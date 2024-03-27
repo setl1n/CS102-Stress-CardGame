@@ -6,11 +6,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import Controls.MainControls;
+import game.*;
+import controls.MainControls;
 import GUI.gamecontainer.GamePanel;
 import GUI.startcontainer.IntroPanel;
-import Game.Game;
-import Game.GameState;
 
 public class MainGUI extends JFrame {
 
@@ -34,12 +33,12 @@ public class MainGUI extends JFrame {
         mainPanel.add(new GamePanel(game), "Game");
 
         setContentPane(mainPanel);
-        changeGIFtoPNGAftAnimation();
+        changeGIFtoPNGAftAnimation(game);
     }
 
-    private void changeGIFtoPNGAftAnimation() {
+    private void changeGIFtoPNGAftAnimation(Game game) {
         Timer timer = new Timer(2500, e -> {
-            if (GameState.STATE == GameState.START_SCREEN) {
+            if (game.getGameState() == GameState.START_SCREEN) {
                 cardLayout.show(mainPanel, "PNGIntro");
             }
         });

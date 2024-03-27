@@ -1,28 +1,28 @@
-package Collections;
+package cardcollections;
 
 import java.awt.Image;
 import java.net.URL;
+import java.util.Collections;
 
 import javax.swing.ImageIcon;
 
-import Collections.DeckComponents.Card;
-import Collections.DeckComponents.CardComponents.Rank;
-import Collections.DeckComponents.CardComponents.Suit;
+import cardcollections.deckcomponents.*;
 import GUI.gamecontainer.playercontainer.NumPanel;
+import cardcollections.deckcomponents.cardcomponents.*;
 
 public class Deck extends CardCollection {
     private Image deckImage;
     private char colour;
     private NumPanel numPanel;
 
-    /**
+    /*
      * Creates a shuffled deck of 52 cards
      */
     public Deck(Boolean isEmpty) {
         super();
         if (!isEmpty) {
-            for (Suit suit : (Iterable<Suit>) Suit.VALUES) {
-                for (Rank rank : (Iterable<Rank>) Rank.VALUES) {
+            for (Suit suit : Suit.VALUES) {
+                for (Rank rank : Rank.VALUES) {
                     add(new Card(suit, rank));
                 }
             }
@@ -79,16 +79,16 @@ public class Deck extends CardCollection {
     // alternatively, need to make arraylist cardcollections protected, which is
     // worse than
     // having a "layer" in the child class for shuffle
+    public int size() {
+        return super.size();
+    }
+
     public void shuffle() {
         super.shuffle();
     }
 
     public boolean isEmpty() {
         return super.isEmpty();
-    }
-
-    public int size() {
-        return super.size();
     }
 
     public Card popTopCard() {
@@ -128,5 +128,10 @@ public class Deck extends CardCollection {
 
     public void setNumPanel(NumPanel numPanel) {
         this.numPanel = numPanel;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Cards left in Deck: %s\n", size());
     }
 }

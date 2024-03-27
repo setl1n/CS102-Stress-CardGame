@@ -1,9 +1,7 @@
-package Game;
+package game;
 
-import Collections.Pile;
-import Collections.DeckComponents.Card;
-import Collections.DeckComponents.CardComponents.*;
-import Player.*;
+import cardcollections.*;
+import cardcollections.deckcomponents.*;
 
 public class GameLogicUtils {
 
@@ -16,10 +14,10 @@ public class GameLogicUtils {
     }
 
     public static boolean isValidStress(Pile[] piles) {
-        Rank card1Rank = piles[0].peekTopCard().getRank();
-        Rank card2Rank = piles[1].peekTopCard().getRank();
+        Card card1 = piles[0].peekTopCard();
+        Card card2 = piles[1].peekTopCard();
 
-        if (card1Rank == card2Rank) {
+        if (card1.compareTo(card2) == 0) {
             System.out.println("STRESS!");
             return true;
         }

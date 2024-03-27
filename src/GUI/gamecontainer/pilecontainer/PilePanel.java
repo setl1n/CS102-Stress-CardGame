@@ -4,8 +4,8 @@ import java.awt.*;
 import java.util.*;
 import javax.swing.*;
 
-import Collections.Pile;
-import Collections.DeckComponents.Card;
+import cardcollections.*;
+import cardcollections.deckcomponents.*;
 
 public class PilePanel extends JPanel {
 

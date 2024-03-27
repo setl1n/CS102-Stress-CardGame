@@ -5,7 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 
 import GUI.GUIUtility;
-import Player.Player;
+import player.*;
 
 public class IndicatorPanel extends JPanel {
 

@@ -1,16 +1,13 @@
-package Player;
+package player;
 
-import Collections.Deck;
-import Collections.Pile;
-import Collections.DeckComponents.Card;
-import GUI.GUIUtility;
+import cardcollections.deckcomponents.*;
+import game.*;
+import cardcollections.*;
 import GUI.SoundUtility;
 import GUI.gamecontainer.pilecontainer.IndicatorPanel;
 import GUI.gamecontainer.playercontainer.PlayerPanel;
 
 import java.io.*;
-import Game.Game;
-import Game.GameLogicUtils;
 
 public class Player {
 
@@ -133,8 +130,6 @@ public class Player {
 
     @Override
     public String toString() {
-        return hand.toString() 
-        + "\nTargetPile: " + (targetPileIndex == 0 ? "Pile 1" : "Pile 2")
-        + "\nCards left in Deck: " + deck.size();
+        return name + ":\n" + "TargetPile: " + (targetPileIndex == 0 ? "Pile 1" : "Pile 2") + hand + deck;
     }
 }

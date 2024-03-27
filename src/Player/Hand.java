@@ -1,18 +1,14 @@
-package Player;
+package player;
 
-import java.util.Arrays;
-import Collections.Deck;
-import Collections.Pile;
-import Collections.DeckComponents.Card;
-import GUI.GUIUtility;
-import Game.GameLogicUtils;
+import java.util.*;
+import cardcollections.*;
+import cardcollections.deckcomponents.*;
+import game.*;
 
 public class Hand {
     private Card[] cardsInHand = new Card[SIZE_OF_HAND];
     private static final int SIZE_OF_HAND = 4;
 
-    public Hand() {
-    }
 
     public Card getCardAtIndex(int index) {
         return cardsInHand[index];
@@ -41,7 +37,7 @@ public class Hand {
         cardsInHand[index] = deck.popTopCard();
     }
 
-    public boolean anyValidMoves(Pile[] pile) {
+    public boolean hasValidMoves(Pile[] pile) {
         if (GameLogicUtils.isValidStress(pile)) {
             return true;
         }
@@ -67,6 +63,6 @@ public class Hand {
 
     @Override
     public String toString() {
-        return "Cards: " + Arrays.toString(cardsInHand);
+        return String.format("Hand: %s\n", Arrays.toString(cardsInHand));
     }
 }

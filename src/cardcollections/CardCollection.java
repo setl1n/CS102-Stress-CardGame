@@ -1,6 +1,6 @@
-package Collections;
+package cardcollections;
 
-import Collections.DeckComponents.*;
+import cardcollections.deckcomponents.*;
 import java.util.*;
 
 public class CardCollection {
@@ -14,26 +14,17 @@ public class CardCollection {
     /**
      * The following assumes that index 0 of the array is the bottom card
      */
-    public void add(Card card) {
+    protected void add(Card card) {
         cardCollection.add(card);
     }
-
-    // commented out as prob not needed, not sure yet tho
-    // rmb to delete cardnot found exception too if this method is not implemented
-    // protected void removeCardFromTop(Card card) throws CardNotFoundException {
-    // if (!cardCollection.remove(card)) {
-    // throw new CardNotFoundException();
-    // }
-    // }
-
-    public Card peekTopCard() {
-        return cardCollection.get(cardCollection.size() - 1);
-    }
-
+    
     protected Card popTopCard() {
         return cardCollection.remove(cardCollection.size() - 1);
     }
-
+    
+    protected Card peekTopCard() {
+        return cardCollection.get(cardCollection.size() - 1);
+    }
     /**
      * The size of a card collection.
      * 
@@ -60,20 +51,11 @@ public class CardCollection {
         return cardCollection.isEmpty();
     }
 
-    protected void clear() {
-        cardCollection.clear();
-    }
-
     protected void transfer(CardCollection c) {
         int size = c.size();
         for (int i = 0; i < size; i++) {
-            cardCollection.add(c.peekTopCard());
-            c.popTopCard();
+            cardCollection.add(c.popTopCard());
         }
     }
 
-    @Override
-    public String toString() {
-        return "CardCollection [cardCollection=" + cardCollection + "]";
-    }
 }
