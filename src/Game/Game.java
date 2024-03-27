@@ -114,7 +114,7 @@ public class Game{
     // for debugging
     @Override
     public String toString() {
-        return String.format("Pile 1 %s\nPile 2 %s \nPlayer 1: %s\nPlayer 2: %s\n", piles[0], piles[1], player1, player2);
+        return String.format("Pile 1 %s\nPile 2 %s \n%s\n%s\n", piles[0], piles[1], player1, player2);
     }
 
     public void stress(Player opponent) {
