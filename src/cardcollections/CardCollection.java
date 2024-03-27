@@ -14,39 +14,30 @@ public class CardCollection {
     /**
      * The following assumes that index 0 of the array is the bottom card
      */
-    public void add(Card card) {
+    protected void add(Card card) {
         cardCollection.add(card);
     }
-
-    // commented out as prob not needed, not sure yet tho
-    // rmb to delete cardnot found exception too if this method is not implemented
-    // protected void removeCardFromTop(Card card) throws CardNotFoundException {
-    // if (!cardCollection.remove(card)) {
-    // throw new CardNotFoundException();
-    // }
-    // }
-
-    public Card peekTopCard() {
-        return cardCollection.get(cardCollection.size() - 1);
-    }
-
+    
     protected Card popTopCard() {
         return cardCollection.remove(cardCollection.size() - 1);
     }
-
+    
+    protected Card peekTopCard() {
+        return cardCollection.get(cardCollection.size() - 1);
+    }
     /**
      * The size of a card collection.
      * 
      * @return the number of cards present in the full card collection.
      */
-    public int size() {
+    protected int size() {
         return cardCollection.size();
     }
 
     /**
      * Shuffles the cards present in the card collection.
      */
-    public void shuffle() {
+    protected void shuffle() {
         Collections.shuffle(cardCollection);
     }
 
@@ -56,7 +47,7 @@ public class CardCollection {
      * @return <code>true</code> if there are no cards left to be dealt from the
      *         deck.
      */
-    public boolean isEmpty() {
+    protected boolean isEmpty() {
         return cardCollection.isEmpty();
     }
 

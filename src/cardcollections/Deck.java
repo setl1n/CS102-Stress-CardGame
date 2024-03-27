@@ -2,6 +2,7 @@ package cardcollections;
 
 import java.awt.Image;
 import java.net.URL;
+import java.util.Collections;
 
 import javax.swing.ImageIcon;
 
@@ -78,7 +79,17 @@ public class Deck extends CardCollection {
     // alternatively, need to make arraylist cardcollections protected, which is
     // worse than
     // having a "layer" in the child class for shuffle
- 
+    public int size() {
+        return super.size();
+    }
+
+    public void shuffle() {
+        super.shuffle();
+    }
+
+    public boolean isEmpty() {
+        return super.isEmpty();
+    } 
 
     public Card popTopCard() {
         Card topCard = super.popTopCard();
@@ -117,5 +128,10 @@ public class Deck extends CardCollection {
 
     public void setNumPanel(NumPanel numPanel) {
         this.numPanel = numPanel;
+    }
+
+    @Override 
+    public String toString() {
+        return "\nCards left in Deck: " + size();
     }
 }

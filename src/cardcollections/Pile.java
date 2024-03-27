@@ -19,6 +19,10 @@ public class Pile extends CardCollection {
         }
     }
 
+    public Card peekTopCard() {
+        return super.peekTopCard();
+    }
+
     public void setPilePanel(PilePanel pilePanel) {
         this.pilePanel = pilePanel;
     }

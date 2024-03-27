@@ -129,8 +129,6 @@ public class Player {
 
     @Override
     public String toString() {
-        return hand.toString() 
-        + "\nTargetPile: " + (targetPileIndex == 0 ? "Pile 1" : "Pile 2")
-        + "\nCards left in Deck: " + deck.size();
+        return hand + "\nTargetPile: " + (targetPileIndex == 0 ? "Pile 1" : "Pile 2") + deck;
     }
 }
