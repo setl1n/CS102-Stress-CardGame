@@ -51,14 +51,13 @@ public class Hand {
     }
 
     public boolean isEmpty() {
-        boolean isEmpty = true;
+
         for (Card card : cardsInHand) {
             if (card != null) {
-                isEmpty = false;
-                break;
+                return false;
             }
         }
-        return isEmpty;
+        return true;
     }
 
     @Override
