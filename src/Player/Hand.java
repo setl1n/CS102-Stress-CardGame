@@ -27,7 +27,7 @@ public class Hand {
             return;
         }
         int index = 0;
-        while (cardsInHand[index] != null && index < SIZE_OF_HAND) {
+        while (index < SIZE_OF_HAND && cardsInHand[index] != null) {
             index++;
         }
         if (index == SIZE_OF_HAND) {
