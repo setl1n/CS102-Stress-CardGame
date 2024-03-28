@@ -70,22 +70,26 @@ public class Game {
         boolean isPlayer2HandEmpty = player2.getHand().isEmpty();
 
         if (isPlayer1HandEmpty && !isPlayer2HandEmpty) {
-            System.out.println("PLAYER 1 WINS");
-            gameState = GameState.PLAYER1_WINS;
+            SoundUtility.endSound();
+            GUIUtility.renderFullScreenTransition(gamePanel, player1, "/assets/game");
+            gameState = GameState.END;
 
         } else if (isPlayer2HandEmpty && !isPlayer1HandEmpty) {
-            System.out.println("PLAYER 2 WINS");
-            gameState = GameState.PLAYER2_WINS;
+            SoundUtility.endSound();
+            GUIUtility.renderFullScreenTransition(gamePanel, player2, "/assets/game");
+            gameState = GameState.END;
 
         } else if (areBothPlayersOutOfMoves()) {
 
             if (doBothPlayersHaveAtLeast1CardInDeck() || doesPlayer1HaveAtLeast2CardsInDeck()
                     || doesPlayer2HaveAtLeast2CardsInDeck()) {
-                System.out.println("FREEZE SCREEN!!! PRESS \"S\" AND \"K\" TO CONTINUE");
+                GUIUtility.renderFullScreenTransition(gamePanel, null, "/assets/timeout");
                 gameState = GameState.NO_VALID_MOVES;
 
             } else {
-                gameState = GameState.STALEMATE;
+                SoundUtility.endSound();
+                GUIUtility.renderFullScreenTransition(gamePanel, null, "/assets/tie");
+                gameState = GameState.END;
             }
         }
     }
@@ -133,6 +137,7 @@ public class Game {
             gameState = GameState.STRESS;
             GUIUtility.renderStressTransition(gamePanel, opponent, "/assets/stress");
             SoundUtility.stressSound();
+            // Change gamestate temporarily to lock user's inputs
             int delay = 3000;
             Timer timer = new Timer(delay, e -> {
                 gameState = GameState.PLAYING;

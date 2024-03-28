@@ -45,18 +45,10 @@ public class MainControls extends KeyAdapter {
                     game.setGameState(GameState.PLAYING);
                 }
                 break;
-            // standard gameplay conditions
             case PLAYING:
-                // "stress" doesn't update game state -> needed for locking controls during animation
-                if (newKeyPress == KeyEvent.VK_K) {
-                    game.stress(player1);
-                    return;
-                }
-                if (newKeyPress  == KeyEvent.VK_S) {
-                    game.stress(player2);
-                    return;
-                }
                 switch (newKeyPress) {
+                    case KeyEvent.VK_S -> game.stress(player2);
+                    case KeyEvent.VK_K -> game.stress(player1);
                     case KeyEvent.VK_Q -> player1.throwCardToPile(0, piles);
                     case KeyEvent.VK_W -> player1.throwCardToPile(1, piles);
                     case KeyEvent.VK_E -> player1.throwCardToPile(2, piles);
@@ -96,10 +88,10 @@ public class MainControls extends KeyAdapter {
                 break;
 
             // end game conditions
-            case STALEMATE, PLAYER1_WINS, PLAYER2_WINS:
+            case END:
                 System.out.println("END CONDITION DETECTED");
                 switch (newKeyPress) {
-                    case KeyEvent.VK_PERIOD -> GUI.dispose();
+                    case KeyEvent.VK_ESCAPE -> GUI.dispose();
                 }
                 break;
         }

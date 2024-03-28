@@ -13,7 +13,7 @@ public final class GUIUtility {
 
     private GUIUtility() {}
 
-    public static Image renderImage(String imagepath, String nullpath, int width, int height) {
+    private static Image renderImage(String imagepath, String nullpath, int width, int height) {
         URL imgUrl = GUIUtility.class.getResource(imagepath);
         if (imgUrl == null) {
             imgUrl = GUIUtility.class.getResource(nullpath);
@@ -113,6 +113,54 @@ public final class GUIUtility {
         timer.start();
     }
 
+    public static void renderFullScreenTransition(JPanel targetPanel, Player player ,String gifPath) {
+        // Automatically find the JFrame that encases the targetPanel
+        JFrame frame = (JFrame) SwingUtilities.getAncestorOfClass(JFrame.class, targetPanel);
+        if (frame == null) {
+            System.err.println("No enclosing JFrame found for the target panel.");
+            return;
+        }
+        if (player == null) {
+            gifPath += ".gif";
+        } else if (player.getName().equals("Player 1")) {
+            gifPath += "red.gif";
+        } else {
+            gifPath += "blue.gif";
+        }
+        
+        URL gifUrl = GUIUtility.class.getResource(gifPath);
+        if (gifUrl == null) {
+            System.err.println("GIF file not found: " + gifPath);
+            return;
+        }
+        ImageIcon gifIcon = new ImageIcon(gifUrl);
+
+        // Create a new JPanel that acts as the glass pane
+        JPanel glassPane = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                // Overlay a semi-transparent color to darken the screen
+                g.setColor(new Color(0, 0, 0, 123)); // Adjust the alpha value for desired darkness
+                g.fillRect(0, 0, getWidth(), getHeight());
+                // Set the size of the icon to fill the whole glass pane
+                g.drawImage(gifIcon.getImage(), 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+        glassPane.setOpaque(false); // Make the glass pane transparent
+        glassPane.setLayout(null); // No layout manager
+
+        frame.setGlassPane(glassPane);
+        glassPane.setVisible(true); // Activate the glass pane to show the animation
+
+        int delay = 3200; // Duration in milliseconds after which the glass pane will be hidden
+        // Timer to remove the animation and hide the glass pane after a delay
+        new Timer(delay, e -> {
+            glassPane.setVisible(false); // Hide the glass pane, removing the dim effect and animation
+            frame.repaint(); // Repaint the frame to ensure any lingering visual effects are cleared
+        }).start();
+    }
+
     public static void renderStressTransition(JPanel targetPanel, Player player, String gifPath) {
         // Automatically find the JFrame that encases the targetPanel
         JFrame frame = (JFrame) SwingUtilities.getAncestorOfClass(JFrame.class, targetPanel);
@@ -121,7 +169,7 @@ public final class GUIUtility {
             return;
         }
 
-        if ("Player 1".equals(player.getName())) {
+        if (player.getName().equals("Player 1")) {
             gifPath += "red.gif";
         } else {
             gifPath += "blue.gif";

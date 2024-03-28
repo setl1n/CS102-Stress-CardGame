@@ -23,7 +23,6 @@ public class MainGUI extends JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null); // Center the window
         
-        SoundUtility.menuSound();
         MainControls controls = new MainControls(game, this);
         addKeyListener(controls); // Add PlayerControls as a KeyListener
 

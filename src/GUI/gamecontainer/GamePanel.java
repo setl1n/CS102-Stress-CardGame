@@ -16,7 +16,6 @@ import player.Player;
 public class GamePanel extends JPanel {
 
     private ImageIcon bgImage;
-    private Game game;
 
     private Player player1;
     private Player player2;
@@ -24,7 +23,6 @@ public class GamePanel extends JPanel {
     public GamePanel(Game game) {
 
         super();
-        this.game = game;
         game.setGamePanel(this);
 
         player1 = game.getPlayer1();
