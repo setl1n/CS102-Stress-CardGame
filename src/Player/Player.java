@@ -97,6 +97,7 @@ public class Player {
 
         } else {
             // invalid move, add forefeit? like cooldown or smth?
+            SoundUtility.invalidSound();
             System.out.println("INVALID MOVE");
         }
     }

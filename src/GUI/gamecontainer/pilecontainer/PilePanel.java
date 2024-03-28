@@ -21,8 +21,8 @@ public class PilePanel extends JPanel {
 
         setPreferredSize(new Dimension(width, height));
         setLayout(new BorderLayout());
-
         Card topCard = pile.peekTopCard();
+
         System.out.println(topCard);
         Image image = topCard.getCardImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
         jLabel = new JLabel(new ImageIcon(image), JLabel.CENTER);

@@ -5,6 +5,7 @@ import GUI.GUIUtility;
 import GUI.gamecontainer.pilecontainer.PilePanel;
 
 public class Pile extends CardCollection {
+    
     private PilePanel pilePanel;
 
     public Pile(){

@@ -9,16 +9,30 @@ public final class SoundUtility {
 
     private SoundUtility() {}
 
+    private static Clip currentClip;
+
     /*
      * SOUND ASSET METHODS
      */
 
     public static void cardSound() {
-        playSound("/assets/cardplacesound.wav", false);
+        playSound("/assets/cardplacesound.wav", false, true);
     }
 
     public static void bgmSound() {
-        playSound("/assets/bgm.wav", true);
+        playSound("/assets/bgm.wav", true, false);
+    }
+
+    public static void menuSound() {
+        playSound("/assets/menu.wav", true, false);
+    }
+
+    public static void stressSound() {
+        playSound("/assets/redstress.wav", false, true);
+    }
+
+    public static void invalidSound() {
+        playSound("/assets/disable.wav", false, true);
     }
 
     /*
@@ -36,9 +50,15 @@ public final class SoundUtility {
         return clip;
     }
 
-    public static void playSound(String audioPath, boolean loop) {
+    public static void playSound(String audioPath, boolean loop, boolean overlap) {
         try {
             Clip clip = loadAudioClip(audioPath);
+
+            if (!overlap && currentClip != null && !clip.equals(currentClip)) {
+                currentClip.stop();
+            }
+            currentClip = clip;
+
             if (loop) {
                 clip.loop(Clip.LOOP_CONTINUOUSLY); // Loop the clip continuously
             } else {

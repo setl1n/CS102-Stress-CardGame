@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import Collections.Pile;
 import GUI.MainGUI;
+import GUI.SoundUtility;
 import GUI.GUIUtility;
 import Game.Game;
 import Game.GameState;
@@ -36,6 +37,7 @@ public class MainControls extends KeyAdapter {
                 if (newKeyPress == KeyEvent.VK_SPACE) {
                     GUI.changeToPanel("Game");
                     GameState.STATE = GameState.PLAYING;
+                    SoundUtility.bgmSound();
                 }
                 break;
             case OPEN_FIRST_CARDS:

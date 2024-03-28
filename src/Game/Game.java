@@ -6,6 +6,7 @@ import Collections.Deck;
 import Collections.Pile;
 import GUI.GUIUtility;
 import GUI.SoundUtility;
+import GUI.gamecontainer.GamePanel;
 import Player.Player;
 import java.awt.event.KeyEvent;
 
@@ -15,9 +16,10 @@ public class Game{
     private Player player2;
     private Pile[] piles;
 
+    private JPanel gamePanel;
+
     public Game() {
-        // sets up the game
-        SoundUtility.bgmSound();
+        SoundUtility.menuSound();
         Deck startingDeck = new Deck(false);
         // commented out shuffling for easy debug, utyalls
         startingDeck.shuffle();
@@ -30,6 +32,10 @@ public class Game{
             piles[i] = new Pile();
         }
         openCardsToStart();
+    }
+
+    public void setGamePanel(JPanel gamePanel) {
+        this.gamePanel = gamePanel;
     }
 
     public void openCardsToStart() {
@@ -73,6 +79,11 @@ public class Game{
         boolean player1hasValidMoves = player1.getHand().anyValidMoves(piles);
         boolean player2hasValidMoves = player2.getHand().anyValidMoves(piles);
         if (!player1hasValidMoves && !player2hasValidMoves){
+            /*
+            * I WILL REPLACE THIS
+            */
+            GUIUtility.renderStressTransition(gamePanel, player1, "/assets/help16.gif");
+            SoundUtility.stressSound();
             return true;
         }
         return false;

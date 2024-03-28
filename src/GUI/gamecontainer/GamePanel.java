@@ -6,6 +6,7 @@ import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import GUI.GUIUtility;
 import GUI.gamecontainer.pilecontainer.PileContainer;
 import GUI.gamecontainer.playercontainer.PlayerPanel;
 import Game.Game;
@@ -24,6 +25,8 @@ public class GamePanel extends JPanel {
 
         super();
         this.game = game;
+        game.setGamePanel(this);
+
         player1 = game.getPlayer1();
         player2 = game.getPlayer2();
 
