@@ -7,9 +7,9 @@ import java.awt.*;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import player.Player;
-import collections.deckcomponents.Card;
+import player.*;
 import gui.GUIUtility;
+import cardcollections.deckcomponents.*;
 
 public class PlayerPanel extends JPanel {
 
@@ -79,6 +79,14 @@ public class PlayerPanel extends JPanel {
 
     public void updateNumPanel() {
         numPanel.updateNum();
+    }
+
+    public void updateAll() {
+        updateDeckPanel();
+        updateNumPanel();
+        for (int i = 0; i < 4; i++) {
+            updateCardPanel(i, player.getHand().getCardAtIndex(i));
+        }
     }
 
 

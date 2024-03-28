@@ -4,8 +4,9 @@ import java.awt.*;
 import java.util.*;
 import javax.swing.*;
 
-import collections.Pile;
-import collections.deckcomponents.Card;
+import gui.GUIUtility;
+import cardcollections.*;
+import cardcollections.deckcomponents.*;
 
 public class PilePanel extends JPanel {
 
@@ -21,12 +22,13 @@ public class PilePanel extends JPanel {
 
         setPreferredSize(new Dimension(width, height));
         setLayout(new BorderLayout());
-        Card topCard = pile.peekTopCard();
-
-        System.out.println(topCard);
-        Image image = topCard.getCardImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
-        jLabel = new JLabel(new ImageIcon(image), JLabel.CENTER);
         
+        // Card topCard = pile.peekTopCard();
+        // System.out.println(topCard);
+        // Image image = topCard.getCardImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        // jLabel = new JLabel(new ImageIcon(image), JLabel.CENTER);
+        
+        jLabel = GUIUtility.renderLabel("/assets/emptyDeck.png", "/assets/emptyDeck.png", width, height);
         add(jLabel, BorderLayout.CENTER);
 
     }

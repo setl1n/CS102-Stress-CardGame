@@ -5,8 +5,8 @@ import java.awt.*;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import cardcollections.*;
 import gui.GUIUtility;
-import collections.Deck;
 
 public class NumPanel extends JPanel {
     private ArrayList<JLabel> numLabels = new ArrayList<>();

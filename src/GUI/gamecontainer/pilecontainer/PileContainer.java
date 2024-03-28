@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 import player.Player;
-import collections.Pile;
+import cardcollections.*;
 
 public class PileContainer extends JPanel {
 

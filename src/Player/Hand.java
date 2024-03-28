@@ -1,32 +1,27 @@
 package player;
 
-import java.util.Arrays;
-
-import gui.GUIUtility;
-import game.GameLogicUtils;
-import collections.Deck;
-import collections.Pile;
-import collections.deckcomponents.Card;
+import java.util.*;
+import cardcollections.*;
+import cardcollections.deckcomponents.*;
+import game.*;
 
 public class Hand {
     private Card[] cardsInHand = new Card[SIZE_OF_HAND];
     private static final int SIZE_OF_HAND = 4;
 
-    public Hand() {
-    }
 
     public Card getCardAtIndex(int index) {
         return cardsInHand[index];
     }
 
-    protected Card popCardAtIndex(int index) {
+    Card popCardAtIndex(int index) {
         Card toReturn = cardsInHand[index];
         cardsInHand[index] = null;
         return toReturn;
     }
 
     // I think this should be better, removed the previous comments
-    protected void drawCard(Deck deck) {
+    void drawCard(Deck deck) {
         if (deck.isEmpty()) {
             System.out.println("Deck is empty!");
             return;
@@ -42,7 +37,7 @@ public class Hand {
         cardsInHand[index] = deck.popTopCard();
     }
 
-    public boolean anyValidMoves(Pile[] pile) {
+    public boolean hasValidMoves(Pile[] pile) {
         if (GameLogicUtils.isValidStress(pile)) {
             return true;
         }
@@ -68,6 +63,6 @@ public class Hand {
 
     @Override
     public String toString() {
-        return "Cards: " + Arrays.toString(cardsInHand);
+        return String.format("Hand: %s\n", Arrays.toString(cardsInHand));
     }
 }

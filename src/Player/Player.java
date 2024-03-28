@@ -1,16 +1,13 @@
 package player;
 
-import gui.GUIUtility;
-import gui.SoundUtility;
-import gui.gamecontainer.pilecontainer.IndicatorPanel;
-import gui.gamecontainer.playercontainer.PlayerPanel;
+import gui.*;
+import gui.gamecontainer.pilecontainer.*;
+import gui.gamecontainer.playercontainer.*;
 
 import java.io.*;
-import game.Game;
-import game.GameLogicUtils;
-import collections.Deck;
-import collections.Pile;
-import collections.deckcomponents.Card;
+import game.*;
+import cardcollections.*;
+import cardcollections.deckcomponents.Card;
 
 public class Player {
 
@@ -38,10 +35,6 @@ public class Player {
         return hand;
     }
 
-    public int getTargetPile() {
-        return targetPileIndex;
-    }
-
     public Deck getDeck() {
         return deck;
     }
@@ -50,16 +43,16 @@ public class Player {
         return name;
     }
 
-    public boolean isEmptyDeck() {
-        return deck.isEmpty();
-    }
-
     /*
      * Gameplay Methods
      */
 
-    public void drawCard() {
+    private void drawCard() {
         hand.drawCard(deck);
+        if (playerPanel != null) {
+            playerPanel.updateAll();
+        }
+        SoundUtility.cardSound();
     }
 
     public void drawFourCards() {
@@ -72,7 +65,9 @@ public class Player {
         pileToOpenTo.add(deck.popTopCard());
         if (playerPanel != null) {
             playerPanel.repaint();
+            playerPanel.updateAll();
         }
+        SoundUtility.cardSound();
     }
 
     public void throwCardToPile(int index, Pile[] piles) {
@@ -90,9 +85,7 @@ public class Player {
             SoundUtility.cardSound(); // Play sound after moving the card
 
             if (playerPanel != null) {
-                playerPanel.updateCardPanel(index, hand.getCardAtIndex(index));
-                playerPanel.updateNumPanel();
-                playerPanel.updateDeckPanel();
+                playerPanel.updateAll();
             }
 
         } else {
@@ -134,8 +127,6 @@ public class Player {
 
     @Override
     public String toString() {
-        return hand.toString() 
-        + "\nTargetPile: " + (targetPileIndex == 0 ? "Pile 1" : "Pile 2")
-        + "\nCards left in Deck: " + deck.size();
+        return name + ":\n" + "Target Pile: " + (targetPileIndex == 0 ? "Pile 1\n" : "Pile 2\n") + hand + deck;
     }
 }

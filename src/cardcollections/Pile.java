@@ -1,15 +1,12 @@
-package collections;
+package cardcollections;
 
-import gui.GUIUtility;
+import cardcollections.deckcomponents.*;
+import cardcollections.*;
 import gui.gamecontainer.pilecontainer.PilePanel;
-import collections.deckcomponents.Card;
 
 public class Pile extends CardCollection {
     
     private PilePanel pilePanel;
-
-    public Pile(){
-    }
 
     @Override
     public void add(Card card) {
@@ -23,10 +20,18 @@ public class Pile extends CardCollection {
         }
     }
 
+    public Card peekTopCard() {
+        return super.peekTopCard();
+    }
+
     public void setPilePanel(PilePanel pilePanel) {
         this.pilePanel = pilePanel;
     }
 
+    @Override 
+    public String toString() {
+        return String.format("Top Card: %s\n", isEmpty()? "Pile is Empty" : peekTopCard());
+    }
     public PilePanel getPilePanel() {
         return pilePanel;
     }

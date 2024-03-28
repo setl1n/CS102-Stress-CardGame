@@ -3,13 +3,11 @@ package gui;
 import java.awt.*;
 import javax.swing.*;
 
-import gui.gamecontainer.AnimationPanel;
-import gui.gamecontainer.GamePanel;
-import player.Player;
-import collections.Deck;
-import collections.deckcomponents.Card;
-
+import gui.gamecontainer.*;
 import java.net.URL;
+import cardcollections.*;
+import player.*;
+import cardcollections.deckcomponents.*;
 
 public final class GUIUtility {
 
@@ -51,7 +49,7 @@ public final class GUIUtility {
         if (card != null) {
             image = card.getCardImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
         } else {
-            URL imgUrl = GUIUtility.class.getResource("/assets/emptycard.png");
+            URL imgUrl = GUIUtility.class.getResource("/assets/emptyCard.png");
             image = new ImageIcon(imgUrl).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
         }
         label.setIcon(new ImageIcon(image));

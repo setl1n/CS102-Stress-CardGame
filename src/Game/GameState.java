@@ -5,10 +5,8 @@ public enum GameState {
     OPEN_FIRST_CARDS,
     PLAYING,
     STRESS,
-    NOVALIDMOVES,
     STALEMATE,
-    RED_WINS,
-    BLU_WINS,
-    EDGECASE;
-    public static GameState STATE = START_SCREEN;
+    PLAYER1_WINS,
+    PLAYER2_WINS,
+    NO_VALID_MOVES;
 }
