@@ -1,4 +1,4 @@
-package GUI.gamecontainer.playercontainer;
+package gui.gamecontainer.playercontainer;
 
 import java.util.*;
 
@@ -7,9 +7,9 @@ import java.awt.*;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import Player.Player;
-import GUI.GUIUtility;
-import Collections.DeckComponents.Card;
+import player.Player;
+import collections.deckcomponents.Card;
+import gui.GUIUtility;
 
 public class PlayerPanel extends JPanel {
 

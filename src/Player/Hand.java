@@ -1,11 +1,12 @@
-package Player;
+package player;
 
 import java.util.Arrays;
-import Collections.Deck;
-import Collections.Pile;
-import Collections.DeckComponents.Card;
-import GUI.GUIUtility;
-import Game.GameLogicUtils;
+
+import gui.GUIUtility;
+import game.GameLogicUtils;
+import collections.Deck;
+import collections.Pile;
+import collections.deckcomponents.Card;
 
 public class Hand {
     private Card[] cardsInHand = new Card[SIZE_OF_HAND];

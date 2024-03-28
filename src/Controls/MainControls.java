@@ -1,4 +1,4 @@
-package Controls;
+package controls;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -6,13 +6,13 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import Collections.Pile;
-import GUI.MainGUI;
-import GUI.SoundUtility;
-import GUI.GUIUtility;
-import Game.Game;
-import Game.GameState;
-import Player.Player;
+import collections.Pile;
+import gui.MainGUI;
+import gui.SoundUtility;
+import gui.GUIUtility;
+import game.Game;
+import game.GameState;
+import player.Player;
 
 public class MainControls extends KeyAdapter {
     private Set<Integer> pressedKeys = new HashSet<>();

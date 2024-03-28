@@ -1,9 +1,9 @@
-package Game;
+package game;
 
-import Collections.Pile;
-import Collections.DeckComponents.Card;
-import Collections.DeckComponents.CardComponents.*;
-import Player.*;
+import player.*;
+import collections.Pile;
+import collections.deckcomponents.Card;
+import collections.deckcomponents.cardcomponents.*;
 
 public class GameLogicUtils {
 

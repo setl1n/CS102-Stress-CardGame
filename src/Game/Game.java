@@ -1,13 +1,14 @@
-package Game;
+package game;
 
 import java.util.*;
 import javax.swing.*;
-import Collections.Deck;
-import Collections.Pile;
-import GUI.GUIUtility;
-import GUI.SoundUtility;
-import GUI.gamecontainer.GamePanel;
-import Player.Player;
+
+import collections.Deck;
+import collections.Pile;
+import gui.GUIUtility;
+import gui.SoundUtility;
+import gui.gamecontainer.GamePanel;
+import player.Player;
 import java.awt.event.KeyEvent;
 
 public class Game{

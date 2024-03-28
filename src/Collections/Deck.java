@@ -1,14 +1,14 @@
-package Collections;
+package collections;
 
 import java.awt.Image;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
 
-import Collections.DeckComponents.Card;
-import Collections.DeckComponents.CardComponents.Rank;
-import Collections.DeckComponents.CardComponents.Suit;
-import GUI.gamecontainer.playercontainer.NumPanel;
+import gui.gamecontainer.playercontainer.NumPanel;
+import collections.deckcomponents.Card;
+import collections.deckcomponents.cardcomponents.Rank;
+import collections.deckcomponents.cardcomponents.Suit;
 
 public class Deck extends CardCollection {
     private Image deckImage;

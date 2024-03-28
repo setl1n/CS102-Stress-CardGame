@@ -1,4 +1,4 @@
-package GUI.gamecontainer;
+package gui.gamecontainer;
 
 import java.awt.*;
 import java.net.URL;
@@ -6,12 +6,12 @@ import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import GUI.GUIUtility;
-import GUI.gamecontainer.pilecontainer.PileContainer;
-import GUI.gamecontainer.playercontainer.PlayerPanel;
-import Game.Game;
+import gui.GUIUtility;
+import gui.gamecontainer.pilecontainer.PileContainer;
+import gui.gamecontainer.playercontainer.PlayerPanel;
+import game.Game;
 
-import Player.Player;
+import player.Player;
 
 public class GamePanel extends JPanel {
 

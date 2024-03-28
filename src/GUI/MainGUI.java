@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import java.awt.CardLayout;
 
@@ -6,11 +6,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import Controls.MainControls;
-import GUI.gamecontainer.GamePanel;
-import GUI.startcontainer.IntroPanel;
-import Game.Game;
-import Game.GameState;
+import controls.MainControls;
+import gui.gamecontainer.GamePanel;
+import gui.startcontainer.IntroPanel;
+import game.Game;
+import game.GameState;
 
 public class MainGUI extends JFrame {
 

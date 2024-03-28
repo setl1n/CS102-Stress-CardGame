@@ -1,7 +1,8 @@
-package Collections;
+package collections;
 
-import Collections.DeckComponents.*;
 import java.util.*;
+
+import collections.deckcomponents.*;
 
 public class CardCollection {
 

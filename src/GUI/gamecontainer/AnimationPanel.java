@@ -1,4 +1,4 @@
-package GUI.gamecontainer;
+package gui.gamecontainer;
 
 import javax.swing.*;
 import java.awt.*;

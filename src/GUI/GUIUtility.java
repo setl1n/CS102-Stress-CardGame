@@ -1,13 +1,13 @@
-package GUI;
+package gui;
 
 import java.awt.*;
 import javax.swing.*;
 
-import Collections.DeckComponents.Card;
-import GUI.gamecontainer.AnimationPanel;
-import GUI.gamecontainer.GamePanel;
-import Player.Player;
-import Collections.Deck;
+import gui.gamecontainer.AnimationPanel;
+import gui.gamecontainer.GamePanel;
+import player.Player;
+import collections.Deck;
+import collections.deckcomponents.Card;
 
 import java.net.URL;
 

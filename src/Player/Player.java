@@ -1,16 +1,16 @@
-package Player;
+package player;
 
-import Collections.Deck;
-import Collections.Pile;
-import Collections.DeckComponents.Card;
-import GUI.GUIUtility;
-import GUI.SoundUtility;
-import GUI.gamecontainer.pilecontainer.IndicatorPanel;
-import GUI.gamecontainer.playercontainer.PlayerPanel;
+import gui.GUIUtility;
+import gui.SoundUtility;
+import gui.gamecontainer.pilecontainer.IndicatorPanel;
+import gui.gamecontainer.playercontainer.PlayerPanel;
 
 import java.io.*;
-import Game.Game;
-import Game.GameLogicUtils;
+import game.Game;
+import game.GameLogicUtils;
+import collections.Deck;
+import collections.Pile;
+import collections.deckcomponents.Card;
 
 public class Player {
 
