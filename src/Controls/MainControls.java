@@ -20,6 +20,7 @@ public class MainControls extends KeyAdapter {
     public MainControls(Game game, MainGUI GUI) {
         this.game = game;
         this.GUI = GUI;
+        SoundUtility.menuSound();
     }
 
     @Override

@@ -18,9 +18,7 @@ public class Game{
     private JPanel gamePanel;
 
     public Game() {
-        SoundUtility.menuSound();
         Deck startingDeck = new Deck(false);
-        // commented out shuffling for easy debug, utyalls
         startingDeck.shuffle();
         Deck halfDeck = startingDeck.splitAndReturnHalf();
         halfDeck.changeColour();
