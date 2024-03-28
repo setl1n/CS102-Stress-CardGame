@@ -14,7 +14,7 @@ import cardcollections.deckcomponents.*;
 public class PlayerPanel extends JPanel {
 
     private Player player;
-    private ArrayList<CardPanel> cardPanels = new ArrayList<>();
+    private List<CardPanel> cardPanels = new ArrayList<>();
     private NumPanel numPanel;
     private DeckPanel deckPanel;
 
