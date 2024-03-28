@@ -1,15 +1,15 @@
 package game;
 
-import java.util.*;
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.Timer;
 
-import gui.gamecontainer.GamePanel;
-import java.awt.event.KeyEvent;
-import cardcollections.*;
-import gui.*;
-import player.*;
+import cardcollections.Deck;
+import cardcollections.Pile;
+import gui.GUIUtility;
+import gui.SoundUtility;
+import player.Player;
 
-public class Game{
+public class Game {
     private Player player1;
     private Player player2;
     private Pile[] piles;
@@ -24,29 +24,30 @@ public class Game{
         halfDeck.changeColour();
         player1 = new Player("Player 1", startingDeck);
         player2 = new Player("Player 2", halfDeck);
-        piles = new Pile[]{new Pile(), new Pile()};
+        piles = new Pile[] { new Pile(), new Pile() };
         gameState = GameState.START_SCREEN;
     }
 
     public void setGamePanel(JPanel gamePanel) {
         this.gamePanel = gamePanel;
     }
-    
+
     private boolean areBothPlayersOutOfMoves() {
         return !player1.getHand().hasValidMoves(piles) && !player2.getHand().hasValidMoves(piles);
     }
-    
+
     private boolean doBothPlayersHaveAtLeast1CardInDeck() {
         return !player1.getDeck().isEmpty() && !player2.getDeck().isEmpty();
     }
-    
+
     private boolean doesPlayer1HaveAtLeast2CardsInDeck() {
         return player1.getDeck().size() >= 2;
     }
+
     private boolean doesPlayer2HaveAtLeast2CardsInDeck() {
         return player2.getDeck().size() >= 2;
     }
-    
+
     public void openCardsFromDeck() {
 
         if (doBothPlayersHaveAtLeast1CardInDeck()) {
@@ -56,15 +57,15 @@ public class Game{
         } else if (doesPlayer1HaveAtLeast2CardsInDeck()) {
             player1.openCardToPile(piles[0]);
             player1.openCardToPile(piles[1]);
-            
+
         } else if (doesPlayer2HaveAtLeast2CardsInDeck()) {
             player2.openCardToPile(piles[0]);
             player2.openCardToPile(piles[1]);
         }
-        
+
     }
-    
-    public void updateGameState(){
+
+    public void updateGameState() {
         boolean isPlayer1HandEmpty = player1.getHand().isEmpty();
         boolean isPlayer2HandEmpty = player2.getHand().isEmpty();
 
@@ -78,7 +79,8 @@ public class Game{
 
         } else if (areBothPlayersOutOfMoves()) {
 
-            if (doBothPlayersHaveAtLeast1CardInDeck() || doesPlayer1HaveAtLeast2CardsInDeck() || doesPlayer2HaveAtLeast2CardsInDeck()) {
+            if (doBothPlayersHaveAtLeast1CardInDeck() || doesPlayer1HaveAtLeast2CardsInDeck()
+                    || doesPlayer2HaveAtLeast2CardsInDeck()) {
                 System.out.println("FREEZE SCREEN!!! PRESS \"S\" AND \"K\" TO CONTINUE");
                 gameState = GameState.NO_VALID_MOVES;
 
@@ -89,8 +91,9 @@ public class Game{
     }
 
     // public void end() {
-    //     System.out.println("Press spacebar to play a new game! Else, press '.' to exit.");
-       
+    // System.out.println("Press spacebar to play a new game! Else, press '.' to
+    // exit.");
+
     // }
 
     public Pile getPile(int index) {
@@ -126,24 +129,22 @@ public class Game{
     public void stress(Player opponent) {
         Deck opponentDeck = opponent.getDeck();
 
-        if (GameLogicUtils.isValidStress(piles)){
+        if (GameLogicUtils.isValidStress(piles)) {
             // add pile to loser's hand
-            for (Pile p : piles){
+            for (Pile p : piles) {
                 opponentDeck.transfer(p);
             }
-
             opponentDeck.shuffle();
-
             opponent.drawFourCards();
-
             openCardsFromDeck();
             
-            // gameState = GameState.STRESS;
+            GUIUtility.renderStressTransition(gamePanel, opponent, "/assets/stress");
+            SoundUtility.stressSound();
 
         } else {
             System.out.println("Invalid Stress");
             // insert penalty here
         }
     }
-    
+
 }

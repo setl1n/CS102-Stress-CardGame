@@ -64,8 +64,8 @@ public class MainControls extends KeyAdapter {
                     case KeyEvent.VK_K -> game.stress(player1);
                 }
                 break;
-            // freeze screen conditions
-            case STRESS, NO_VALID_MOVES:
+                // freeze screen conditions
+                case NO_VALID_MOVES:
                 switch (newKeyPress) {
                     case KeyEvent.VK_A -> player1.setTargetPileIndex(0);
                     case KeyEvent.VK_D -> player1.setTargetPileIndex(1);
@@ -78,20 +78,30 @@ public class MainControls extends KeyAdapter {
                 }
                 // play stress cut screen, lock
                 break;
-            // end game conditions
-            case STALEMATE, PLAYER1_WINS, PLAYER2_WINS:
+                case STRESS:
+                // switch (newKeyPress) {
+                    //     case KeyEvent.VK_A -> player1.setTargetPileIndex(0);
+                    //     case KeyEvent.VK_D -> player1.setTargetPileIndex(1);
+                    //     case KeyEvent.VK_J -> player2.setTargetPileIndex(0);
+                    //     case KeyEvent.VK_L -> player2.setTargetPileIndex(1);
+                    // }
+                    break;
+    
+                    // end game conditions
+                case STALEMATE, PLAYER1_WINS, PLAYER2_WINS:
                 System.out.println("END CONDITION DETECTED");
                 switch (newKeyPress) {
                     case KeyEvent.VK_PERIOD -> GUI.dispose();
                 }
                 break;
-        }
-        System.out.println("Keys Pressed: " + pressedKeys.stream().map(i -> (char) i.intValue()).collect(Collectors.toList()));
-        System.out.println(game);
-        game.updateGameState();
-    }
-
-    @Override
+            }
+            game.updateGameState();
+            System.out.println(
+                "Keys Pressed: " + pressedKeys.stream().map(i -> (char) i.intValue()).collect(Collectors.toList()));
+                System.out.println(game);
+            }
+            
+            @Override
     public void keyReleased(KeyEvent e) {
         pressedKeys.remove(e.getKeyCode());
     }

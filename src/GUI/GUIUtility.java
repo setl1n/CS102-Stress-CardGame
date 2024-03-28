@@ -121,6 +121,12 @@ public final class GUIUtility {
             return;
         }
 
+        if ("Player 1".equals(player.getName())) {
+            gifPath += "red.gif";
+        } else {
+            gifPath += "blue.gif";
+        }
+
         URL gifUrl = GUIUtility.class.getResource(gifPath);
         if (gifUrl == null) {
             System.err.println("GIF file not found: " + gifPath);

@@ -28,7 +28,7 @@ public final class SoundUtility {
     }
 
     public static void stressSound() {
-        playSound("/assets/redstress.wav", false, true);
+        playSound("/assets/stress.wav", false, true);
     }
 
     public static void invalidSound() {
