@@ -130,6 +130,16 @@ public class Game {
         Deck opponentDeck = opponent.getDeck();
 
         if (GameLogicUtils.isValidStress(piles)) {
+            gameState = GameState.STRESS;
+            GUIUtility.renderStressTransition(gamePanel, opponent, "/assets/stress");
+            SoundUtility.stressSound();
+            int delay = 3000;
+            Timer timer = new Timer(delay, e -> {
+                gameState = GameState.PLAYING;
+            });
+            timer.setRepeats(false);
+            timer.start();
+            
             // add pile to loser's hand
             for (Pile p : piles) {
                 opponentDeck.transfer(p);
@@ -138,8 +148,6 @@ public class Game {
             opponent.drawFourCards();
             openCardsFromDeck();
             
-            GUIUtility.renderStressTransition(gamePanel, opponent, "/assets/stress");
-            SoundUtility.stressSound();
 
         } else {
             System.out.println("Invalid Stress");

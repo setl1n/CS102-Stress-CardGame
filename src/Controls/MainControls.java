@@ -47,6 +47,15 @@ public class MainControls extends KeyAdapter {
                 break;
             // standard gameplay conditions
             case PLAYING:
+                // "stress" doesn't update game state -> needed for locking controls during animation
+                if (newKeyPress == KeyEvent.VK_K) {
+                    game.stress(player1);
+                    return;
+                }
+                if (newKeyPress  == KeyEvent.VK_S) {
+                    game.stress(player2);
+                    return;
+                }
                 switch (newKeyPress) {
                     case KeyEvent.VK_Q -> player1.throwCardToPile(0, piles);
                     case KeyEvent.VK_W -> player1.throwCardToPile(1, piles);
@@ -54,18 +63,17 @@ public class MainControls extends KeyAdapter {
                     case KeyEvent.VK_R -> player1.throwCardToPile(3, piles);
                     case KeyEvent.VK_A -> player1.setTargetPileIndex(0);
                     case KeyEvent.VK_D -> player1.setTargetPileIndex(1);
-                    case KeyEvent.VK_S -> game.stress(player2);
                     case KeyEvent.VK_U -> player2.throwCardToPile(0, piles);
                     case KeyEvent.VK_I -> player2.throwCardToPile(1, piles);
                     case KeyEvent.VK_O -> player2.throwCardToPile(2, piles);
                     case KeyEvent.VK_P -> player2.throwCardToPile(3, piles);
                     case KeyEvent.VK_J -> player2.setTargetPileIndex(0);
                     case KeyEvent.VK_L -> player2.setTargetPileIndex(1);
-                    case KeyEvent.VK_K -> game.stress(player1);
                 }
+                game.updateGameState();
                 break;
-                // freeze screen conditions
-                case NO_VALID_MOVES:
+            // freeze screen conditions
+            case NO_VALID_MOVES:
                 switch (newKeyPress) {
                     case KeyEvent.VK_A -> player1.setTargetPileIndex(0);
                     case KeyEvent.VK_D -> player1.setTargetPileIndex(1);
@@ -78,30 +86,30 @@ public class MainControls extends KeyAdapter {
                 }
                 // play stress cut screen, lock
                 break;
-                case STRESS:
-                // switch (newKeyPress) {
-                    //     case KeyEvent.VK_A -> player1.setTargetPileIndex(0);
-                    //     case KeyEvent.VK_D -> player1.setTargetPileIndex(1);
-                    //     case KeyEvent.VK_J -> player2.setTargetPileIndex(0);
-                    //     case KeyEvent.VK_L -> player2.setTargetPileIndex(1);
-                    // }
-                    break;
-    
-                    // end game conditions
-                case STALEMATE, PLAYER1_WINS, PLAYER2_WINS:
+            case STRESS:
+                switch (newKeyPress) {
+                    case KeyEvent.VK_A -> player1.setTargetPileIndex(0);
+                    case KeyEvent.VK_D -> player1.setTargetPileIndex(1);
+                    case KeyEvent.VK_J -> player2.setTargetPileIndex(0);
+                    case KeyEvent.VK_L -> player2.setTargetPileIndex(1);
+                }
+                break;
+
+            // end game conditions
+            case STALEMATE, PLAYER1_WINS, PLAYER2_WINS:
                 System.out.println("END CONDITION DETECTED");
                 switch (newKeyPress) {
                     case KeyEvent.VK_PERIOD -> GUI.dispose();
                 }
                 break;
-            }
-            game.updateGameState();
-            System.out.println(
+        }
+        
+        System.out.println(
                 "Keys Pressed: " + pressedKeys.stream().map(i -> (char) i.intValue()).collect(Collectors.toList()));
-                System.out.println(game);
-            }
-            
-            @Override
+        System.out.println(game);
+    }
+
+    @Override
     public void keyReleased(KeyEvent e) {
         pressedKeys.remove(e.getKeyCode());
     }
