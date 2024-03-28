@@ -1,10 +1,10 @@
-package GUI.gamecontainer.pilecontainer;
+package gui.gamecontainer.pilecontainer;
 
 import javax.swing.*;
 import java.awt.*;
 
+import player.Player;
 import cardcollections.*;
-import player.*;
 
 public class PileContainer extends JPanel {
 

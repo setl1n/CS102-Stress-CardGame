@@ -1,11 +1,11 @@
 
-package GUI.gamecontainer.pilecontainer;
+package gui.gamecontainer.pilecontainer;
 
 import javax.swing.*;
 import java.awt.*;
 
-import GUI.GUIUtility;
-import player.*;
+import gui.GUIUtility;
+import player.Player;
 
 public class IndicatorPanel extends JPanel {
 

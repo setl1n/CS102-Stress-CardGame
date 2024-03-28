@@ -1,11 +1,11 @@
-package GUI.gamecontainer.playercontainer;
+package gui.gamecontainer.playercontainer;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.*;
 
 import cardcollections.*;
-import GUI.GUIUtility;
+import gui.GUIUtility;
 
 public class DeckPanel extends JPanel {
 

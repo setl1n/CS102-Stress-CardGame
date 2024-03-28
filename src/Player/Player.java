@@ -1,13 +1,13 @@
 package player;
 
-import cardcollections.deckcomponents.*;
-import game.*;
-import cardcollections.*;
-import GUI.*;
-import GUI.gamecontainer.pilecontainer.IndicatorPanel;
-import GUI.gamecontainer.playercontainer.PlayerPanel;
+import gui.*;
+import gui.gamecontainer.pilecontainer.*;
+import gui.gamecontainer.playercontainer.*;
 
 import java.io.*;
+import game.*;
+import cardcollections.*;
+import cardcollections.deckcomponents.Card;
 
 public class Player {
 
@@ -90,6 +90,7 @@ public class Player {
 
         } else {
             // invalid move, add forefeit? like cooldown or smth?
+            SoundUtility.invalidSound();
             System.out.println("INVALID MOVE");
         }
     }

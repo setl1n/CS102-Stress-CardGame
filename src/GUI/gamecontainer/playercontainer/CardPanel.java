@@ -1,4 +1,4 @@
-package GUI.gamecontainer.playercontainer;
+package gui.gamecontainer.playercontainer;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 
 
 import cardcollections.deckcomponents.*;
-import GUI.GUIUtility;
+import gui.GUIUtility;
 
 public class CardPanel extends JPanel {
 

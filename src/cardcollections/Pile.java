@@ -2,9 +2,10 @@ package cardcollections;
 
 import cardcollections.deckcomponents.*;
 import cardcollections.*;
-import GUI.gamecontainer.pilecontainer.PilePanel;
+import gui.gamecontainer.pilecontainer.PilePanel;
 
 public class Pile extends CardCollection {
+    
     private PilePanel pilePanel;
 
     @Override

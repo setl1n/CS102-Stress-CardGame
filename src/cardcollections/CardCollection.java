@@ -3,6 +3,7 @@ package cardcollections;
 import cardcollections.deckcomponents.*;
 import java.util.*;
 
+
 public class CardCollection {
 
     private List<Card> cardCollection;

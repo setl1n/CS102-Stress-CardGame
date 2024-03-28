@@ -1,10 +1,10 @@
-package GUI.gamecontainer.pilecontainer;
+package gui.gamecontainer.pilecontainer;
 
 import java.awt.*;
 import java.util.*;
 import javax.swing.*;
 
-import GUI.GUIUtility;
+import gui.GUIUtility;
 import cardcollections.*;
 import cardcollections.deckcomponents.*;
 

@@ -1,7 +1,12 @@
 package game;
 
+import java.util.*;
+import javax.swing.*;
+
+import gui.gamecontainer.GamePanel;
+import java.awt.event.KeyEvent;
 import cardcollections.*;
-import GUI.SoundUtility;
+import gui.*;
 import player.*;
 
 public class Game{
@@ -10,9 +15,10 @@ public class Game{
     private Pile[] piles;
     private GameState gameState;
 
+    private JPanel gamePanel;
+
     public Game() {
-        // sets up the game
-        SoundUtility.bgmSound();
+        SoundUtility.menuSound();
         Deck startingDeck = new Deck(false);
         // commented out shuffling for easy debug, utyalls
         startingDeck.shuffle();
@@ -24,6 +30,9 @@ public class Game{
         gameState = GameState.START_SCREEN;
     }
 
+    public void setGamePanel(JPanel gamePanel) {
+        this.gamePanel = gamePanel;
+    }
     
     private boolean areBothPlayersOutOfMoves() {
         return !player1.getHand().hasValidMoves(piles) && !player2.getHand().hasValidMoves(piles);

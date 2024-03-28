@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import cardcollections.*;
-import GUI.MainGUI;
+import gui.*;
 import game.Game;
 import game.GameState;
 import player.*;
@@ -34,6 +34,7 @@ public class MainControls extends KeyAdapter {
             case START_SCREEN:
                 if (newKeyPress == KeyEvent.VK_SPACE) {
                     GUI.changeToPanel("Game");
+                    SoundUtility.bgmSound();
                     game.setGameState(GameState.OPEN_FIRST_CARDS);
                 }
                 break;

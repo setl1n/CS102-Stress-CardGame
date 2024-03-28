@@ -1,4 +1,4 @@
-package GUI.gamecontainer;
+package gui.gamecontainer;
 
 import java.awt.*;
 import java.net.URL;
@@ -6,11 +6,12 @@ import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import GUI.gamecontainer.pilecontainer.PileContainer;
-import GUI.gamecontainer.playercontainer.PlayerPanel;
-import game.*;
+import gui.GUIUtility;
+import gui.gamecontainer.pilecontainer.PileContainer;
+import gui.gamecontainer.playercontainer.PlayerPanel;
+import game.Game;
 
-import player.*;
+import player.Player;
 
 public class GamePanel extends JPanel {
 
@@ -24,6 +25,8 @@ public class GamePanel extends JPanel {
 
         super();
         this.game = game;
+        game.setGamePanel(this);
+
         player1 = game.getPlayer1();
         player2 = game.getPlayer2();
 

@@ -1,4 +1,4 @@
-package GUI.gamecontainer.playercontainer;
+package gui.gamecontainer.playercontainer;
 
 import java.util.ArrayList;
 import java.awt.*;
@@ -6,7 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import cardcollections.*;
-import GUI.GUIUtility;
+import gui.GUIUtility;
 
 public class NumPanel extends JPanel {
     private ArrayList<JLabel> numLabels = new ArrayList<>();
