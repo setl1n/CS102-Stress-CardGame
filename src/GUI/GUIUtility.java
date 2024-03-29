@@ -152,6 +152,9 @@ public final class GUIUtility {
 
         frame.setGlassPane(glassPane);
         glassPane.setVisible(true); // Activate the glass pane to show the animation
+        
+        // Forces garbage collection to ensure proper looping
+        gifIcon.getImage().flush();
 
         int delay = 3200; // Duration in milliseconds after which the glass pane will be hidden
         // Timer to remove the animation and hide the glass pane after a delay
@@ -197,6 +200,9 @@ public final class GUIUtility {
         frame.setGlassPane(glassPane);
         glassPane.setVisible(true); // Activate the glass pane to show the animation
 
+        // Forces garbage collection to ensure proper looping
+        gifIcon.getImage().flush();
+        
         // Timer to remove the animation and hide the glass pane after a delay
         int delay = 2750; // Duration of the stress transition in milliseconds
         new Timer(delay, e -> glassPane.setVisible(false)).start();
