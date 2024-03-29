@@ -1,8 +1,8 @@
 package cardcollections;
 
 import cardcollections.deckcomponents.*;
+import gui.panels.gamecontainer.pilecontainer.PilePanel;
 import cardcollections.*;
-import gui.gamecontainer.pilecontainer.PilePanel;
 
 public class Pile extends CardCollection {
     

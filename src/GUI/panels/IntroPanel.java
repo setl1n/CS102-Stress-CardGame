@@ -1,4 +1,4 @@
-package gui.startcontainer;
+package gui.panels;
 
 import javax.swing.*;
 import java.awt.*;

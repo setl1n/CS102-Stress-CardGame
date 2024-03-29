@@ -1,8 +1,8 @@
 package player;
 
 import gui.*;
-import gui.gamecontainer.pilecontainer.*;
-import gui.gamecontainer.playercontainer.*;
+import gui.panels.gamecontainer.pilecontainer.*;
+import gui.panels.gamecontainer.playercontainer.*;
 
 import java.io.*;
 import game.*;

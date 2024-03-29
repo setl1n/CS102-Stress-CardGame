@@ -3,11 +3,11 @@ package gui;
 import java.awt.*;
 import javax.swing.*;
 
-import gui.gamecontainer.*;
 import java.net.URL;
 import cardcollections.*;
 import player.*;
 import cardcollections.deckcomponents.*;
+import gui.panels.gamecontainer.*;
 
 public final class GUIUtility {
 

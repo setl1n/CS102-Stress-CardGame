@@ -1,4 +1,4 @@
-package gui.gamecontainer;
+package gui.panels;
 
 import java.awt.*;
 import java.net.URL;
@@ -7,8 +7,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import gui.GUIUtility;
-import gui.gamecontainer.pilecontainer.PileContainer;
-import gui.gamecontainer.playercontainer.PlayerPanel;
+import gui.panels.gamecontainer.pilecontainer.PileContainer;
+import gui.panels.gamecontainer.playercontainer.PlayerPanel;
 import game.Game;
 
 import player.Player;

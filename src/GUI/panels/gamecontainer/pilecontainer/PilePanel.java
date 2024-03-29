@@ -1,4 +1,4 @@
-package gui.gamecontainer.pilecontainer;
+package gui.panels.gamecontainer.pilecontainer;
 
 import java.awt.*;
 import java.util.*;
