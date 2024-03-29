@@ -22,29 +22,18 @@ public class MainGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null); // Center the window
-        
+
         MainControls controls = new MainControls(game, this);
         addKeyListener(controls); // Add PlayerControls as a KeyListener
 
         setFocusable(true);
         requestFocusInWindow();
 
-        mainPanel.add(new IntroPanel("/assets/intro.gif"), "GIFIntro");
-        mainPanel.add(new IntroPanel("/assets/intro2.png"), "PNGIntro");
+        mainPanel.add(new IntroPanel("/assets/intro.gif", "/assets/intro2.png"), "Intro");
         mainPanel.add(new GamePanel(game), "Game");
 
-        setContentPane(mainPanel);
-        changeGIFtoPNGAftAnimation(game);
-    }
 
-    private void changeGIFtoPNGAftAnimation(Game game) {
-        Timer timer = new Timer(2500, e -> {
-            if (game.getGameState() == GameState.START_SCREEN) {
-                cardLayout.show(mainPanel, "PNGIntro");
-            }
-        });
-        timer.setRepeats(false);
-        timer.start();
+        setContentPane(mainPanel);
     }
 
     public void changeToPanel(String panelName) {
