@@ -99,7 +99,6 @@ public class MainControls extends KeyAdapter {
         }
     }
 
-
     private void handleStressNoValidMovesKeyPress(int newKeyPress) {
         Player player1 = game.getPlayer1();
         Player player2 = game.getPlayer2();
