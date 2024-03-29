@@ -49,12 +49,10 @@ public class Player {
      */
 
     public boolean isBlocked() {
-        System.out.println("check blocking" + System.currentTimeMillis() +"   "+ this.blockUntil);
         return System.currentTimeMillis() < this.blockUntil;
     }
 
     public void blockFor(int milliseconds) {
-        System.out.println("blocking: " + System.currentTimeMillis() + milliseconds);
         this.blockUntil = System.currentTimeMillis() + milliseconds;
     }
 
@@ -100,8 +98,8 @@ public class Player {
             }
 
         } else {
-            // invalid move, add forefeit? like cooldown or smth?
             SoundUtility.invalidSound();
+            // Penalty for invalid throwing card to pile: 3 seconds
             System.out.println("INVALID MOVE, actions frozen for 3s");
             blockFor(3000);
         }

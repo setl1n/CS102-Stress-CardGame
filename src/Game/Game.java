@@ -125,7 +125,7 @@ public class Game{
         return String.format("Pile 1 %s\nPile 2 %s \n%s\n%s\n", piles[0], piles[1], player1, player2);
     }
 
-    public void stress(Player opponent) {
+    public void stress(Player actionPlayer, Player opponent) {
         Deck opponentDeck = opponent.getDeck();
 
         if (GameLogicUtils.isValidStress(piles)){
@@ -143,8 +143,9 @@ public class Game{
             // gameState = GameState.STRESS;
 
         } else {
-            System.out.println("Invalid Stress");
-            // insert penalty here
+            // Penalty for invalid throwing card to pile: 5 seconds
+            System.out.println("Invalid Stress, blocked for 5s");
+            actionPlayer.blockFor(5000);
         }
     }
     

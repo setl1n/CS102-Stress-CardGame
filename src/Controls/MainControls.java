@@ -83,7 +83,7 @@ public class MainControls extends KeyAdapter {
                 case KeyEvent.VK_W -> player1.throwCardToPile(1, piles);
                 case KeyEvent.VK_E -> player1.throwCardToPile(2, piles);
                 case KeyEvent.VK_R -> player1.throwCardToPile(3, piles);
-                case KeyEvent.VK_S -> game.stress(player2);            
+                case KeyEvent.VK_S -> game.stress(player1, player2);            
             }
         }
 
@@ -94,7 +94,7 @@ public class MainControls extends KeyAdapter {
                 case KeyEvent.VK_I -> player2.throwCardToPile(1, piles);
                 case KeyEvent.VK_O -> player2.throwCardToPile(2, piles);
                 case KeyEvent.VK_P -> player2.throwCardToPile(3, piles);
-                case KeyEvent.VK_K -> game.stress(player1); 
+                case KeyEvent.VK_K -> game.stress(player2, player1); 
             }
         }
     }
