@@ -67,22 +67,50 @@ public class MainControls extends KeyAdapter {
         Player player1 = game.getPlayer1();
         Player player2 = game.getPlayer2();
         Pile[] piles = game.getBothPiles();
-        switch (newKeyPress) {
-            case KeyEvent.VK_Q -> player1.throwCardToPile(0, piles);
-            case KeyEvent.VK_W -> player1.throwCardToPile(1, piles);
-            case KeyEvent.VK_E -> player1.throwCardToPile(2, piles);
-            case KeyEvent.VK_R -> player1.throwCardToPile(3, piles);
-            case KeyEvent.VK_A -> player1.setTargetPileIndex(0);
-            case KeyEvent.VK_D -> player1.setTargetPileIndex(1);
-            case KeyEvent.VK_S -> game.stress(player2);
-            case KeyEvent.VK_U -> player2.throwCardToPile(0, piles);
-            case KeyEvent.VK_I -> player2.throwCardToPile(1, piles);
-            case KeyEvent.VK_O -> player2.throwCardToPile(2, piles);
-            case KeyEvent.VK_P -> player2.throwCardToPile(3, piles);
-            case KeyEvent.VK_J -> player2.setTargetPileIndex(0);
-            case KeyEvent.VK_L -> player2.setTargetPileIndex(1);
-            case KeyEvent.VK_K -> game.stress(player1);
+
+        if (player1.isBlocked()) {
+            switch (newKeyPress) {
+                case KeyEvent.VK_A -> player1.setTargetPileIndex(0);
+                case KeyEvent.VK_D -> player1.setTargetPileIndex(1);
+                case KeyEvent.VK_U -> player2.throwCardToPile(0, piles);
+                case KeyEvent.VK_I -> player2.throwCardToPile(1, piles);
+                case KeyEvent.VK_O -> player2.throwCardToPile(2, piles);
+                case KeyEvent.VK_P -> player2.throwCardToPile(3, piles);
+                case KeyEvent.VK_J -> player2.setTargetPileIndex(0);
+                case KeyEvent.VK_L -> player2.setTargetPileIndex(1);
+                case KeyEvent.VK_K -> game.stress(player1);
+            }
+        } else if (player2.isBlocked()) {
+            switch (newKeyPress) {
+                case KeyEvent.VK_Q -> player1.throwCardToPile(0, piles);
+                case KeyEvent.VK_W -> player1.throwCardToPile(1, piles);
+                case KeyEvent.VK_E -> player1.throwCardToPile(2, piles);
+                case KeyEvent.VK_R -> player1.throwCardToPile(3, piles);
+                case KeyEvent.VK_A -> player1.setTargetPileIndex(0);
+                case KeyEvent.VK_D -> player1.setTargetPileIndex(1);
+                case KeyEvent.VK_S -> game.stress(player2);            
+                case KeyEvent.VK_J -> player2.setTargetPileIndex(0);
+                case KeyEvent.VK_L -> player2.setTargetPileIndex(1);
+            }
+        } else {
+            switch (newKeyPress) {
+                case KeyEvent.VK_Q -> player1.throwCardToPile(0, piles);
+                case KeyEvent.VK_W -> player1.throwCardToPile(1, piles);
+                case KeyEvent.VK_E -> player1.throwCardToPile(2, piles);
+                case KeyEvent.VK_R -> player1.throwCardToPile(3, piles);
+                case KeyEvent.VK_A -> player1.setTargetPileIndex(0);
+                case KeyEvent.VK_D -> player1.setTargetPileIndex(1);
+                case KeyEvent.VK_S -> game.stress(player2);
+                case KeyEvent.VK_U -> player2.throwCardToPile(0, piles);
+                case KeyEvent.VK_I -> player2.throwCardToPile(1, piles);
+                case KeyEvent.VK_O -> player2.throwCardToPile(2, piles);
+                case KeyEvent.VK_P -> player2.throwCardToPile(3, piles);
+                case KeyEvent.VK_J -> player2.setTargetPileIndex(0);
+                case KeyEvent.VK_L -> player2.setTargetPileIndex(1);
+                case KeyEvent.VK_K -> game.stress(player1);
+            }
         }
+
     }
 
     private void handleStressNoValidMovesKeyPress(int newKeyPress) {

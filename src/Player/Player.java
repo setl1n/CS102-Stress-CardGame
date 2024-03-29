@@ -14,6 +14,7 @@ public class Player {
     private String name;
     private Deck deck;
     private Hand hand = new Hand();
+    private long blockUntil = 0;
 
     private PlayerPanel playerPanel;
     private IndicatorPanel indicatorPanel;
@@ -46,6 +47,16 @@ public class Player {
     /*
      * Gameplay Methods
      */
+
+    public boolean isBlocked() {
+        System.out.println("check blocking" + System.currentTimeMillis() +"   "+ this.blockUntil);
+        return System.currentTimeMillis() < this.blockUntil;
+    }
+
+    public void blockFor(int milliseconds) {
+        System.out.println("blocking: " + System.currentTimeMillis() + milliseconds);
+        this.blockUntil = System.currentTimeMillis() + milliseconds;
+    }
 
     private void drawCard() {
         hand.drawCard(deck);
@@ -91,7 +102,8 @@ public class Player {
         } else {
             // invalid move, add forefeit? like cooldown or smth?
             SoundUtility.invalidSound();
-            System.out.println("INVALID MOVE");
+            System.out.println("INVALID MOVE, actions frozen for 3s");
+            blockFor(3000);
         }
     }
 
