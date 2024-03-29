@@ -6,6 +6,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+
 import cardcollections.*;
 import gui.*;
 import game.Game;
@@ -68,6 +71,9 @@ public class MainControls extends KeyAdapter {
         if (pressedKeys.contains(KeyEvent.VK_S) && pressedKeys.contains(KeyEvent.VK_K)) {
             game.openCardsFromDeck();
             game.setGameState(GameState.PLAYING);
+            System.out.println("ATTEMPTING TO CLEAR");
+            GUIUtility.clearGlassPane();
+            SoundUtility.resumeBgm();
         }
     }
 

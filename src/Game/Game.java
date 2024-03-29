@@ -71,24 +71,25 @@ public class Game {
 
         if (isPlayer1HandEmpty && !isPlayer2HandEmpty) {
             SoundUtility.endSound();
-            GUIUtility.renderFullScreenTransition(gamePanel, player1, "/assets/game");
+            GUIUtility.renderGameTransition(gamePanel, player1);
             gameState = GameState.END;
 
         } else if (isPlayer2HandEmpty && !isPlayer1HandEmpty) {
             SoundUtility.endSound();
-            GUIUtility.renderFullScreenTransition(gamePanel, player2, "/assets/game");
+            GUIUtility.renderGameTransition(gamePanel, player2);
             gameState = GameState.END;
 
         } else if (areBothPlayersOutOfMoves()) {
 
             if (doBothPlayersHaveAtLeast1CardInDeck() || doesPlayer1HaveAtLeast2CardsInDeck()
                     || doesPlayer2HaveAtLeast2CardsInDeck()) {
-                GUIUtility.renderFullScreenTransition(gamePanel, null, "/assets/timeout");
+                GUIUtility.renderTimeoutTransition(gamePanel);
+                SoundUtility.pauseClip();
                 gameState = GameState.NO_VALID_MOVES;
 
             } else {
                 SoundUtility.endSound();
-                GUIUtility.renderFullScreenTransition(gamePanel, null, "/assets/tie");
+                GUIUtility.renderTieTransition(gamePanel);
                 gameState = GameState.END;
             }
         }
@@ -135,7 +136,7 @@ public class Game {
 
         if (GameLogicUtils.isValidStress(piles)) {
             gameState = GameState.STRESS;
-            GUIUtility.renderStressTransition(gamePanel, opponent, "/assets/stress");
+            GUIUtility.renderStressTransition(gamePanel, opponent);
             SoundUtility.stressSound();
             // Change gamestate temporarily to lock user's inputs
             int delay = 3000;
