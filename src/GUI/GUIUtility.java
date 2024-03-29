@@ -198,7 +198,7 @@ public final class GUIUtility {
         glassPane.setVisible(true); // Activate the glass pane to show the animation
 
         // Timer to remove the animation and hide the glass pane after a delay
-        int delay = 2800; // Duration of the stress transition in milliseconds
+        int delay = 2750; // Duration of the stress transition in milliseconds
         new Timer(delay, e -> glassPane.setVisible(false)).start();
     }
 

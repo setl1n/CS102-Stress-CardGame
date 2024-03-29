@@ -51,16 +51,16 @@ public class Game {
     public void openCardsFromDeck() {
 
         if (doBothPlayersHaveAtLeast1CardInDeck()) {
-            player1.openCardToPile(piles[0]);
-            player2.openCardToPile(piles[1]);
+            player1.openCardToPile(piles[0], true);
+            player2.openCardToPile(piles[1], false);
 
         } else if (doesPlayer1HaveAtLeast2CardsInDeck()) {
-            player1.openCardToPile(piles[0]);
-            player1.openCardToPile(piles[1]);
+            player1.openCardToPile(piles[0], true);
+            player1.openCardToPile(piles[1], false);
 
         } else if (doesPlayer2HaveAtLeast2CardsInDeck()) {
-            player2.openCardToPile(piles[0]);
-            player2.openCardToPile(piles[1]);
+            player2.openCardToPile(piles[0], true);
+            player2.openCardToPile(piles[1], false);
         }
 
     }
@@ -144,15 +144,14 @@ public class Game {
             });
             timer.setRepeats(false);
             timer.start();
-            
+
             // add pile to loser's hand
             for (Pile p : piles) {
                 opponentDeck.transfer(p);
             }
             opponentDeck.shuffle();
-            opponent.drawFourCards();
+            opponent.drawFourCards(false);
             openCardsFromDeck();
-            
 
         } else {
             System.out.println("Invalid Stress");
