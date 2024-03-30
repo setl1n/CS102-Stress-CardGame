@@ -27,6 +27,10 @@ public class Game {
         piles = new Pile[] { new Pile(), new Pile() };
         gameState = GameState.START_SCREEN;
     }
+    public void start() {
+        setGameState(GameState.OPEN_FIRST_CARDS);
+        Overlays.renderHelpDialog(gamePanel);
+    }
 
     public void setGamePanel(JPanel gamePanel) {
         this.gamePanel = gamePanel;

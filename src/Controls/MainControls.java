@@ -56,7 +56,7 @@ public class MainControls extends KeyAdapter {
         if (newKeyPress == KeyEvent.VK_SPACE) {
             GUI.changeToPanel("Game");
             Sounds.bgmSound();
-            game.setGameState(GameState.OPEN_FIRST_CARDS);
+            game.start();
         }
     }
 

@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.net.URL;
 
+import javax.print.attribute.standard.JobKOctetsSupported;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -29,6 +30,8 @@ public final class Overlays {
             JLayeredPane jLayeredPane = gameFrame.getLayeredPane();
             jLayeredPane.remove(gameLabel);
             jLayeredPane.repaint();
+            gameFrame = null;
+            gameLabel = null;
         }
     }
 
@@ -42,32 +45,33 @@ public final class Overlays {
     /*
      * ANIMATION RENDERING
      */
-    public static void renderImage(JPanel targetPanel, String gifPath, int delay) {
+    public static void renderImage(JPanel targetPanel, String imgPath, int delay) {
         JFrame frame = (JFrame) SwingUtilities.getAncestorOfClass(JFrame.class, targetPanel);
         if (frame == null) {
             return;
         }
 
-        URL gifUrl = GUIUtility.class.getResource(gifPath);
-        if (gifUrl == null) {
+        URL imgUrl = GUIUtility.class.getResource(imgPath);
+        if (imgUrl == null) {
             return;
         }
-        JLabel gifLabel = new JLabel(new ImageIcon(gifUrl));
-        gameLabel = gifLabel;
+        JLabel imgLabel = new JLabel(new ImageIcon(imgUrl));
+        gameFrame = frame;
+        gameLabel = imgLabel;
 
-        gifLabel.setOpaque(false);
+        imgLabel.setOpaque(false);
         Rectangle bounds = SwingUtilities.convertRectangle(targetPanel.getParent(), targetPanel.getBounds(),
                 frame.getLayeredPane());
-        gifLabel.setBounds(bounds);
+        imgLabel.setBounds(bounds);
 
         JLayeredPane layeredPane = frame.getLayeredPane();
-        layeredPane.add(gifLabel, JLayeredPane.POPUP_LAYER);
-        layeredPane.moveToFront(gifLabel);
+        layeredPane.add(imgLabel, JLayeredPane.POPUP_LAYER);
+        layeredPane.moveToFront(imgLabel);
 
         if (delay > 0) {
             Timer timer = new Timer(delay, e -> {
-                layeredPane.remove(gifLabel);
-                layeredPane.repaint(bounds);
+                layeredPane.remove(imgLabel);
+                layeredPane.repaint();
             });
             timer.setRepeats(false);
             timer.start();
@@ -152,15 +156,20 @@ public final class Overlays {
     }
 
     private static void showLockoutTransition(JPanel targetPanel, String playerName, int duration) {
-        String gifPath = "/assets/transition";
+        String transitionPath = "/assets/transition";
         if (playerName == null) {
-            gifPath += ".png";
+            transitionPath += ".png";
         } else if (playerName.equals("Player 1")) {
-            gifPath += "red.png";
+            transitionPath += "red.png";
         } else {
-            gifPath += "blue.png";
+            transitionPath += "blue.png";
         }
-        renderImage(targetPanel, gifPath, duration);
+        renderImage(targetPanel, transitionPath, duration);
+    }
+
+    public static void renderHelpDialog(JPanel targetPanel) {
+        String path = "/assets/dialog.png";
+        renderImage(targetPanel, path, 0);
     }
 
     public static void renderTimeoutTransition(JPanel targetPanel) {
