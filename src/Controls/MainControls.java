@@ -34,7 +34,7 @@ public class MainControls extends KeyAdapter {
             case START_SCREEN:
                 handleStartScreenKeyPress(newKeyPress);
                 break;
-            case OPEN_FIRST_CARDS,NO_VALID_MOVES:
+            case OPEN_FIRST_CARDS, NO_VALID_MOVES:
                 handleOpenCardsKeyPress(newKeyPress);
                 break;
             case PLAYING:
@@ -47,7 +47,8 @@ public class MainControls extends KeyAdapter {
                 handleEndGameKeyPress(newKeyPress);
                 break;
         }
-        System.out.println("Keys Pressed: " + pressedKeys.stream().map(i -> (char) i.intValue()).collect(Collectors.toList()));
+        System.out.println(
+                "Keys Pressed: " + pressedKeys.stream().map(i -> (char) i.intValue()).collect(Collectors.toList()));
         System.out.println(game);
     }
 
@@ -96,7 +97,14 @@ public class MainControls extends KeyAdapter {
                 case KeyEvent.VK_W -> player1.throwCardToPile(1, piles);
                 case KeyEvent.VK_E -> player1.throwCardToPile(2, piles);
                 case KeyEvent.VK_R -> player1.throwCardToPile(3, piles);
-                case KeyEvent.VK_S -> game.stress(player1, player2);            
+                case KeyEvent.VK_S -> game.stress(player1, player2);
+            }
+        } else {
+            // else plays invalid sound
+            switch (newKeyPress) {
+                case KeyEvent.VK_Q, KeyEvent.VK_W, KeyEvent.VK_E, KeyEvent.VK_R, KeyEvent.VK_S:
+                    Sounds.invalidSound();
+                    break;
             }
         }
 
@@ -107,7 +115,14 @@ public class MainControls extends KeyAdapter {
                 case KeyEvent.VK_I -> player2.throwCardToPile(1, piles);
                 case KeyEvent.VK_O -> player2.throwCardToPile(2, piles);
                 case KeyEvent.VK_P -> player2.throwCardToPile(3, piles);
-                case KeyEvent.VK_K -> game.stress(player2, player1); 
+                case KeyEvent.VK_K -> game.stress(player2, player1);
+            }
+        } else {
+            //// else plays invalid sound
+            switch (newKeyPress) {
+                case KeyEvent.VK_U, KeyEvent.VK_I, KeyEvent.VK_O, KeyEvent.VK_P, KeyEvent.VK_K:
+                    Sounds.invalidSound();
+                    break;
             }
         }
         game.updateGameState();
