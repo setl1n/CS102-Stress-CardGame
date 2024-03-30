@@ -75,12 +75,12 @@ public class Game {
 
         if (isPlayer1HandEmpty && !isPlayer2HandEmpty) {
             Sounds.endSound();
-            Overlays.renderGameTransition(gamePanel, player1);
+            Overlays.renderGameTransition(gamePanel, player1.getName());
             gameState = GameState.END;
 
         } else if (isPlayer2HandEmpty && !isPlayer1HandEmpty) {
             Sounds.endSound();
-            Overlays.renderGameTransition(gamePanel, player2);
+            Overlays.renderGameTransition(gamePanel, player2.getName());
             gameState = GameState.END;
 
         } else if (areBothPlayersOutOfMoves()) {
@@ -134,7 +134,7 @@ public class Game {
 
         if (GameLogicUtils.isValidStress(piles)) {
             gameState = GameState.STRESS;
-            Overlays.renderStressTransition(gamePanel, opponent);
+            Overlays.renderStressTransition(gamePanel, opponent.getName());
             Sounds.stressSound();
             // Change gamestate to re-enable inputs after animation
             Timer timer = new Timer(3000, e -> {
@@ -143,7 +143,7 @@ public class Game {
             timer.setRepeats(false);
             timer.start();
 
-            Timer changeCardsWhenAnimationHideScreen = new Timer(2500, e -> {
+            Timer changeCardsWhenAnimationHideScreen = new Timer(2000, e -> {
                 // add pile to loser's hand
                 for (Pile p : piles) {
                     opponentDeck.transfer(p);

@@ -89,22 +89,13 @@ public final class Overlays {
         }
     }
 
-    public static void renderGIF(JPanel targetPanel, Player player, String gifPath, int duration,
+    public static void renderGIF(JPanel targetPanel, String gifPath, int duration,
             boolean loadImageAfter) {
         JFrame frame = (JFrame) SwingUtilities.getAncestorOfClass(JFrame.class, targetPanel);
         if (frame == null) {
             System.err.println("No enclosing JFrame found for the target panel.");
             return;
         }
-
-        if (player == null) {
-            gifPath += ".gif";
-        } else if ("Player 1".equals(player.getName())) {
-            gifPath += "red.gif";
-        } else {
-            gifPath += "blue.gif";
-        }
-
         URL gifUrl = GUIUtility.class.getResource(gifPath);
         if (gifUrl == null) {
             System.err.println("GIF file not found: " + gifPath);
@@ -155,45 +146,55 @@ public final class Overlays {
     }
 
     private static void showLockoutTransition(JPanel targetPanel, String playerName, int duration) {
-        String transitionPath = "/assets/transition";
-        if (playerName == null) {
-            transitionPath += ".png";
-        } else if (playerName.equals("Player 1")) {
-            transitionPath += "red.png";
-        } else {
-            transitionPath += "blue.png";
-        }
-        renderImage(targetPanel, transitionPath, duration);
+        final String transitionPath = "/assets/transition";
+        final String filePath = processPath(transitionPath, playerName, false);
+        renderImage(targetPanel, filePath, duration);
     }
 
     public static void renderHelpDialog(JPanel targetPanel) {
-        String path = "/assets/dialog.png";
-        renderImage(targetPanel, path, 0);
+        final String assetPath = "/assets/dialog";
+        final String filePath = processPath(assetPath, null, false);
+        renderImage(targetPanel, filePath, 0);
     }
 
     public static void renderTimeoutTransition(JPanel targetPanel) {
-        final int gifDuration = 3200;
-        final String gifPath = "/assets/timeout";
-
-        renderGIF(targetPanel, null, gifPath, gifDuration, true);
+        final int duration = 3200;
+        final String assetPath = "/assets/timeout";
+        final String filePath = processPath(assetPath, null, true);
+        renderGIF(targetPanel, filePath, duration, true);
     }
 
     public static void renderTieTransition(JPanel targetPanel) {
-        final int gifDuration = 3200;
-        final String gifPath = "/assets/tie";
-
-        renderGIF(targetPanel, null, gifPath, gifDuration, true);
-    }
-
-    public static void renderStressTransition(JPanel targetPanel, Player player) {
-        final int duration = 3000;
-        final String gifPath = "/assets/stress";
-        renderGIF(targetPanel, player, gifPath, duration, false);
-    }
-
-    public static void renderGameTransition(JPanel targetPanel, Player player) {
         final int duration = 3200;
-        final String gifPath = "/assets/game";
-        renderGIF(targetPanel, player, gifPath, duration, true);
+        final String assetPath = "/assets/tie";
+        final String filePath = processPath(assetPath, null, true);
+        renderGIF(targetPanel, filePath, duration, true);
+    }
+
+    public static void renderStressTransition(JPanel targetPanel, String playerName) {
+        final int duration = 3000;
+        final String assetPath = "/assets/stress";
+        final String filePath = processPath(assetPath, playerName, true);
+        renderGIF(targetPanel, filePath, duration, false);
+    }
+
+    public static void renderGameTransition(JPanel targetPanel, String playerName) {
+        final int duration = 3200;
+        final String assetPath = "/assets/game";
+        final String filePath = processPath(assetPath, playerName, true);
+        renderGIF(targetPanel, filePath, duration, true);
+    }
+    
+    private static String processPath(String path, String playerName, boolean isGif) {
+        String playerPath = "";
+        if (playerName == null) {
+            playerPath += "";
+        } else if (playerName.equals("Player 1")) {
+            playerPath += "red";
+        } else {
+            playerPath += "blue";
+        }
+        String extension = isGif ? ".gif" :".png";
+        return path + playerPath + extension;
     }
 }
