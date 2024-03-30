@@ -7,8 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import controls.MainControls;
-import gui.gamecontainer.GamePanel;
-import gui.startcontainer.IntroPanel;
+import gui.panels.GamePanel;
+import gui.panels.IntroPanel;
 import game.Game;
 import game.GameState;
 
@@ -29,22 +29,10 @@ public class MainGUI extends JFrame {
         setFocusable(true);
         requestFocusInWindow();
 
-        mainPanel.add(new IntroPanel("/assets/intro.gif"), "GIFIntro");
-        mainPanel.add(new IntroPanel("/assets/intro2.png"), "PNGIntro");
+        mainPanel.add(new IntroPanel("/assets/intro"), "Intro");
         mainPanel.add(new GamePanel(game), "Game");
 
         setContentPane(mainPanel);
-        changeGIFtoPNGAftAnimation(game);
-    }
-
-    private void changeGIFtoPNGAftAnimation(Game game) {
-        Timer timer = new Timer(2500, e -> {
-            if (game.getGameState() == GameState.START_SCREEN) {
-                cardLayout.show(mainPanel, "PNGIntro");
-            }
-        });
-        timer.setRepeats(false);
-        timer.start();
     }
 
     public void changeToPanel(String panelName) {

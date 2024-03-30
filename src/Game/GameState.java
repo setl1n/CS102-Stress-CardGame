@@ -5,8 +5,6 @@ public enum GameState {
     OPEN_FIRST_CARDS,
     PLAYING,
     STRESS,
-    STALEMATE,
-    PLAYER1_WINS,
-    PLAYER2_WINS,
+    END,
     NO_VALID_MOVES;
 }

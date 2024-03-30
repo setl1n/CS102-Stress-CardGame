@@ -7,8 +7,8 @@ import java.util.Collections;
 import javax.swing.ImageIcon;
 
 import cardcollections.deckcomponents.*;
-import gui.gamecontainer.playercontainer.NumPanel;
 import cardcollections.deckcomponents.cardcomponents.*;
+import gui.panels.gamecontainer.playercontainer.NumPanel;
 
 public class Deck extends CardCollection {
     private Image deckImage;

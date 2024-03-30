@@ -10,6 +10,8 @@ public final class SoundUtility {
     private SoundUtility() {}
 
     private static Clip currentClip;
+    private static long clipPosition;
+    private static boolean loop;
 
     /*
      * SOUND ASSET METHODS
@@ -28,11 +30,33 @@ public final class SoundUtility {
     }
 
     public static void stressSound() {
-        playSound("/assets/redstress.wav", false, true);
+        playSound("/assets/stress.wav", false, true);
     }
 
     public static void invalidSound() {
         playSound("/assets/disable.wav", false, true);
+    }
+
+    public static void endSound() {
+        playSound("/assets/end.wav", false, false);
+    }
+
+    public static void pauseClip() {
+        if (currentClip != null && currentClip.isRunning()) {
+            clipPosition = currentClip.getMicrosecondPosition(); // Save the current position
+            currentClip.stop(); // Pause the clip
+        }
+    }
+
+    public static void resumeBgm() {
+        if (currentClip != null && !currentClip.isRunning()) {
+            currentClip.setMicrosecondPosition(clipPosition);
+            if (loop) {
+                currentClip.loop(Clip.LOOP_CONTINUOUSLY);
+            } else {
+                currentClip.start();
+            }
+        }
     }
 
     /*
@@ -50,17 +74,18 @@ public final class SoundUtility {
         return clip;
     }
 
-    public static void playSound(String audioPath, boolean loop, boolean overlap) {
+    public static void playSound(String audioPath, boolean loopC, boolean overlap) {
+        loop = loopC;
         try {
             Clip clip = loadAudioClip(audioPath);
 
             if (!overlap && currentClip != null && !clip.equals(currentClip)) {
                 currentClip.stop();
             }
-            currentClip = clip;
 
             if (loop) {
                 clip.loop(Clip.LOOP_CONTINUOUSLY); // Loop the clip continuously
+                currentClip = clip;
             } else {
                 clip.start(); // Play the clip once
             }

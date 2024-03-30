@@ -1,8 +1,8 @@
 package player;
 
 import gui.*;
-import gui.gamecontainer.pilecontainer.*;
-import gui.gamecontainer.playercontainer.*;
+import gui.panels.gamecontainer.pilecontainer.*;
+import gui.panels.gamecontainer.playercontainer.*;
 
 import java.io.*;
 import game.*;
@@ -24,7 +24,7 @@ public class Player {
     public Player(String name, Deck deck) {
         this.name = name;
         this.deck = deck;
-        drawFourCards();
+        drawFourCards(false);
         targetPileIndex = 0;
     }
 
@@ -61,22 +61,26 @@ public class Player {
         if (playerPanel != null) {
             playerPanel.updateAll();
         }
-        SoundUtility.cardSound();
-    }
-
-    public void drawFourCards() {
-        for (int i = 0; i < 4; i++) {
-            drawCard();
+        if (playAudio) {
+            SoundUtility.cardSound();
         }
     }
 
-    public void openCardToPile(Pile pileToOpenTo) {
+    public void drawFourCards(boolean playAudio) {
+        for (int i = 0; i < 4; i++) {
+            drawCard(playAudio);
+        }
+    }
+
+    public void openCardToPile(Pile pileToOpenTo, boolean playAudio) {
         pileToOpenTo.add(deck.popTopCard());
         if (playerPanel != null) {
             playerPanel.repaint();
             playerPanel.updateAll();
         }
-        SoundUtility.cardSound();
+        if (playAudio) {
+            SoundUtility.cardSound();
+        }
     }
 
     public void throwCardToPile(int index, Pile[] piles) {
@@ -85,13 +89,12 @@ public class Player {
 
         if (GameLogicUtils.isValidThrow(hand.getCardAtIndex(index), topCardOfPile)) {
 
-            GUIUtility.renderCardTransition(playerPanel.getCardPanelAtIndex(index), this, "/assets/transition");
-            GUIUtility.renderCardTransition(targetPile.getPilePanel(), this, "/assets/transition");
+            Overlays.renderCardTransition(playerPanel.getCardPanelAtIndex(index), this, "/assets/transition");
+            Overlays.renderCardTransition(targetPile.getPilePanel(), this, "/assets/transition");
             Card thrownCard = hand.popCardAtIndex(index);
             targetPile.add(thrownCard);
-            
-            drawCard();
-            SoundUtility.cardSound(); // Play sound after moving the card
+
+            drawCard(true);
 
             if (playerPanel != null) {
                 playerPanel.updateAll();
@@ -133,7 +136,6 @@ public class Player {
     public void setIndicatorPanel(IndicatorPanel indicatorPanel) {
         this.indicatorPanel = indicatorPanel;
     }
-
 
     @Override
     public String toString() {

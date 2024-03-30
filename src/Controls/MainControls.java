@@ -6,6 +6,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+
 import cardcollections.*;
 import gui.*;
 import game.Game;
@@ -20,6 +23,7 @@ public class MainControls extends KeyAdapter {
     public MainControls(Game game, MainGUI GUI) {
         this.game = game;
         this.GUI = GUI;
+        SoundUtility.menuSound();
     }
 
     @Override
@@ -30,22 +34,21 @@ public class MainControls extends KeyAdapter {
             case START_SCREEN:
                 handleStartScreenKeyPress(newKeyPress);
                 break;
-            case OPEN_FIRST_CARDS:
-                handleOpenFirstCardsKeyPress();
+            case OPEN_FIRST_CARDS,NO_VALID_MOVES:
+                handleOpenCardsKeyPress(newKeyPress);
                 break;
             case PLAYING:
                 handlePlayingKeyPress(newKeyPress);
                 break;
-            case STRESS, NO_VALID_MOVES:
-                handleStressNoValidMovesKeyPress(newKeyPress);
+            case STRESS:
+                handleStressKeyPress(newKeyPress);
                 break;
-            case STALEMATE, PLAYER1_WINS, PLAYER2_WINS:
+            case END:
                 handleEndGameKeyPress(newKeyPress);
                 break;
         }
         System.out.println("Keys Pressed: " + pressedKeys.stream().map(i -> (char) i.intValue()).collect(Collectors.toList()));
         System.out.println(game);
-        game.updateGameState();
     }
 
     private void handleStartScreenKeyPress(int newKeyPress) {
@@ -56,10 +59,20 @@ public class MainControls extends KeyAdapter {
         }
     }
 
-    private void handleOpenFirstCardsKeyPress() {
+    private void handleOpenCardsKeyPress(int newKeyPress) {
+        Player player1 = game.getPlayer1();
+        Player player2 = game.getPlayer2();
+        switch (newKeyPress) {
+            case KeyEvent.VK_A -> player1.setTargetPileIndex(0);
+            case KeyEvent.VK_D -> player1.setTargetPileIndex(1);
+            case KeyEvent.VK_J -> player2.setTargetPileIndex(0);
+            case KeyEvent.VK_L -> player2.setTargetPileIndex(1);
+        }
         if (pressedKeys.contains(KeyEvent.VK_S) && pressedKeys.contains(KeyEvent.VK_K)) {
             game.openCardsFromDeck();
             game.setGameState(GameState.PLAYING);
+            Overlays.clear();
+            SoundUtility.resumeBgm();
         }
     }
 
@@ -97,9 +110,10 @@ public class MainControls extends KeyAdapter {
                 case KeyEvent.VK_K -> game.stress(player2, player1); 
             }
         }
+        game.updateGameState();
     }
 
-    private void handleStressNoValidMovesKeyPress(int newKeyPress) {
+    private void handleStressKeyPress(int newKeyPress) {
         Player player1 = game.getPlayer1();
         Player player2 = game.getPlayer2();
         switch (newKeyPress) {
@@ -108,14 +122,10 @@ public class MainControls extends KeyAdapter {
             case KeyEvent.VK_J -> player2.setTargetPileIndex(0);
             case KeyEvent.VK_L -> player2.setTargetPileIndex(1);
         }
-        if (pressedKeys.contains(KeyEvent.VK_S) && pressedKeys.contains(KeyEvent.VK_K)) {
-            game.openCardsFromDeck();
-            game.setGameState(GameState.PLAYING);
-        }
     }
 
     private void handleEndGameKeyPress(int newKeyPress) {
-        if (newKeyPress == KeyEvent.VK_PERIOD) {
+        if (newKeyPress == KeyEvent.VK_ESCAPE) {
             GUI.dispose();
         }
     }
