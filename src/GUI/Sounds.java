@@ -7,11 +7,11 @@ import javax.sound.sampled.Clip;
 
 public final class Sounds {
 
-    private Sounds() {}
+    private Sounds() {
+    }
 
     private static Clip currentClip;
     private static long clipPosition;
-    private static boolean loop;
 
     /*
      * SOUND ASSET METHODS
@@ -51,16 +51,11 @@ public final class Sounds {
     public static void resumeBgm() {
         if (currentClip != null && !currentClip.isRunning()) {
             currentClip.setMicrosecondPosition(clipPosition);
-            if (loop) {
-                currentClip.loop(Clip.LOOP_CONTINUOUSLY);
-            } else {
-                currentClip.start();
-            }
+            currentClip.loop(Clip.LOOP_CONTINUOUSLY);
         }
     }
 
-    public static void playSound(String audioPath, boolean loopC, boolean overlap) {
-        loop = loopC;
+    public static void playSound(String audioPath, boolean loop, boolean overlap) {
         try {
             Clip clip = GUIUtility.loadAudioClip(audioPath);
 
