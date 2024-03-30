@@ -62,7 +62,7 @@ public class Player {
             playerPanel.updateAll();
         }
         if (playAudio) {
-            SoundUtility.cardSound();
+            Sounds.cardSound();
         }
     }
 
@@ -79,7 +79,7 @@ public class Player {
             playerPanel.updateAll();
         }
         if (playAudio) {
-            SoundUtility.cardSound();
+            Sounds.cardSound();
         }
     }
 
@@ -101,7 +101,7 @@ public class Player {
             }
 
         } else {
-            SoundUtility.invalidSound();
+            Sounds.invalidSound();
             // Penalty for invalid throwing card to pile: 3 seconds
             System.out.println("INVALID MOVE, actions frozen for 3s");
             blockFor(3000);

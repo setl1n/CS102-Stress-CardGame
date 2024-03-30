@@ -23,7 +23,7 @@ public class MainControls extends KeyAdapter {
     public MainControls(Game game, MainGUI GUI) {
         this.game = game;
         this.GUI = GUI;
-        SoundUtility.menuSound();
+        Sounds.menuSound();
     }
 
     @Override
@@ -54,7 +54,7 @@ public class MainControls extends KeyAdapter {
     private void handleStartScreenKeyPress(int newKeyPress) {
         if (newKeyPress == KeyEvent.VK_SPACE) {
             GUI.changeToPanel("Game");
-            SoundUtility.bgmSound();
+            Sounds.bgmSound();
             game.setGameState(GameState.OPEN_FIRST_CARDS);
         }
     }
@@ -72,7 +72,7 @@ public class MainControls extends KeyAdapter {
             game.openCardsFromDeck();
             game.setGameState(GameState.PLAYING);
             Overlays.clear();
-            SoundUtility.resumeBgm();
+            Sounds.resumeBgm();
         }
     }
 

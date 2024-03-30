@@ -5,9 +5,9 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-public final class SoundUtility {
+public final class Sounds {
 
-    private SoundUtility() {}
+    private Sounds() {}
 
     private static Clip currentClip;
     private static long clipPosition;
@@ -64,7 +64,7 @@ public final class SoundUtility {
      */
 
     private static Clip loadAudioClip(String audioPath) throws Exception {
-        URL audioUrl = SoundUtility.class.getResource(audioPath);
+        URL audioUrl = Sounds.class.getResource(audioPath);
         if (audioUrl == null) {
             throw new RuntimeException("Audio file not found: " + audioPath);
         }

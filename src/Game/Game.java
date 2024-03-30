@@ -6,7 +6,7 @@ import javax.swing.Timer;
 import cardcollections.Deck;
 import cardcollections.Pile;
 import gui.Overlays;
-import gui.SoundUtility;
+import gui.Sounds;
 import player.Player;
 
 public class Game {
@@ -70,12 +70,12 @@ public class Game {
         boolean isPlayer2HandEmpty = player2.getHand().isEmpty();
 
         if (isPlayer1HandEmpty && !isPlayer2HandEmpty) {
-            SoundUtility.endSound();
+            Sounds.endSound();
             Overlays.renderGameTransition(gamePanel, player1);
             gameState = GameState.END;
 
         } else if (isPlayer2HandEmpty && !isPlayer1HandEmpty) {
-            SoundUtility.endSound();
+            Sounds.endSound();
             Overlays.renderGameTransition(gamePanel, player2);
             gameState = GameState.END;
 
@@ -84,11 +84,11 @@ public class Game {
             if (doBothPlayersHaveAtLeast1CardInDeck() || doesPlayer1HaveAtLeast2CardsInDeck()
                     || doesPlayer2HaveAtLeast2CardsInDeck()) {
                         Overlays.renderTimeoutTransition(gamePanel);
-                SoundUtility.pauseClip();
+                Sounds.pauseClip();
                 gameState = GameState.NO_VALID_MOVES;
 
             } else {
-                SoundUtility.endSound();
+                Sounds.endSound();
                 Overlays.renderTieTransition(gamePanel);
                 gameState = GameState.END;
             }
@@ -131,7 +131,7 @@ public class Game {
         if (GameLogicUtils.isValidStress(piles)) {
             gameState = GameState.STRESS;
             Overlays.renderStressTransition(gamePanel, opponent);
-            SoundUtility.stressSound();
+            Sounds.stressSound();
             // Change gamestate temporarily to lock user's inputs
             int delay = 3000;
             Timer timer = new Timer(delay, e -> {
