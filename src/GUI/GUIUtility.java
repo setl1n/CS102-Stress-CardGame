@@ -1,5 +1,7 @@
 package gui;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.net.URL;
 
@@ -8,6 +10,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import cardcollections.Deck;
 import cardcollections.deckcomponents.Card;
@@ -91,4 +94,17 @@ public final class GUIUtility {
         return clip;
     }
 
+    static JPanel initialiseGlassPane(ImageIcon imageIcon){
+        return new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                // Overlay a semi-transparent color to darken the screen
+                g.setColor(new Color(0, 0, 0, 123)); // Adjust the alpha value for desired darkness
+                g.fillRect(0, 0, getWidth(), getHeight());
+                // Set the size of the icon to fill the whole glass pane
+                g.drawImage(imageIcon.getImage(), 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+    }
 }

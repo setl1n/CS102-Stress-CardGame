@@ -1,12 +1,8 @@
 package gui;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.net.URL;
 
-import javax.print.attribute.standard.JobKOctetsSupported;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,10 +18,23 @@ public final class Overlays {
 
     private static JFrame gameFrame;
     private static JLabel gameLabel;
+    private static JPanel onGoingPane;
     private static Timer activeTimer;
 
     public static void clear() {
         cancelActiveTimer(); // Cancel any active timer
+        cutCurrentAnimationIfAny();
+        clearStaticImagesIfAny();
+    }
+
+    private static void cutCurrentAnimationIfAny() {
+        if (onGoingPane != null) {
+            onGoingPane.setVisible(false);
+            onGoingPane = null;
+        }
+    }
+
+    private static void clearStaticImagesIfAny() {
         if (gameFrame != null && gameLabel != null) {
             JLayeredPane jLayeredPane = gameFrame.getLayeredPane();
             jLayeredPane.remove(gameLabel);
@@ -87,7 +96,6 @@ public final class Overlays {
             System.err.println("No enclosing JFrame found for the target panel.");
             return;
         }
-        gameFrame = frame;
 
         if (player == null) {
             gifPath += ".gif";
@@ -105,29 +113,20 @@ public final class Overlays {
         ImageIcon gifIcon = new ImageIcon(gifUrl);
 
         // Create a new JPanel that acts as the glass pane
-        JPanel glassPane = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                // Overlay a semi-transparent color to darken the screen
-                g.setColor(new Color(0, 0, 0, 123)); // Adjust the alpha value for desired darkness
-                g.fillRect(0, 0, getWidth(), getHeight());
-                // Set the size of the icon to fill the whole glass pane
-                g.drawImage(gifIcon.getImage(), 0, 0, getWidth(), getHeight(), this);
-            }
-        };
+        JPanel glassPane = GUIUtility.initialiseGlassPane(gifIcon);
         glassPane.setOpaque(false); // Make the glass pane transparent
         glassPane.setLayout(null); // No layout manager
 
         frame.setGlassPane(glassPane);
 
         glassPane.setVisible(true); // Activate the glass pane to show the animation
-
+        onGoingPane = glassPane;
         // Forces garbage collection to ensure proper looping
         gifIcon.getImage().flush();
 
         // Timer to remove the animation and hide the glass pane after a delay
         Timer timer = new Timer(3200, e -> {
+            onGoingPane = null;
             glassPane.setVisible(false);
             frame.repaint();
         });
@@ -138,7 +137,7 @@ public final class Overlays {
         final String newPath = gifPath.replace(".gif", ".png");
         Timer loadImageTimer = new Timer(3200, e -> {
             if (loadImageAfter)
-            renderImage(targetPanel, newPath, 0);
+                renderImage(targetPanel, newPath, 0);
         });
         loadImageTimer.setRepeats(false);
         loadImageTimer.start();
