@@ -71,8 +71,7 @@ public class MainControls extends KeyAdapter {
         if (pressedKeys.contains(KeyEvent.VK_S) && pressedKeys.contains(KeyEvent.VK_K)) {
             game.openCardsFromDeck();
             game.setGameState(GameState.PLAYING);
-            System.out.println("ATTEMPTING TO CLEAR");
-            GUIUtility.clearGlassPane();
+            Overlays.clear();
             SoundUtility.resumeBgm();
         }
     }

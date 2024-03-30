@@ -10,9 +10,9 @@ public class IntroPanel extends JPanel {
     private String imagePath;
     private Timer timer;
 
-    public IntroPanel(String gifPath, String imagePath) {
-        this.gifPath = gifPath;
-        this.imagePath = imagePath;
+    public IntroPanel(String path) {
+        this.gifPath = path + ".gif";
+        this.imagePath = path + ".png";
         this.setOpaque(false);
         loadImage(gifPath);
         setupTimer();

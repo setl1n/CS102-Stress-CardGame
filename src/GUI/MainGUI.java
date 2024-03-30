@@ -29,9 +29,8 @@ public class MainGUI extends JFrame {
         setFocusable(true);
         requestFocusInWindow();
 
-        mainPanel.add(new IntroPanel("/assets/intro.gif", "/assets/intro2.png"), "Intro");
+        mainPanel.add(new IntroPanel("/assets/intro"), "Intro");
         mainPanel.add(new GamePanel(game), "Game");
-
 
         setContentPane(mainPanel);
     }

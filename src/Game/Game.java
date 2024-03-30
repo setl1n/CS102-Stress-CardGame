@@ -5,7 +5,7 @@ import javax.swing.Timer;
 
 import cardcollections.Deck;
 import cardcollections.Pile;
-import gui.GUIUtility;
+import gui.Overlays;
 import gui.SoundUtility;
 import player.Player;
 
@@ -71,35 +71,29 @@ public class Game {
 
         if (isPlayer1HandEmpty && !isPlayer2HandEmpty) {
             SoundUtility.endSound();
-            GUIUtility.renderGameTransition(gamePanel, player1);
+            Overlays.renderGameTransition(gamePanel, player1);
             gameState = GameState.END;
 
         } else if (isPlayer2HandEmpty && !isPlayer1HandEmpty) {
             SoundUtility.endSound();
-            GUIUtility.renderGameTransition(gamePanel, player2);
+            Overlays.renderGameTransition(gamePanel, player2);
             gameState = GameState.END;
 
         } else if (areBothPlayersOutOfMoves()) {
 
             if (doBothPlayersHaveAtLeast1CardInDeck() || doesPlayer1HaveAtLeast2CardsInDeck()
                     || doesPlayer2HaveAtLeast2CardsInDeck()) {
-                GUIUtility.renderTimeoutTransition(gamePanel);
+                        Overlays.renderTimeoutTransition(gamePanel);
                 SoundUtility.pauseClip();
                 gameState = GameState.NO_VALID_MOVES;
 
             } else {
                 SoundUtility.endSound();
-                GUIUtility.renderTieTransition(gamePanel);
+                Overlays.renderTieTransition(gamePanel);
                 gameState = GameState.END;
             }
         }
     }
-
-    // public void end() {
-    // System.out.println("Press spacebar to play a new game! Else, press '.' to
-    // exit.");
-
-    // }
 
     public Pile getPile(int index) {
         return piles[index];
@@ -136,7 +130,7 @@ public class Game {
 
         if (GameLogicUtils.isValidStress(piles)) {
             gameState = GameState.STRESS;
-            GUIUtility.renderStressTransition(gamePanel, opponent);
+            Overlays.renderStressTransition(gamePanel, opponent);
             SoundUtility.stressSound();
             // Change gamestate temporarily to lock user's inputs
             int delay = 3000;

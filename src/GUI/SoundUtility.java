@@ -11,6 +11,7 @@ public final class SoundUtility {
 
     private static Clip currentClip;
     private static long clipPosition;
+    private static boolean loop;
 
     /*
      * SOUND ASSET METHODS
@@ -50,7 +51,11 @@ public final class SoundUtility {
     public static void resumeBgm() {
         if (currentClip != null && !currentClip.isRunning()) {
             currentClip.setMicrosecondPosition(clipPosition);
-            currentClip.start();
+            if (loop) {
+                currentClip.loop(Clip.LOOP_CONTINUOUSLY);
+            } else {
+                currentClip.start();
+            }
         }
     }
 
@@ -69,7 +74,8 @@ public final class SoundUtility {
         return clip;
     }
 
-    public static void playSound(String audioPath, boolean loop, boolean overlap) {
+    public static void playSound(String audioPath, boolean loopC, boolean overlap) {
+        loop = loopC;
         try {
             Clip clip = loadAudioClip(audioPath);
 
