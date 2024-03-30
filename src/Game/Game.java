@@ -83,7 +83,7 @@ public class Game {
 
             if (doBothPlayersHaveAtLeast1CardInDeck() || doesPlayer1HaveAtLeast2CardsInDeck()
                     || doesPlayer2HaveAtLeast2CardsInDeck()) {
-                        Overlays.renderTimeoutTransition(gamePanel);
+                Overlays.renderTimeoutTransition(gamePanel);
                 Sounds.pauseClip();
                 gameState = GameState.NO_VALID_MOVES;
 
@@ -132,22 +132,24 @@ public class Game {
             gameState = GameState.STRESS;
             Overlays.renderStressTransition(gamePanel, opponent);
             Sounds.stressSound();
-            // Change gamestate temporarily to lock user's inputs
-            int delay = 3000;
-            Timer timer = new Timer(delay, e -> {
+            // Change gamestate to re-enable inputs after animation
+            Timer timer = new Timer(3000, e -> {
                 gameState = GameState.PLAYING;
             });
             timer.setRepeats(false);
             timer.start();
 
-            // add pile to loser's hand
-            for (Pile p : piles) {
-                opponentDeck.transfer(p);
-            }
-            opponentDeck.shuffle();
-            opponent.drawFourCards(false);
-            openCardsFromDeck();
-
+            Timer changeCardsWhenAnimationHideScreen = new Timer(2500, e -> {
+                // add pile to loser's hand
+                for (Pile p : piles) {
+                    opponentDeck.transfer(p);
+                }
+                opponentDeck.shuffle();
+                opponent.drawFourCards(false);
+                openCardsFromDeck();
+            });
+            changeCardsWhenAnimationHideScreen.setRepeats(false);
+            changeCardsWhenAnimationHideScreen.start();
         } else {
             // Penalty for invalid throwing card to pile: 2 seconds
             System.out.println("Invalid Stress, blocked for 2s");
