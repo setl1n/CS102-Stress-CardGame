@@ -59,25 +59,10 @@ public final class Sounds {
         }
     }
 
-    /*
-     * SOUND PLAYING METHODS
-     */
-
-    private static Clip loadAudioClip(String audioPath) throws Exception {
-        URL audioUrl = Sounds.class.getResource(audioPath);
-        if (audioUrl == null) {
-            throw new RuntimeException("Audio file not found: " + audioPath);
-        }
-        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioUrl);
-        Clip clip = AudioSystem.getClip();
-        clip.open(audioInputStream);
-        return clip;
-    }
-
     public static void playSound(String audioPath, boolean loopC, boolean overlap) {
         loop = loopC;
         try {
-            Clip clip = loadAudioClip(audioPath);
+            Clip clip = GUIUtility.loadAudioClip(audioPath);
 
             if (!overlap && currentClip != null && !clip.equals(currentClip)) {
                 currentClip.stop();

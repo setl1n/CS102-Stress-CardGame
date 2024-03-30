@@ -3,11 +3,18 @@ package gui;
 import java.awt.Image;
 import java.net.URL;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import cardcollections.Deck;
 import cardcollections.deckcomponents.Card;
+
+/*
+ *  Methods for loading audio and visual elements
+ */
 
 public final class GUIUtility {
     private static Image renderImage(String imagepath, String nullpath, int width, int height) {
@@ -66,6 +73,22 @@ public final class GUIUtility {
         Image image = deck.getDeckImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
         label.setIcon(new ImageIcon(image));
         label.repaint();
+    }
+
+
+    /*
+     * SOUND PLAYING METHODS
+     */
+
+    protected static Clip loadAudioClip(String audioPath) throws Exception {
+        URL audioUrl = Sounds.class.getResource(audioPath);
+        if (audioUrl == null) {
+            throw new RuntimeException("Audio file not found: " + audioPath);
+        }
+        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioUrl);
+        Clip clip = AudioSystem.getClip();
+        clip.open(audioInputStream);
+        return clip;
     }
 
 }
