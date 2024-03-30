@@ -10,7 +10,6 @@ import controls.MainControls;
 import gui.panels.GamePanel;
 import gui.panels.IntroPanel;
 import game.Game;
-import game.GameState;
 
 public class MainGUI extends JFrame {
 
