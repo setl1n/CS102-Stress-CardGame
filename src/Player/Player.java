@@ -56,7 +56,7 @@ public class Player {
         this.blockUntil = System.currentTimeMillis() + milliseconds;
     }
 
-    private void drawCard() {
+    private void drawCard(boolean playAudio) {
         hand.drawCard(deck);
         if (playerPanel != null) {
             playerPanel.updateAll();
