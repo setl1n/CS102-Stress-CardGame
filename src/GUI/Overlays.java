@@ -16,10 +16,10 @@ import player.Player;
 
 public final class Overlays {
 
-    private static JFrame gameFrame;
-    private static JLabel gameLabel;
+    private static JFrame onGoingFrame;
+    private static JLabel onGoingLabel;
     private static JPanel onGoingPane;
-    private static Timer activeTimer;
+    private static Timer onGoingTimer;
 
     public static void clear() {
         cancelActiveTimer(); // Cancel any active timer
@@ -35,19 +35,19 @@ public final class Overlays {
     }
 
     private static void clearStaticImagesIfAny() {
-        if (gameFrame != null && gameLabel != null) {
-            JLayeredPane jLayeredPane = gameFrame.getLayeredPane();
-            jLayeredPane.remove(gameLabel);
+        if (onGoingFrame != null && onGoingLabel != null) {
+            JLayeredPane jLayeredPane = onGoingFrame.getLayeredPane();
+            jLayeredPane.remove(onGoingLabel);
             jLayeredPane.repaint();
-            gameFrame = null;
-            gameLabel = null;
+            onGoingFrame = null;
+            onGoingLabel = null;
         }
     }
 
     private static void cancelActiveTimer() {
-        if (activeTimer != null) {
-            activeTimer.stop();
-            activeTimer = null;
+        if (onGoingTimer != null) {
+            onGoingTimer.stop();
+            onGoingTimer = null;
         }
     }
 
@@ -65,8 +65,8 @@ public final class Overlays {
             return;
         }
         JLabel imgLabel = new JLabel(new ImageIcon(imgUrl));
-        gameFrame = frame;
-        gameLabel = imgLabel;
+        onGoingFrame = frame;
+        onGoingLabel = imgLabel;
 
         imgLabel.setOpaque(false);
         Rectangle bounds = SwingUtilities.convertRectangle(targetPanel.getParent(), targetPanel.getBounds(),
@@ -141,7 +141,7 @@ public final class Overlays {
         });
         loadImageTimer.setRepeats(false);
         loadImageTimer.start();
-        activeTimer = loadImageTimer;
+        onGoingTimer = loadImageTimer;
     }
 
     public static void renderCardTransition(JPanel targetPanel, String playerName) {
