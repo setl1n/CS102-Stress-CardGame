@@ -149,9 +149,9 @@ public class Game {
             openCardsFromDeck();
 
         } else {
-            // Penalty for invalid throwing card to pile: 5 seconds
-            System.out.println("Invalid Stress, blocked for 5s");
-            actionPlayer.blockFor(5000);
+            // Penalty for invalid throwing card to pile: 2 seconds
+            System.out.println("Invalid Stress, blocked for 2s");
+            actionPlayer.blockFor(2000);
         }
     }
 

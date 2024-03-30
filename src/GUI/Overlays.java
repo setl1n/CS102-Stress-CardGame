@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
+import gui.panels.gamecontainer.playercontainer.PlayerPanel;
 import player.Player;
 
 public final class Overlays {
@@ -124,16 +125,28 @@ public final class Overlays {
         timer.start();
     }
 
-    public static void renderCardTransition(JPanel targetPanel, Player player, String gifPath) {
-        if (player == null) {
-            gifPath += "";
-        } else if ("Player 1".equals(player.getName())) {
+    public static void renderCardTransition(JPanel targetPanel, String playerName) {
+        showLockoutTransition(targetPanel, playerName, 100);
+    }
+    
+    public static void blockedFor(PlayerPanel playerPanel, int milliseconds) {
+        for (JPanel cardPanel : playerPanel.getCardPanels()) {
+            showLockoutTransition(cardPanel, null, milliseconds);
+        }
+    }
+    
+    private static void showLockoutTransition(JPanel targetPanel, String playerName, int duration) {
+        String gifPath = "/assets/transition";
+        if (playerName == null) {
+            gifPath += ".png";
+        }  else if (playerName.equals("Player 1")) {
             gifPath += "red.png";
         } else {
             gifPath += "blue.png";
         }
-        renderImage(targetPanel, gifPath, 100);
+        renderImage(targetPanel, gifPath, duration);
     }
+
 
     public static void renderTimeoutTransition(JPanel targetPanel) {
         final int gifDuration = 3200;

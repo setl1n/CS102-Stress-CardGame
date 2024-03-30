@@ -89,6 +89,8 @@ public class PlayerPanel extends JPanel {
         }
     }
 
-
+    public ArrayList<CardPanel> getCardPanels() {
+        return cardPanels;
+    }
 }
 

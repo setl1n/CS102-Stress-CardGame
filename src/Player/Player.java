@@ -1,13 +1,13 @@
 package player;
 
-import gui.*;
-import gui.panels.gamecontainer.pilecontainer.*;
-import gui.panels.gamecontainer.playercontainer.*;
-
-import java.io.*;
-import game.*;
-import cardcollections.*;
+import cardcollections.Deck;
+import cardcollections.Pile;
 import cardcollections.deckcomponents.Card;
+import game.GameLogicUtils;
+import gui.Overlays;
+import gui.Sounds;
+import gui.panels.gamecontainer.pilecontainer.IndicatorPanel;
+import gui.panels.gamecontainer.playercontainer.PlayerPanel;
 
 public class Player {
 
@@ -53,6 +53,8 @@ public class Player {
     }
 
     public void blockFor(int milliseconds) {
+        Sounds.invalidSound();
+        Overlays.blockedFor(playerPanel, milliseconds);
         this.blockUntil = System.currentTimeMillis() + milliseconds;
     }
 
@@ -89,8 +91,8 @@ public class Player {
 
         if (GameLogicUtils.isValidThrow(hand.getCardAtIndex(index), topCardOfPile)) {
 
-            Overlays.renderCardTransition(playerPanel.getCardPanelAtIndex(index), this, "/assets/transition");
-            Overlays.renderCardTransition(targetPile.getPilePanel(), this, "/assets/transition");
+            Overlays.renderCardTransition(playerPanel.getCardPanelAtIndex(index), name);
+            Overlays.renderCardTransition(targetPile.getPilePanel(), name);
             Card thrownCard = hand.popCardAtIndex(index);
             targetPile.add(thrownCard);
 
@@ -101,10 +103,9 @@ public class Player {
             }
 
         } else {
-            Sounds.invalidSound();
-            // Penalty for invalid throwing card to pile: 3 seconds
-            System.out.println("INVALID MOVE, actions frozen for 3s");
-            blockFor(3000);
+            // Penalty for invalid throwing card to pile: 1 seconds
+            System.out.println("INVALID MOVE, actions frozen for 1s");
+            blockFor(1000);
         }
     }
 
