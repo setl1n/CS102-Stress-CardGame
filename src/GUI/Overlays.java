@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.net.URL;
@@ -20,13 +21,22 @@ public final class Overlays {
 
     private static JFrame gameFrame;
     private static JLabel gameLabel;
+    private static Timer activeTimer;
 
     public static void clear() {
-        System.out.println("ATTEMPTING TO CLEAR PART 2");
-        JLayeredPane jLayeredPane = gameFrame.getLayeredPane();
-        System.out.println(jLayeredPane == null);
-        jLayeredPane.remove(gameLabel);
-        jLayeredPane.repaint();
+        cancelActiveTimer(); // Cancel any active timer
+        if (gameFrame != null && gameLabel != null) {
+            JLayeredPane jLayeredPane = gameFrame.getLayeredPane();
+            jLayeredPane.remove(gameLabel);
+            jLayeredPane.repaint();
+        }
+    }
+
+    private static void cancelActiveTimer() {
+        if (activeTimer != null) {
+            activeTimer.stop();
+            activeTimer = null;
+        }
     }
 
     /*
@@ -113,40 +123,45 @@ public final class Overlays {
         gifIcon.getImage().flush();
 
         // Timer to remove the animation and hide the glass pane after a delay
-        final String newPath = gifPath.replace(".gif", ".png");
         Timer timer = new Timer(3200, e -> {
             glassPane.setVisible(false);
             frame.repaint();
-            if (loadImageAfter) {
-                renderImage(targetPanel, newPath, 0);
-            }
         });
         timer.setRepeats(false);
         timer.start();
+
+        // timer to load image after gif finishes
+        final String newPath = gifPath.replace(".gif", ".png");
+        Timer loadImageTimer = new Timer(3200, e -> {
+            if (loadImageAfter)
+            renderImage(targetPanel, newPath, 0);
+        });
+        loadImageTimer.setRepeats(false);
+        loadImageTimer.start();
+        activeTimer = loadImageTimer;
     }
 
     public static void renderCardTransition(JPanel targetPanel, String playerName) {
         showLockoutTransition(targetPanel, playerName, 100);
     }
-    
+
     public static void blockedFor(PlayerPanel playerPanel, int milliseconds) {
         for (JPanel cardPanel : playerPanel.getCardPanels()) {
             showLockoutTransition(cardPanel, null, milliseconds);
         }
     }
-    
+
     private static void showLockoutTransition(JPanel targetPanel, String playerName, int duration) {
         String gifPath = "/assets/transition";
         if (playerName == null) {
             gifPath += ".png";
-        }  else if (playerName.equals("Player 1")) {
+        } else if (playerName.equals("Player 1")) {
             gifPath += "red.png";
         } else {
             gifPath += "blue.png";
         }
         renderImage(targetPanel, gifPath, duration);
     }
-
 
     public static void renderTimeoutTransition(JPanel targetPanel) {
         final int gifDuration = 3200;
