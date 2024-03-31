@@ -6,7 +6,6 @@ import javax.swing.*;
 
 import gui.GUIUtility;
 import cardcollections.*;
-import cardcollections.deckcomponents.*;
 
 public class PilePanel extends JPanel {
 

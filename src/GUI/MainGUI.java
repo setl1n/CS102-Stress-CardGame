@@ -6,10 +6,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import controls.MainControls;
 import gui.panels.GamePanel;
 import gui.panels.IntroPanel;
 import game.Game;
+import game.MainControls;
 
 public class MainGUI extends JFrame {
 

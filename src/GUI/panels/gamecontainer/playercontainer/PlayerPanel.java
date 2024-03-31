@@ -7,9 +7,9 @@ import java.awt.*;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import player.*;
 import gui.GUIUtility;
-import cardcollections.deckcomponents.*;
+import cardcollections.*;
+import game.Player;
 
 public class PlayerPanel extends JPanel {
 

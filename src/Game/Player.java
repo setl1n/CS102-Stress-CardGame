@@ -1,11 +1,7 @@
-package player;
+package game;
 
-import cardcollections.Deck;
-import cardcollections.Pile;
-import cardcollections.deckcomponents.Card;
-import game.GameLogicUtils;
-import gui.Overlays;
-import gui.Sounds;
+import cardcollections.*;
+import gui.*;
 import gui.panels.gamecontainer.pilecontainer.IndicatorPanel;
 import gui.panels.gamecontainer.playercontainer.PlayerPanel;
 

@@ -8,9 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-
-
-import cardcollections.deckcomponents.*;
+import cardcollections.*;
 import gui.GUIUtility;
 
 public class CardPanel extends JPanel {

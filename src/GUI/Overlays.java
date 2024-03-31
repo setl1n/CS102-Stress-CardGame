@@ -11,8 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
+import game.*;
 import gui.panels.gamecontainer.playercontainer.PlayerPanel;
-import player.Player;
 
 public final class Overlays {
 

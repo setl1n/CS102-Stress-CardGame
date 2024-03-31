@@ -10,8 +10,7 @@ import gui.GUIUtility;
 import gui.panels.gamecontainer.pilecontainer.PileContainer;
 import gui.panels.gamecontainer.playercontainer.PlayerPanel;
 import game.Game;
-
-import player.Player;
+import game.Player;
 
 public class GamePanel extends JPanel {
 

@@ -3,11 +3,8 @@ package game;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import cardcollections.Deck;
-import cardcollections.Pile;
-import gui.Overlays;
-import gui.Sounds;
-import player.Player;
+import cardcollections.*;
+import gui.*;
 
 public class Game {
     private Player player1;
