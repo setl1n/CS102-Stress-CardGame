@@ -128,10 +128,6 @@ public class Deck extends CardCollection {
         return deckToReturn;
     }
 
-    public void setNumPanel(NumPanel numPanel) {
-        this.numPanel = numPanel;
-    }
-
     @Override
     public String toString() {
         return String.format("Cards left in Deck: %s\n", size());

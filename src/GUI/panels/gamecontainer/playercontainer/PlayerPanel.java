@@ -55,9 +55,8 @@ public class PlayerPanel extends JPanel {
     }
 
     public void addNumPanel() {
-        NumPanel temp = new NumPanel(player.getDeck());
-        this.numPanel = temp;
-        add(temp);
+        this.numPanel = new NumPanel(player.getDeck());
+        add(numPanel);
     }
 
     public CardPanel getCardPanelAtIndex(int index) {

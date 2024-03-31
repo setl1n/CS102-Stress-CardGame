@@ -14,7 +14,6 @@ public class NumPanel extends JPanel {
 
     public NumPanel(Deck deck) {
         this.deck = deck;
-        deck.setNumPanel(this);
         setOpaque(false);
         setLayout(new FlowLayout(FlowLayout.LEFT,0 ,0));
         setPreferredSize(new Dimension(120, 50));
