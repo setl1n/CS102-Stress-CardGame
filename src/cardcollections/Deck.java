@@ -5,13 +5,20 @@ import java.net.URL;
 import javax.swing.ImageIcon;
 import gui.panels.gamecontainer.playercontainer.NumPanel;
 
+/**
+ * This class represents a deck of cards. It extends the CardCollection class 
+ * and provides additional functionality such as changing the deck colour, 
+ * updating the deck image, and splitting the deck.
+ */
 public class Deck extends CardCollection {
     private Image deckImage;
     private char colour;
     private NumPanel numPanel;
 
-    /*
-     * Creates a shuffled deck of 52 cards
+    /**
+     * Constructs a new Deck and initializes it. If the deck is not empty, 
+     * it is filled with 52 cards.
+     * @param isEmpty A boolean indicating whether the deck should be empty.
      */
     public Deck(Boolean isEmpty) {
         super();
@@ -23,11 +30,13 @@ public class Deck extends CardCollection {
             }
         }
 
-        // defaults red deck
-        colour = 'r';
+        colour = 'r';           // defaults red deck
         updateImageToSize();
     }
 
+    /**
+     * Changes the colour of the deck.
+     */
     public void changeColour() {
         if (colour == 'r') {
             colour = 'b';
@@ -37,6 +46,9 @@ public class Deck extends CardCollection {
         updateImageToSize();
     }
 
+    /**
+     * Updates the image of the deck based on its size.
+     */
     public void updateImageToSize() {
         int cardsInDeck = super.size();
         if (cardsInDeck == 0) {
@@ -70,26 +82,45 @@ public class Deck extends CardCollection {
     }
 
     /*
-     * makes the following methods available to caller as they are default in CardCollection
-     * this is good OOP as it's more important to encapsulate
-     * by having a "layer" in the child class then to make CardCollections methods public
+     * The following methods are made public to caller as they are default in CardCollection
+     * This is good OOP as it's more important to encapsulate
+     * by having a "layer" in the child class than to make CardCollections methods public
     */
+
+    /**
+     * Returns the size of the deck.
+     * @return The size of the deck.
+     */
     public int size() {
         return super.size();
     }
 
+    /**
+     * Shuffles the deck.
+     */
     public void shuffle() {
         super.shuffle();
     }
-
+    /**
+     * Checks if the deck is empty.
+     * @return True if the deck is empty, false otherwise.
+     */
     public boolean isEmpty() {
         return super.isEmpty();
     }
 
+    /**
+     * Checks if the size of the deck is at least 2.
+     * @return True if the size of the deck is at least 2, false otherwise.
+     */
     public boolean isSizeAtLeast2() {
         return size() >= 2;
     }
 
+    /**
+     * Removes and returns the top card from the deck.
+     * @return The top card from the deck.
+     */
     public Card popTopCard() {
         Card topCard = super.popTopCard();
         if (numPanel != null) {
@@ -98,6 +129,10 @@ public class Deck extends CardCollection {
         return topCard;
     }
 
+    /**
+     * Transfers all cards to another CardCollection from this deck.
+     * @param c The CardCollection to which cards are to be transferred.
+     */
     public void transfer(CardCollection c) {
         super.transfer(c);
         if (numPanel != null) {
@@ -105,19 +140,18 @@ public class Deck extends CardCollection {
         }
     }
 
+    /**
+     * Returns the image of the deck.
+     * @return The image of the deck.
+     */
     public Image getDeckImage() {
         return deckImage;
     }
-
-    /*
-     * returns a new deck with top half of deck
-     * original deck holds (remaining) bottom half
     
-     * note: order of cards that gets added to new deck gets reversed
-     * while bottom half of old cards stay in order
-     * should not affect implementation, just for own's knowledge
-    */
-    
+    /**
+     * Splits the deck in half and returns a new deck with the top half of the original deck.
+     * @return A new deck with the top half of the original deck.
+     */
     public Deck splitAndReturnHalf() {
         Deck deckToReturn = new Deck(true);
         int cardsToTransfer = this.size() / 2;
@@ -128,6 +162,10 @@ public class Deck extends CardCollection {
         return deckToReturn;
     }
 
+    /**
+     * Returns a string representation of the deck.
+     * @return A string representation of the deck.
+     */
     @Override
     public String toString() {
         return String.format("Cards left in Deck: %s\n", size());

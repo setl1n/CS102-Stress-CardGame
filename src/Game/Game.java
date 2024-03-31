@@ -4,6 +4,9 @@ import javax.swing.*;
 import cardcollections.*;
 import gui.*;
 
+/**
+ * This class represents a game. It manages the game state, players, and piles of cards.
+ */
 public class Game {
     private Player player1;
     private Player player2;
@@ -11,15 +14,32 @@ public class Game {
     private GameState gameState;
 
     private JPanel gamePanel;
+    /**
+     * The penalty for invalid stress.
+     */
     private static final int INVALID_STRESS_PENALTY = 2000;
+
+    /**
+     * The duration of the stress animation.
+     */
     private static final int STRESS_ANIMATION_DURATION = 2000;
+
+    /**
+     * The delay for card transfer.
+     */
     private static final int CARD_TRANSFER_DELAY = 2000;
 
+    /**
+     * Constructs a new game.
+     */
     public Game() {
         initialise();
         gameState = GameState.START_SCREEN;
     }
     
+    /**
+     * Initialises the game.
+     */
     private void initialise() {
         // Create new decks for the players
         Deck startingDeck = new Deck(false);
@@ -35,21 +55,33 @@ public class Game {
         piles = new Pile[] { new Pile(), new Pile() };
     }
     
+    /**
+     * Starts the game by setting gameState and opening the first two cards.
+     */
     public void start() {
         gameState = GameState.PLAYING;
         openCardsFromDeck();
     }
     
+    /**
+     * Loads the help dialog as a tutorial.
+     */
     public void loadDialog() {
         gameState = GameState.NO_VALID_MOVES;
         Overlays.renderHelpDialog(gamePanel);
     }
 
+    /**
+     * Restarts the game.
+     */
     public void restart() {
         initialise();
         loadDialog();
     }
 
+    /**
+     * Opens cards from the deck when there is an invalid move/at the start
+     */
     public void openCardsFromDeck() {
         // Opens cards until someone has a valid move
         do {
@@ -72,6 +104,9 @@ public class Game {
         } while (GameLogicUtils.bothPlayersOutOfMoves(player1, player2, piles));
     }
 
+    /**
+     * Updates the game state after every key press
+     */
     public void updateGameState() {
         boolean isPlayer1HandEmpty = player1.getHand().isEmpty();
         boolean isPlayer2HandEmpty = player2.getHand().isEmpty();
@@ -101,6 +136,12 @@ public class Game {
         }
     }
     
+    /**
+     * Applies stress to a player.
+     * Transfers the cards in piles to opponent
+     * @param actionPlayer The player applying the stress.
+     * @param opponent The opponent player.
+     */
     public void stress(Player actionPlayer, Player opponent) {
         if (GameLogicUtils.isValidStress(piles)) {
             Overlays.renderStressTransition(gamePanel, opponent.getName());
@@ -114,6 +155,9 @@ public class Game {
         }
     }
 
+    /**
+     * Temporarily disables inputs when invalid key entered
+     */
     private void temporaryDisableInputs() {
         gameState = GameState.STRESS;
         // Change gamestate to re-enable inputs after animation
@@ -124,6 +168,10 @@ public class Game {
         timer.start();
     }
 
+    /**
+     * Adds piles to the opponent's hand.
+     * @param opponent The opponent player.
+     */
     private void addPilesToLoserHand(Player opponent) {
         Deck opponentDeck = opponent.getDeck();
         // Times the transfer to occur when screen is covered by animation
@@ -140,38 +188,61 @@ public class Game {
         changeCardsWhenAnimationHideScreen.start();
     }
 
+    /**
+     * Returns the pile at the specified index.
+     * @param index The index of the pile.
+     * @return The pile at the specified index.
+     */
     public Pile getPile(int index) {
         return piles[index];
     }
 
+    /**
+     * Returns an array of both piles.
+     * @return an array of both piles.
+     */
     public Pile[] getBothPiles() {
         return piles;
     }
 
+    /**
+     * Returns the first player.
+     * @return The first player.
+     */
     public Player getPlayer1() {
         return player1;
     }
 
+    /**
+     * Returns the second player.
+     * @return The second player.
+     */
     public Player getPlayer2() {
         return player2;
     }
 
+    /**
+     * Returns the current game state.
+     * @return The current game state.
+     */
     public GameState getGameState() {
         return gameState;
     }
 
-    public void setGameState(GameState gameState) {
-        this.gameState = gameState;
-    }
-
+    /**
+     * Sets the game panel.
+     * @param gamePanel The new game panel.
+     */
     public void setGamePanel(JPanel gamePanel) {
         this.gamePanel = gamePanel;
     }
 
-    // for debugging
+    /**
+     * Returns a string representation of the game.
+     * @return A string representation of the game.
+     */
     @Override
     public String toString() {
         return String.format("Pile 1 %s\nPile 2 %s \n%s\n%s\n", piles[0], piles[1], player1, player2);
     }
-
 }

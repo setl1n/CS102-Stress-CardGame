@@ -57,20 +57,4 @@ public class MainGUI extends JFrame {
         revalidate();
         repaint();
     }
-
-    public CardLayout getCardLayout() {
-        return this.cardLayout;
-    }
-
-    public void setCardLayout(CardLayout cardLayout) {
-        this.cardLayout = cardLayout;
-    }
-
-    public JPanel getMainPanel() {
-        return this.mainPanel;
-    }
-
-    public void setMainPanel(JPanel mainPanel) {
-        this.mainPanel = mainPanel;
-    }
 }

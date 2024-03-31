@@ -1,44 +1,86 @@
-# CS102-CardGameProject-G7
+# CS102-CardGameProject-G4T7
 
-## Intro
-Welcome to Stress! The Game. Play against one other human opponent to test your skills and strategy in this classic card game.
+![Stress Splash](./images/intro.png)
 
-Terminology: 
-	HAND (both players): revealed cards
+Welcome to **Stress! The Game**: A local multiplayer videogame rendition of the classic card game Stress, combining the fast pace nature of the original game with the visual appeal of a videogame.
+Challenge a friend (or foe!) to this quick battle of wits and strategy, and remember, speed is the name of the game!
+
+--
+
+## Group Members
+1. KAUNG SET LIN, slkaung.2023
+2. ZANE CHEE JUN YI, zane.chee.2023
+3. WANG YUFEI, yufei.wang.2023
+4. LEONG HWEE MEL BRIDGETTE, hmb.leong.2023
+5. KWAN RUI CONG, ruicongkawn.2023
+6. YEO SHEEN HERN, sh.yeo.2023
+
+--
+
+## Terminology
+Each player has a hand and a deck, and aim to place their cards on piles.
+
+	HAND (both players): revealed cards that can be played
 	DECK (both players): remaining cards unrevealed
 	PILE (2): playing cards in the middle
 
-Aim: Get rid of all the cards in your DECK. The faster player wins the game!
+--
 
-## Setup
-Each player has 26 cards. At all times, each HAND consists of 4 open cards. The rest of the cards are hidden in the respective DECKs. Players are to use the keyboard to interact with the game.
+## Rules
 
-## Gameplay
-Both players' cards are shuffled at the beginning of the game. The game starts with two open cards in the middle, one from each player. Players are to select a card from their HAND to stack onto either PILE in numerical order (increment/decrement by 1) or stack the same card onto the PILE. Players can toggle between the two PILEs. The card played is replaced with the top card from their DECK. 
+**Objective**: Clear all your cards as fast as possible.
 
-During the game, players are to watch out for matching cards in the middle. Once both of the cards in the middle are the same, players are to call Stress! using their respective hotkeys. All of the cards in both PILES will be added to the slower player's DECK. The game continues.
+**Stress! The Game** uses a slightly different ruleset from the original card game [Stress](https://www.wikihow.com/Play-Stress-(Card-Game)). 
 
-In the case of a stalemate where both players' do not have a card to play into the middle, the game goes into Timeout! All cards are reshuffled. The game continues.
+As per the original rules, each player will start with 26 cards (half of a standard pack of cards), with one card being placed on different piles to start.
 
-The first player to play all their cards wins. Players can choose to replay or exit the game.
+On top of stacking consecutive cards in ascending order, our game adds a new twist: **cards can be stacked in descending order, or if the card has the same rank**! This provides more opportunities for players to interrupt the flow of the game and disrupt their opponent, while making them consider their card choices wisely.
 
-## Hotkeys
-						  Player 1 (left side of keyboard)/Player 2 (right side of keyboard)
-Select a card from HAND : QWER                            /UIOP
-Toggle between PILEs	: AD                              /JL
-Stress!					: S                               /K 
+Stress! can be called by either player when both cards on the piles are identical in rank. The other player that is too slow to the call will have to taken all the cards from the pile and place it in their deck.
 
-## Getting the game started
-Compile the source files
-	compile.bat			javac -d classes -cp ./src/ ./src/App.java 
-						xcopy /s /e classes\assets
+--
 
-Run App.java 
+## Controls
 
-Follow the instructions on the screen
+Inspired by the QWER control scheme of real time strategy (RTS) games, and the classic WASD control scheme of most shooter games, we chose to offer players the best of both worlds. 
+Use QWER (or UIOP for player two) to throw your cards from your HAND to one of the PILEs.
+Use AD (or JL) to switch between PILEs. 
 
-## Instructions on the screen during the game
-Start game: S + K
-Once game ends:
-	Restart game: S + K
-	Exit game: esc
+**Most importantly, S (or K) is used to called Stress!**
+
+![Stress Controls](./images/dialog.png)
+
+To combat button mashing, players are penalised for incorrect moves, with their controls going on cooldown for:
+1 second (on a invalid card throw)
+2 seconds (on an invalid stress call)
+Be quick, but accurate!
+
+--
+
+## Running Stress! The Game
+
+1. Compile the source files
+```
+./compile.bat
+```
+2. Run the game
+```
+./run.bat
+```
+3. Follow the on-screen instructions
+4. Remember to have fun! (And turn on the sound)
+5. Press ESC to quit the game, or S + K to go again
+
+--
+
+## Game Conditions
+The following game conditions can happen in Stress! The Game:
+1. **Timeout:** Both players have no valid cards (that can be placed on the pile) in their hand. Pressing S + K reshuffles the players' cards to continue the game.
+2. **Win:** Either player one or player two has 0 cards in both their hand and their deck.
+3. **Tie:** Both players are out of valid card places, but there are no more cards left in deck.
+
+--
+
+## UML Diagram
+For a better understanding of our code structure, we have attached our UML diagram below.
+still need to add thanks
