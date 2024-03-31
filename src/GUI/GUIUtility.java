@@ -83,7 +83,7 @@ public final class GUIUtility {
     }
 
 
-    /*
+    /**
      * Methods to initialise elements used in overlays
      */
 
