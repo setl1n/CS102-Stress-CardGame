@@ -90,8 +90,12 @@ public final class GUIUtility {
         }
     }
 
+    /*
+     * OVERLAY INITIALISATION METHODS
+     */
+
     static JPanel initialiseGlassPane(ImageIcon imageIcon){
-        return new JPanel() {
+        JPanel glassPane = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -102,5 +106,17 @@ public final class GUIUtility {
                 g.drawImage(imageIcon.getImage(), ORIGIN, ORIGIN, getWidth(), getHeight(), this);
             }
         };
+        glassPane.setOpaque(false); // Make the glass pane transparent
+        glassPane.setLayout(null); // No layout manager
+        return glassPane;
+    }
+
+    static JLabel initialiseIMGLabel(URL imgURL, JPanel targetPanel, JFrame frame) {
+        JLabel imgLabel = new JLabel(new ImageIcon(imgURL));
+        imgLabel.setOpaque(false);
+        Rectangle bounds = SwingUtilities.convertRectangle(targetPanel.getParent(), targetPanel.getBounds(),
+                frame.getLayeredPane());
+        imgLabel.setBounds(bounds);
+        return imgLabel;
     }
 }
