@@ -145,4 +145,22 @@ public class Game {
         }
     }
 
+    public void restart() {
+
+        // Create new decks for the players
+        Deck startingDeck = new Deck(false);
+        startingDeck.shuffle();
+        Deck halfDeck = startingDeck.splitAndReturnHalf();
+        halfDeck.changeColour();
+    
+        // Reset the players
+        player1 = new Player("Player 1", startingDeck);
+        player2 = new Player("Player 2", halfDeck);
+    
+        // Reset the piles
+        piles = new Pile[] { new Pile(), new Pile() };
+    
+        start();
+    }
+
 }

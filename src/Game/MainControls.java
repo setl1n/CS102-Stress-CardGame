@@ -134,7 +134,13 @@ public class MainControls extends KeyAdapter {
     }
 
     private void handleEndGameKeyPress(int newKeyPress) {
-        if (newKeyPress == KeyEvent.VK_ESCAPE) {
+        if (pressedKeys.contains(KeyEvent.VK_S) && pressedKeys.contains(KeyEvent.VK_K)) {
+            // Restart the game
+            Overlays.clear();
+            game.restart();
+            mainGUI.restart(game);
+            mainGUI.changeToPanel("Game");
+        } else if (newKeyPress == KeyEvent.VK_ESCAPE) {
             mainGUI.dispose();
         }
     }
