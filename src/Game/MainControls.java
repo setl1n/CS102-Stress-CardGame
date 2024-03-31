@@ -7,17 +7,29 @@ import java.util.stream.Collectors;
 import cardcollections.Pile;
 import gui.*;
 
+/**
+ * This class handles the main controls of the game.
+ */
 public class MainControls extends KeyAdapter {
     private Set<Integer> pressedKeys = new HashSet<>();
     private Game game;
     private MainGUI mainGUI;
 
+    /**
+     * Constructor for the MainControls class.
+     * @param game The game object.
+     * @param mainGUI The main GUI object.
+     */
     public MainControls(Game game, MainGUI mainGUI) {
         this.game = game;
         this.mainGUI = mainGUI;
         Sounds.menuSound();
     }
 
+    /**
+     * Handles key press events.
+     * @param e The key event.
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         int newKeyPress = e.getKeyCode();
@@ -47,6 +59,10 @@ public class MainControls extends KeyAdapter {
         System.out.println(game);
     }
 
+    /**
+     * Handles key press events at the start screen.
+     * @param newKeyPress The key code of the pressed key.
+     */
     private void handleStartScreenKeyPress(int newKeyPress) {
         if (newKeyPress == KeyEvent.VK_SPACE) {
             mainGUI.changeToPanel("Game");
@@ -55,6 +71,11 @@ public class MainControls extends KeyAdapter {
         }
     }
 
+    /**
+     * Handles key press events when there are no valid moves.
+     * Checks for players holding down S and K to continue
+     * @param newKeyPress The key code of the pressed key.
+     */
     private void handleOpenCardsKeyPress(int newKeyPress) {
         Player player1 = game.getPlayer1();
         Player player2 = game.getPlayer2();
@@ -72,6 +93,11 @@ public class MainControls extends KeyAdapter {
         }
     }
 
+    /**
+     * Handles key press events during gameplay.
+     * If keypress is invalid, play invalid sound and lock controls for a delay
+     * @param newKeyPress The key code of the pressed key.
+     */
     private void handlePlayingKeyPress(int newKeyPress) {
         Player player1 = game.getPlayer1();
         Player player2 = game.getPlayer2();
@@ -119,7 +145,7 @@ public class MainControls extends KeyAdapter {
                 default -> System.out.println("Invalid move");
             }
         } else {
-            //// else plays invalid sound
+            // else plays invalid sound
             switch (newKeyPress) {
                 case KeyEvent.VK_U, KeyEvent.VK_I, KeyEvent.VK_O, KeyEvent.VK_P, KeyEvent.VK_K:
                     Sounds.invalidSound();
@@ -131,7 +157,11 @@ public class MainControls extends KeyAdapter {
         }
         game.updateGameState();
     }
-
+    /**
+     * Handles key press events during stress.
+     * Only allows for setting target pile until stress is over
+     * @param newKeyPress The key code of the pressed key.
+     */
     private void handleStressKeyPress(int newKeyPress) {
         Player player1 = game.getPlayer1();
         Player player2 = game.getPlayer2();
@@ -144,6 +174,11 @@ public class MainControls extends KeyAdapter {
         }
     }
 
+    /**
+     * Handles key press events at the end of the game.
+     * Checks for restart or quit
+     * @param newKeyPress The key code of the pressed key.
+     */
     private void handleEndGameKeyPress(int newKeyPress) {
         if (pressedKeys.contains(KeyEvent.VK_S) && pressedKeys.contains(KeyEvent.VK_K)) {
             // Restart the game
@@ -155,7 +190,11 @@ public class MainControls extends KeyAdapter {
             mainGUI.dispose();
         }
     }
-
+    
+    /**
+     * Handles key release events.
+     * @param e The key event.
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         pressedKeys.remove(e.getKeyCode());
