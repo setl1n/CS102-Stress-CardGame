@@ -30,14 +30,13 @@ Each player has a hand and a deck, and aim to place their cards on piles.
 
 **Objective**: Clear all your cards as fast as possible.
 
-Stress! The Game uses a slightly different ruleset from the original card game (Stress)[https://www.wikihow.com/Play-Stress-(Card-Game)]. 
+**Stress! The Game** uses a slightly different ruleset from the original card game [Stress](https://www.wikihow.com/Play-Stress-(Card-Game)). 
 
 As per the original rules, each player will start with 26 cards (half of a standard pack of cards), with one card being placed on different piles to start.
-On top of stacking consecutive cards in ascending order, our game adds a new twist: cards can be stacked in descending order, or if the card has the same rank!
 
-This provides more opportunities for players to interrupt the flow of the game and disrupt their opponent, while making them consider their card choices wisely. Stack too many cards of the same rank, and you may find yourself unable to stack further!
+On top of stacking consecutive cards in ascending order, our game adds a new twist: **cards can be stacked in descending order, or if the card has the same rank**! This provides more opportunities for players to interrupt the flow of the game and disrupt their opponent, while making them consider their card choices wisely.
 
-Stress! can be called by either player when both cards on the piles are identical in rank. The other player that is too slow to the call will have to taken all the cards from the pile and place it in their deck. Remember, you can stack either up or down now, so be quick on your feet!
+Stress! can be called by either player when both cards on the piles are identical in rank. The other player that is too slow to the call will have to taken all the cards from the pile and place it in their deck.
 
 --
 
