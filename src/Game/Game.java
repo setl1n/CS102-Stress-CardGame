@@ -228,13 +228,6 @@ public class Game {
     public GameState getGameState() {
         return gameState;
     }
-    /**
-     * Sets the game state.
-     * @param gameState The new game state.
-     */
-    public void setGameState(GameState gameState) {
-        this.gameState = gameState;
-    }
 
     /**
      * Sets the game panel.

@@ -48,14 +48,6 @@ public final class Suit {
     }
 
     /**
-     * Returns the name of the suit.
-     * @return The name of the suit.
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
      * Returns a string representation of the suit.
      * @return A string representation of the suit.
      */
