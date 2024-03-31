@@ -10,6 +10,9 @@ public class IntroPanel extends JPanel {
     private String imagePath;
     private Timer timer;
 
+    private static final int ORIGIN = 0;
+    private static final int DELAY = 2500;
+
     public IntroPanel(String path) {
         this.gifPath = path + ".gif";
         this.imagePath = path + ".png";
@@ -20,7 +23,7 @@ public class IntroPanel extends JPanel {
     }
 
     private void setupTimer() {
-        int delay = 2500; // Duration of the GIF animation in milliseconds
+        int delay = DELAY; // Duration of the GIF animation in milliseconds
         timer = new Timer(delay, e -> {
             loadImage(imagePath); // Load the PNG image
         });
@@ -43,7 +46,7 @@ public class IntroPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (introImage != null) {
-            g.drawImage(introImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+            g.drawImage(introImage.getImage(), ORIGIN, ORIGIN, getWidth(), getHeight(), this);
         }
     }
 

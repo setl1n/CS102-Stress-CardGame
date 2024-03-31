@@ -16,15 +16,20 @@ public class PlayerPanel extends JPanel {
     private NumPanel numPanel;
     private DeckPanel deckPanel;
 
+    private static final int WIDTH = 1080;
+    private static final int HEIGHT = 240;
+    private static final int OFFSET = 5;
+    
+    
     public PlayerPanel(Player player) {
         this.player = player;
         player.setPlayerPanel(this);
         this.setOpaque(false);
-        setPreferredSize(new Dimension(1080, 240));
-
+        setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        
         if ("Player 1".equals(player.getName())) {
 
-            setLayout(new FlowLayout(FlowLayout.LEFT, 15, 15));
+            setLayout(new FlowLayout(FlowLayout.LEFT, OFFSET, OFFSET));
 
             addHand();
             addDeck();
@@ -32,7 +37,7 @@ public class PlayerPanel extends JPanel {
 
         } else if ("Player 2".equals(player.getName())) {
 
-            setLayout(new FlowLayout(FlowLayout.RIGHT, 15, 15));
+            setLayout(new FlowLayout(FlowLayout.RIGHT, OFFSET, OFFSET));
             addNumPanel();
             addDeck();
             addHand();

@@ -8,13 +8,17 @@ import game.Player;
 
 public class PileContainer extends JPanel {
 
+    private static final int OFFSET = 5;
+    private static final int WIDTH = 300;
+    private static final int HEIGHT = 240;
+
     public PileContainer(Pile pile1, Pile pile2, Player player1, Player player2) {
         setLayout(new GridBagLayout());
-        setPreferredSize(new Dimension(300, 240));
+        setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.setOpaque(false);
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.insets = new Insets(OFFSET, OFFSET, OFFSET, OFFSET);
 
         /*
          * INDICATOR 2

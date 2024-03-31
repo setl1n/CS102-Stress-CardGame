@@ -8,8 +8,8 @@ import cardcollections.*;
 
 public class PilePanel extends JPanel {
 
-    static final int width = 138;
-    static final int height = 186;
+    private static final int WIDTH = 138;
+    private static final int HEIGHT = 186;
 
     private JLabel jLabel;
 
@@ -18,16 +18,16 @@ public class PilePanel extends JPanel {
         pile.setPilePanel(this);
         this.setOpaque(false);
 
-        setPreferredSize(new Dimension(width, height));
+        setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setLayout(new BorderLayout());
         
-        jLabel = GUIUtility.renderLabel("/assets/emptyDeck.png", "/assets/emptyDeck.png", width, height);
+        jLabel = GUIUtility.renderLabel("/assets/emptyDeck.png", "/assets/emptyDeck.png", WIDTH, HEIGHT);
         add(jLabel, BorderLayout.CENTER);
 
     }
 
     public void updatePilePanel(Card card) {
-        Image image = card.getCardImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        Image image = card.getCardImage().getScaledInstance(WIDTH, HEIGHT, Image.SCALE_SMOOTH);
         jLabel.setIcon(new ImageIcon(image));
         jLabel.repaint();
     }

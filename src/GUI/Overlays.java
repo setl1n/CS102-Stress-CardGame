@@ -13,9 +13,12 @@ public final class Overlays {
     private static JLabel onGoingLabel;
     private static JPanel onGoingPane;
     private static Timer onGoingTimer;
+
+    private static final int DELAY = 3200;
+    private static final int DELAY_STRESS = 3000;
     
     private Overlays() {}
-    
+
     public static void clear() {
         cancelActiveTimer(); // Cancel any active timer
         cutCurrentAnimationIfAny();
@@ -111,7 +114,7 @@ public final class Overlays {
         gifIcon.getImage().flush();
 
         // Timer to remove the animation and hide the glass pane after a delay
-        Timer timer = new Timer(3200, e -> {
+        Timer timer = new Timer(DELAY, e -> {
             onGoingPane = null;
             glassPane.setVisible(false);
             frame.repaint();
@@ -121,7 +124,7 @@ public final class Overlays {
 
         // timer to load image after gif finishes
         final String newPath = gifPath.replace(".gif", ".png");
-        Timer loadImageTimer = new Timer(3200, e -> {
+        Timer loadImageTimer = new Timer(DELAY, e -> {
             if (loadImageAfter) {
                 renderImage(targetPanel, newPath, 0);
             }
@@ -154,28 +157,28 @@ public final class Overlays {
     }
 
     public static void renderTimeoutTransition(JPanel targetPanel) {
-        final int duration = 3200;
+        final int duration = DELAY;
         final String assetPath = "/assets/timeout";
         final String filePath = processPath(assetPath, null, true);
         renderGIF(targetPanel, filePath, duration, true);
     }
 
     public static void renderTieTransition(JPanel targetPanel) {
-        final int duration = 3200;
+        final int duration = DELAY;
         final String assetPath = "/assets/tie";
         final String filePath = processPath(assetPath, null, true);
         renderGIF(targetPanel, filePath, duration, true);
     }
 
     public static void renderStressTransition(JPanel targetPanel, String playerName) {
-        final int duration = 3000;
+        final int duration = DELAY_STRESS;
         final String assetPath = "/assets/stress";
         final String filePath = processPath(assetPath, playerName, true);
         renderGIF(targetPanel, filePath, duration, false);
     }
 
     public static void renderGameTransition(JPanel targetPanel, String playerName) {
-        final int duration = 3200;
+        final int duration = DELAY;
         final String assetPath = "/assets/game";
         final String filePath = processPath(assetPath, playerName, true);
         renderGIF(targetPanel, filePath, duration, true);

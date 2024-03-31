@@ -15,6 +15,7 @@ import game.Player;
 public class GamePanel extends JPanel {
 
     private ImageIcon bgImage;
+    private static final int ORIGIN = 0;
 
     public GamePanel(Game game) {
 
@@ -51,7 +52,7 @@ public class GamePanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (bgImage != null) {
-            g.drawImage(bgImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+            g.drawImage(bgImage.getImage(), ORIGIN, ORIGIN, getWidth(), getHeight(), this);
         }
     }
 

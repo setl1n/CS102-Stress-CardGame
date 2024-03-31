@@ -11,21 +11,24 @@ import gui.GUIUtility;
 
 public class IndicatorPanel extends JPanel {
 
-    static final int width = 40;
-    static final int height = 40;
+    static final int INDICATOR_WIDTH = 40;
+    static final int INDICATOR_HEIGHT = 40;
+    static final int PANEL_WIDTH = 185;
+    static final int PANEL_HEIGHT = 50;
+
 
     public IndicatorPanel(Player player) {
 
         setLayout(new FlowLayout(FlowLayout.LEFT,0 ,0));
-        setPreferredSize(new Dimension(185, 50));
+        setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
         this.setOpaque(false);
 
         JPanel indicator = new JPanel();
-        indicator.setPreferredSize(new Dimension(width, height));
+        indicator.setPreferredSize(new Dimension(INDICATOR_WIDTH, INDICATOR_HEIGHT));
         indicator.setOpaque(false);
 
         String path = "/assets/" + player.getName() + "-" + "indicator.png";
-        JLabel indicatorLabel = GUIUtility.renderLabel(path, "/assets/empty.png", width, height);
+        JLabel indicatorLabel = GUIUtility.renderLabel(path, "/assets/empty.png", INDICATOR_WIDTH, INDICATOR_HEIGHT);
         indicator.add(indicatorLabel, BorderLayout.CENTER);
         add(indicator);
 
