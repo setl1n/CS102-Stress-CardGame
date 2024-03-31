@@ -3,18 +3,26 @@ package gui;
 import java.awt.*;
 import java.net.URL;
 
-import javax.sound.sampled.*;
 import javax.swing.*;
 
 import cardcollections.*;
 
 /*
-*  Methods for loading audio and visual elements
+*  This class provides methods for rendering static images and GIFs
+*  for loading images (such as card images) and transitions in game
 */
 
 public final class GUIUtility {
+
+    private GUIUtility() {}
+
     private static final int ORIGIN = 0;
-    
+
+    /**
+     * @return Image object from the specified filepath
+     * @param imagepath The path to the desired image
+     * @param nullpath The fallback path if the desired image is not found
+     */
     private static Image renderImage(String imagepath, String nullpath, int width, int height) {
         URL imgUrl = GUIUtility.class.getResource(imagepath);
         if (imgUrl == null) {
@@ -23,8 +31,8 @@ public final class GUIUtility {
         return new ImageIcon(imgUrl).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
     }
 
-    /*
-     * OVERLOADED LABEL RENDER
+    /**
+     * Overloaded methods to create or modify JLabels based on a given imagepath
      */
 
     public static void renderLabel(JLabel label, String imagepath, String nullpath, int width, int height) {
@@ -32,13 +40,14 @@ public final class GUIUtility {
         label.setIcon(new ImageIcon(image));
     }
 
+
     public static JLabel renderLabel(String imagepath, String nullpath, int width, int height) {
         Image image = renderImage(imagepath, nullpath, width, height);
         return new JLabel(new ImageIcon(image));
     }
 
-    /*
-     * OVERLOADED CARD RENDER
+    /**
+     * Overloaded methods to create or modify JLabels based on a Card object
      */
 
     public static JLabel renderCard(Card card, int width, int height) {
@@ -58,8 +67,8 @@ public final class GUIUtility {
         label.repaint();
     }
 
-    /*
-     * OVERLOADED DECK RENDER
+    /**
+     * Overloaded methods to create or modify JLabels based on a Deck object
      */
 
      public static JLabel renderDeck(Deck deck, int width, int height) {
@@ -75,23 +84,7 @@ public final class GUIUtility {
 
 
     /*
-     * SOUND PLAYING METHODS
-     */
-
-    static Clip loadAudioClip(String audioPath) throws Exception {
-        URL audioUrl = Sounds.class.getResource(audioPath);
-        if (audioUrl == null) {
-            throw new RuntimeException("Audio file not found: " + audioPath);
-        }
-        try (AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioUrl)) {
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            return clip;
-        }
-    }
-
-    /*
-     * OVERLAY INITIALISATION METHODS
+     * Methods to initialise elements used in overlays
      */
 
     static JPanel initialiseGlassPane(ImageIcon imageIcon){

@@ -1,6 +1,7 @@
 package gui;
 
-import javax.sound.sampled.Clip;
+import java.net.URL;
+import javax.sound.sampled.*;
 
 public final class Sounds {
 
@@ -9,6 +10,21 @@ public final class Sounds {
 
     private static Clip currentClip;
     private static long clipPosition;
+
+    /**
+     * Method to load the Audio Clip
+     */
+    private static Clip loadAudioClip(String audioPath) throws Exception {
+        URL audioUrl = Sounds.class.getResource(audioPath);
+        if (audioUrl == null) {
+            throw new RuntimeException("Audio file not found: " + audioPath);
+        }
+        try (AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioUrl)) {
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            return clip;
+        }
+    }
 
     /*
      * SOUND ASSET METHODS
@@ -54,7 +70,7 @@ public final class Sounds {
 
     private static void playSound(String audioPath, boolean loop, boolean overlap) {
         try {
-            Clip clip = GUIUtility.loadAudioClip(audioPath);
+            Clip clip = loadAudioClip(audioPath);
 
             if (!overlap && currentClip != null && !clip.equals(currentClip)) {
                 currentClip.stop();
