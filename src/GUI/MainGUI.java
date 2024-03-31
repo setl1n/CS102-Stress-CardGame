@@ -9,29 +9,53 @@ import game.*;
 
 public class MainGUI extends JFrame {
 
-    private CardLayout cardLayout = new CardLayout();
-    private JPanel mainPanel = new JPanel(cardLayout);
+    private CardLayout cardLayout;
+    private JPanel mainPanel;
 
     public MainGUI(Game game) {
+        this.cardLayout = new CardLayout();
+        this.mainPanel = new JPanel(cardLayout);
+        
+        configureFrameSettings();
+        addKeyListenerToFrame(game);
+        initialiseAndAddPanels(game);
+    }
+
+    private void configureFrameSettings() {
         setTitle("Stress! The Game");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null); // Center the window
-
-        MainControls controls = new MainControls(game, this);
-        addKeyListener(controls); // Add PlayerControls as a KeyListener
-
         setFocusable(true);
         requestFocusInWindow();
+        setContentPane(mainPanel);
+    }
 
+    private void addKeyListenerToFrame(Game game) {
+        MainControls controls = new MainControls(game, this);
+        addKeyListener(controls); // Add PlayerControls as a KeyListener
+    }
+
+    private void initialiseAndAddPanels(Game game) {
         mainPanel.add(new IntroPanel("/assets/intro"), "Intro");
         mainPanel.add(new GamePanel(game), "Game");
-
-        setContentPane(mainPanel);
     }
 
     public void changeToPanel(String panelName) {
         cardLayout.show(mainPanel, panelName);
+    }
+
+    public void restart(Game game) {
+        // Remove the old panels
+        mainPanel.removeAll();
+    
+        // Add the new panels
+        initialiseAndAddPanels(game);
+        changeToPanel("Game");
+    
+        // Redraw the GUI
+        revalidate();
+        repaint();
     }
 
     public CardLayout getCardLayout() {
@@ -49,24 +73,4 @@ public class MainGUI extends JFrame {
     public void setMainPanel(JPanel mainPanel) {
         this.mainPanel = mainPanel;
     }
-    public void restart(Game game) {
-        // Remove the old panels
-        mainPanel.removeAll();
-    
-        // Add the new panels
-        mainPanel.add(new IntroPanel("/assets/intro"), "Intro");
-        mainPanel.add(new GamePanel(game), "Game");
-    
-        // Show the intro panel
-        changeToPanel("Intro");
-    
-        // Request focus
-        setFocusable(true);
-        requestFocusInWindow();
-    
-        // Redraw the GUI
-        revalidate();
-        repaint();
-    }
-
 }

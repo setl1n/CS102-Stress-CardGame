@@ -18,7 +18,6 @@ public class GamePanel extends JPanel {
     private static final int ORIGIN = 0;
 
     public GamePanel(Game game) {
-
         super();
         game.setGamePanel(this);
 

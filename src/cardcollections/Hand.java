@@ -39,8 +39,8 @@ public class Hand {
             return true;
         }
         for (Card card : cardsInHand) {
-            if ( GameLogicUtils.isValidThrow(card, pile[0].peekTopCard()) ||
-                 GameLogicUtils.isValidThrow(card, pile[1].peekTopCard()) ) {
+            if ( GameLogicUtils.isValidThrow(card, pile[0].peekTopCard()) 
+                    || GameLogicUtils.isValidThrow(card, pile[1].peekTopCard()) ) {
                 return true;
             }
         }

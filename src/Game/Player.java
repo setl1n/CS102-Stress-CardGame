@@ -23,7 +23,7 @@ public class Player {
         this.name = name;
         this.deck = deck;
         hand = new Hand();
-        drawFourCards(false);
+        drawFourCards();
         targetPileIndex = 0;
 
     }
@@ -68,9 +68,9 @@ public class Player {
         }
     }
 
-    public void drawFourCards(boolean playAudio) {
+    public void drawFourCards() {
         for (int i = 0; i < 4; i++) {
-            drawCard(playAudio);
+            drawCard(false);
         }
     }
 

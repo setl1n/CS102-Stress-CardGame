@@ -14,29 +14,44 @@ public class Game {
     private static final int WRONG_STRESS_PENALTY = 2000;
 
     public Game() {
+        initialise();
+        gameState = GameState.START_SCREEN;
+    }
+    
+    private void initialise() {
+        // Create new decks for the players
         Deck startingDeck = new Deck(false);
         startingDeck.shuffle();
         Deck halfDeck = startingDeck.splitAndReturnHalf();
         halfDeck.changeColour();
+
+        // Initialise the players
         player1 = new Player("Player 1", startingDeck);
         player2 = new Player("Player 2", halfDeck);
-        piles = new Pile[] { new Pile(), new Pile() };
-        gameState = GameState.START_SCREEN;
-    }
 
+        // Initialise the piles
+        piles = new Pile[] { new Pile(), new Pile() };
+    }
+    
     public void start() {
-        setGameState(GameState.OPEN_FIRST_CARDS);
+        gameState = GameState.PLAYING;
+        openCardsFromDeck();
+    }
+    
+    public void loadDialog() {
+        gameState = GameState.OPEN_FIRST_CARDS;
         Overlays.renderHelpDialog(gamePanel);
     }
 
-    public void setGamePanel(JPanel gamePanel) {
-        this.gamePanel = gamePanel;
+    public void restart() {
+        initialise();
+        loadDialog();
     }
 
     public void openCardsFromDeck() {
-
+        // Opens cards until someone has a valid move
         do {
-            if (GameLogicUtils.doBothPlayersHaveAtLeast1CardInDeck(player1, player2)) {
+            if (GameLogicUtils.eachPlayerHasAtLeast1CardInDeck(player1, player2)) {
                 player1.openCardToPile(piles[0], true);
                 player2.openCardToPile(piles[1], false);
 
@@ -47,9 +62,12 @@ public class Game {
             } else if (player2.getDeck().isSizeAtLeast2()) {
                 player2.openCardToPile(piles[0], true);
                 player2.openCardToPile(piles[1], false);
+            } else {
+                // If no more cards to open and still no valid moves, udpate Game State and Return
+                updateGameState();
+                return;
             }
-        } while (GameLogicUtils.areBothPlayersOutOfMoves(player1, player2, piles));
-
+        } while (GameLogicUtils.bothPlayersOutOfMoves(player1, player2, piles));
     }
 
     public void updateGameState() {
@@ -60,15 +78,13 @@ public class Game {
             Sounds.endSound();
             Overlays.renderGameTransition(gamePanel, player1.getName());
             gameState = GameState.END;
-
         } else if (isPlayer2HandEmpty && !isPlayer1HandEmpty) {
             Sounds.endSound();
             Overlays.renderGameTransition(gamePanel, player2.getName());
             gameState = GameState.END;
+        } else if (GameLogicUtils.bothPlayersOutOfMoves(player1, player2, piles)) {
 
-        } else if (GameLogicUtils.areBothPlayersOutOfMoves(player1, player2, piles)) {
-
-            if (GameLogicUtils.doBothPlayersHaveAtLeast1CardInDeck(player1, player2)
+            if (GameLogicUtils.eachPlayerHasAtLeast1CardInDeck(player1, player2)
                     || player1.getDeck().isSizeAtLeast2()
                     || player2.getDeck().isSizeAtLeast2()) {
                 Overlays.renderTimeoutTransition(gamePanel);
@@ -82,37 +98,7 @@ public class Game {
             }
         }
     }
-
-    public Pile getPile(int index) {
-        return piles[index];
-    }
-
-    public Pile[] getBothPiles() {
-        return piles;
-    }
-
-    public Player getPlayer1() {
-        return player1;
-    }
-
-    public Player getPlayer2() {
-        return player2;
-    }
-
-    public GameState getGameState() {
-        return gameState;
-    }
-
-    public void setGameState(GameState gameState) {
-        this.gameState = gameState;
-    }
-
-    // for debugging
-    @Override
-    public String toString() {
-        return String.format("Pile 1 %s\nPile 2 %s \n%s\n%s\n", piles[0], piles[1], player1, player2);
-    }
-
+    
     public void stress(Player actionPlayer, Player opponent) {
         if (GameLogicUtils.isValidStress(piles)) {
             Overlays.renderStressTransition(gamePanel, opponent.getName());
@@ -145,29 +131,45 @@ public class Game {
                 opponentDeck.transfer(p);
             }
             opponentDeck.shuffle();
-            opponent.drawFourCards(false);
+            opponent.drawFourCards();
             openCardsFromDeck();
         });
         changeCardsWhenAnimationHideScreen.setRepeats(false);
         changeCardsWhenAnimationHideScreen.start();
     }
 
-    public void restart() {
+    public Pile getPile(int index) {
+        return piles[index];
+    }
 
-        // Create new decks for the players
-        Deck startingDeck = new Deck(false);
-        startingDeck.shuffle();
-        Deck halfDeck = startingDeck.splitAndReturnHalf();
-        halfDeck.changeColour();
+    public Pile[] getBothPiles() {
+        return piles;
+    }
 
-        // Reset the players
-        player1 = new Player("Player 1", startingDeck);
-        player2 = new Player("Player 2", halfDeck);
+    public Player getPlayer1() {
+        return player1;
+    }
 
-        // Reset the piles
-        piles = new Pile[] { new Pile(), new Pile() };
+    public Player getPlayer2() {
+        return player2;
+    }
 
-        start();
+    public GameState getGameState() {
+        return gameState;
+    }
+
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
+    }
+
+    public void setGamePanel(JPanel gamePanel) {
+        this.gamePanel = gamePanel;
+    }
+
+    // for debugging
+    @Override
+    public String toString() {
+        return String.format("Pile 1 %s\nPile 2 %s \n%s\n%s\n", piles[0], piles[1], player1, player2);
     }
 
 }

@@ -52,7 +52,7 @@ public final class Sounds {
         }
     }
 
-    public static void playSound(String audioPath, boolean loop, boolean overlap) {
+    private static void playSound(String audioPath, boolean loop, boolean overlap) {
         try {
             Clip clip = GUIUtility.loadAudioClip(audioPath);
 

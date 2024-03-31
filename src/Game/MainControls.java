@@ -51,7 +51,7 @@ public class MainControls extends KeyAdapter {
         if (newKeyPress == KeyEvent.VK_SPACE) {
             mainGUI.changeToPanel("Game");
             Sounds.bgmSound();
-            game.start();
+            game.loadDialog();
         }
     }
 
@@ -66,10 +66,9 @@ public class MainControls extends KeyAdapter {
             default -> System.out.println("Invalid move");
         }
         if (pressedKeys.contains(KeyEvent.VK_S) && pressedKeys.contains(KeyEvent.VK_K)) {
-            game.openCardsFromDeck();
-            game.setGameState(GameState.PLAYING);
             Overlays.clear();
             Sounds.resumeBgm();
+            game.start();
         }
     }
 
@@ -151,7 +150,6 @@ public class MainControls extends KeyAdapter {
             Overlays.clear();
             game.restart();
             mainGUI.restart(game);
-            mainGUI.changeToPanel("Game");
             Sounds.bgmSound();
         } else if (newKeyPress == KeyEvent.VK_ESCAPE) {
             mainGUI.dispose();
