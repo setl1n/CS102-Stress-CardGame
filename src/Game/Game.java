@@ -11,7 +11,9 @@ public class Game {
     private GameState gameState;
 
     private JPanel gamePanel;
-    private static final int WRONG_STRESS_PENALTY = 2000;
+    private static final int INVALID_STRESS_PENALTY = 2000;
+    private static final int STRESS_ANIMATION_DURATION = 2000;
+    private static final int CARD_TRANSFER_DELAY = 2000;
 
     public Game() {
         initialise();
@@ -108,14 +110,14 @@ public class Game {
         } else {
             // Penalty for invalid throwing card to pile: 2 seconds
             System.out.println("Invalid Stress, blocked for 2s");
-            actionPlayer.blockFor(WRONG_STRESS_PENALTY);
+            actionPlayer.blockFor(INVALID_STRESS_PENALTY);
         }
     }
 
     private void temporaryDisableInputs() {
         gameState = GameState.STRESS;
         // Change gamestate to re-enable inputs after animation
-        Timer timer = new Timer(3000, e -> {
+        Timer timer = new Timer(STRESS_ANIMATION_DURATION, e -> {
             gameState = GameState.PLAYING;
         });
         timer.setRepeats(false);
@@ -125,7 +127,7 @@ public class Game {
     private void addPilesToLoserHand(Player opponent) {
         Deck opponentDeck = opponent.getDeck();
         // Times the transfer to occur when screen is covered by animation
-        Timer changeCardsWhenAnimationHideScreen = new Timer(2000, e -> {
+        Timer changeCardsWhenAnimationHideScreen = new Timer(CARD_TRANSFER_DELAY, e -> {
             // add pile to loser's hand
             for (Pile p : piles) {
                 opponentDeck.transfer(p);
