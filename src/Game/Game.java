@@ -34,19 +34,22 @@ public class Game {
     
 
     public void openCardsFromDeck() {
+        
+        do {
+            if (GameLogicUtils.doBothPlayersHaveAtLeast1CardInDeck(player1, player2)) {
+                player1.openCardToPile(piles[0], true);
+                player2.openCardToPile(piles[1], false);
+    
+            } else if (player1.getDeck().isSizeAtLeast2()) {
+                player1.openCardToPile(piles[0], true);
+                player1.openCardToPile(piles[1], false);
+    
+            } else if (player2.getDeck().isSizeAtLeast2()) {
+                player2.openCardToPile(piles[0], true);
+                player2.openCardToPile(piles[1], false);
+            }
+        } while (GameLogicUtils.areBothPlayersOutOfMoves(player1, player2, piles));
 
-        if (GameLogicUtils.doBothPlayersHaveAtLeast1CardInDeck(player1, player2)) {
-            player1.openCardToPile(piles[0], true);
-            player2.openCardToPile(piles[1], false);
-
-        } else if (player1.getDeck().isSizeAtLeast2()) {
-            player1.openCardToPile(piles[0], true);
-            player1.openCardToPile(piles[1], false);
-
-        } else if (player2.getDeck().isSizeAtLeast2()) {
-            player2.openCardToPile(piles[0], true);
-            player2.openCardToPile(piles[1], false);
-        }
 
     }
 
