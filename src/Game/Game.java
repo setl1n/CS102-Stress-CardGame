@@ -147,7 +147,7 @@ public class Game {
             Overlays.renderStressTransition(gamePanel, opponent.getName());
             Sounds.stressSound();
             temporaryDisableInputs();
-            addPilesToLoserHand(opponent);
+            moveCardsAfterTimer(opponent);
         } else {
             // Penalty for invalid throwing card to pile: 2 seconds
             System.out.println("Invalid Stress, blocked for 2s");
@@ -172,7 +172,7 @@ public class Game {
      * Adds piles to the opponent's hand.
      * @param opponent The opponent player.
      */
-    private void addPilesToLoserHand(Player opponent) {
+    private void moveCardsAfterTimer(Player opponent) {
         Deck opponentDeck = opponent.getDeck();
         // Times the transfer to occur when screen is covered by animation
         Timer changeCardsWhenAnimationHideScreen = new Timer(CARD_TRANSFER_DELAY, e -> {
