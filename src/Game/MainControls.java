@@ -4,6 +4,9 @@ import java.awt.event.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import GUI.MainGUI;
+import GUI.Overlays;
+import GUI.Sounds;
 import cardcollections.Pile;
 import gui.*;
 
@@ -87,6 +90,13 @@ public class MainControls extends KeyAdapter {
         }
     }
 
+    /**
+     * Handles stress controls during gameplay.
+     * Triggers a stress action based on which key is pressed, allowing each player
+     * to potentially call a stress action against the other.
+     * Player 1 triggers stress with 'S', and Player 2 triggers stress with 'K'.
+     * @param newKeyPress The key code of the pressed key.
+     */
     private void handleStressControls(int newKeyPress) {
         if (newKeyPress == KeyEvent.VK_S) {
             game.stress(game.getPlayer1(), game.getPlayer2());
@@ -116,14 +126,31 @@ public class MainControls extends KeyAdapter {
         game.updateGameState();
     }
 
+    /**
+     * Determines if the pressed key corresponds to a control for player 1.
+     * @param keyCode The key code of the pressed key.
+     * @return true if the key is a control for player 1; otherwise, false.
+     */
     private boolean isPlayer1Control(int keyCode) {
         return Set.of(KeyEvent.VK_Q, KeyEvent.VK_W, KeyEvent.VK_E, KeyEvent.VK_R, KeyEvent.VK_S).contains(keyCode);
     }
 
+    /**
+     * Determines if the pressed key corresponds to a control for player 2.
+     * @param keyCode The key code of the pressed key.
+     * @return true if the key is a control for player 2; otherwise, false.
+     */
     private boolean isPlayer2Control(int keyCode) {
         return Set.of(KeyEvent.VK_U, KeyEvent.VK_I, KeyEvent.VK_O, KeyEvent.VK_P, KeyEvent.VK_K).contains(keyCode);
     }
 
+    /**
+     * Processes actions for player 1 based on the pressed key.
+     * If the action is valid, it is executed. Otherwise, an invalid move handling is triggered.
+     * @param keyCode The key code of the pressed key.
+     * @param player The player 1 object.
+     * @param piles The array of pile objects.
+     */
     private void processPlayer1Actions(int keyCode, Player player, Pile[] piles) {
         switch (keyCode) {
             case KeyEvent.VK_Q -> player.throwCardToPile(0, piles);
@@ -134,6 +161,13 @@ public class MainControls extends KeyAdapter {
         }
     }
 
+    /**
+     * Processes actions for player 2 based on the pressed key.
+     * If the action is valid, it is executed. Otherwise, an invalid move handling is triggered.
+     * @param keyCode The key code of the pressed key.
+     * @param player The player 2 object.
+     * @param piles The array of pile objects.
+     */
     private void processPlayer2Actions(int keyCode, Player player, Pile[] piles) {
         switch (keyCode) {
             case KeyEvent.VK_U -> player.throwCardToPile(0, piles);
@@ -144,11 +178,19 @@ public class MainControls extends KeyAdapter {
         }
     }
 
+    /**
+     * Handles an invalid move by playing an invalid sound and printing an error message.
+     */
     private void handleInvalidMove() {
         Sounds.invalidSound();
         System.out.println("Invalid move");
     }
     
+    /**
+     * Handles the control changes for pile target index for both players.
+     * Allows changing the target pile based on the key pressed.
+     * @param newKeyPress The key code of the pressed key.
+     */
     private void handleChangePilesControls(int newKeyPress) {
         Player player1 = game.getPlayer1();
         Player player2 = game.getPlayer2();
