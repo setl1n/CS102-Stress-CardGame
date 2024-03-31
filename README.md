@@ -1,40 +1,44 @@
-# CS102-CardGame
+# CS102-CardGameProject-G7
 
-### Please make a new branch when adding a new feature. 
-1. pull from master (git checkout main, git pull)
-2. make new branch (git checkout -b [branch name])
-3. make changes and push (git push)
-4. open pull request (on github UI)
-5. resolve conflicts if any (choose version and test)
-	- pull master to current branch
-	- pick current vs incoming change or both for all conflicts
-	- test agn to make sure it works 
-	- push again
-6. merge to master (on github UI), please test and make sure it works, maybe ask teammates to check  
+## Intro
+Welcome to Stress! The Game. Play against one other human opponent to test your skills and strategy in this classic card game.
 
-NOTE: the .keep files are just placeholders, i'll remove them
+Terminology: 
+	HAND (both players): revealed cards
+	DECK (both players): remaining cards unrevealed
+	PILE (2): playing cards in the middle
 
+Aim: Get rid of all the cards in your DECK. The faster player wins the game!
 
-### Some inspirations/examples I found:
+## Setup
+Each player has 26 cards. At all times, each HAND consists of 4 open cards. The rest of the cards are hidden in the respective DECKs. Players are to use the keyboard to interact with the game.
 
-- Poker
+## Gameplay
+Both players' cards are shuffled at the beginning of the game. The game starts with two open cards in the middle, one from each player. Players are to select a card from their HAND to stack onto either PILE in numerical order (increment/decrement by 1) or stack the same card onto the PILE. Players can toggle between the two PILEs. The card played is replaced with the top card from their DECK. 
 
-https://github.com/Hotrook/poker-game/tree/master/src/main/java/com/hotrook
+During the game, players are to watch out for matching cards in the middle. Once both of the cards in the middle are the same, players are to call Stress! using their respective hotkeys. All of the cards in both PILES will be added to the slower player's DECK. The game continues.
 
-https://github.com/Hotrook/poker-game/tree/master/src/main/java/com/hotrook
+In the case of a stalemate where both players' do not have a card to play into the middle, the game goes into Timeout! All cards are reshuffled. The game continues.
 
+The first player to play all their cards wins. Players can choose to replay or exit the game.
 
-- Bridge
+## Hotkeys
+						  Player 1 (left side of keyboard)/Player 2 (right side of keyboard)
+Select a card from HAND : QWER                            /UIOP
+Toggle between PILEs	: AD                              /JL
+Stress!					: S                               /K 
 
-https://github.com/wecassidy/bridge/tree/master
+## Getting the game started
+Compile the source files
+	compile.bat			javac -d classes -cp ./src/ ./src/App.java 
+						xcopy /s /e classes\assets
 
-https://github.com/Xemnaes/Bridge-Game/tree/master/BridgeGame/src/bridgeGame
+Run App.java 
 
+Follow the instructions on the screen
 
-## ACTUAL
-
-### Setup
-...
-...
-
-
+## Instructions on the screen during the game
+Start game: S + K
+Once game ends:
+	Restart game: S + K
+	Exit game: esc
