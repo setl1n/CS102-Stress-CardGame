@@ -11,7 +11,7 @@ public final class Overlays {
 
     private static JLayeredPane onGoingLayeredPane;
     private static JLabel onGoingLabel;
-    private static JPanel onGoingPane;
+    private static JPanel onGoingGlassPane;
     private static Timer onGoingTimer;
 
     private static final int CARD_TRANSITION_FLASH_DURATION = 100;
@@ -140,7 +140,7 @@ public final class Overlays {
         JPanel glassPane = GUIUtility.initialiseGlassPane(gifIcon);
         frame.setGlassPane(glassPane);
         glassPane.setVisible(true);
-        onGoingPane = glassPane;
+        onGoingGlassPane = glassPane;
 
         // Forces garbage collection to ensure proper looping
         gifIcon.getImage().flush();
@@ -154,7 +154,7 @@ public final class Overlays {
     private static void hideGIFAfterDelay(JFrame frame, JPanel glassPane, int delayDuration) {
         // Timer to remove the animation and hide the glass pane after a delay
         Timer timer = new Timer(delayDuration, e -> {
-            onGoingPane = null;
+            onGoingGlassPane = null;
             glassPane.setVisible(false);
             frame.repaint();
         });
@@ -184,10 +184,10 @@ public final class Overlays {
     }
 
     private static void cutCurrentAnimationIfAny() {
-        if (onGoingPane != null) {
-            onGoingPane.setVisible(false);
+        if (onGoingGlassPane != null) {
+            onGoingGlassPane.setVisible(false);
         }
-        onGoingPane = null;
+        onGoingGlassPane = null;
     }
 
     private static void clearStaticImagesIfAny() {
