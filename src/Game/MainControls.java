@@ -4,9 +4,6 @@ import java.awt.event.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import GUI.MainGUI;
-import GUI.Overlays;
-import GUI.Sounds;
 import cardcollections.Pile;
 import gui.*;
 
