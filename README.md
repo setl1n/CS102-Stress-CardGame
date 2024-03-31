@@ -34,6 +34,7 @@ Stress! The Game uses a slightly different ruleset from the original card game (
 
 As per the original rules, each player will start with 26 cards (half of a standard pack of cards), with one card being placed on different piles to start.
 On top of stacking consecutive cards in ascending order, our game adds a new twist: cards can be stacked in descending order, or if the card has the same rank!
+
 This provides more opportunities for players to interrupt the flow of the game and disrupt their opponent, while making them consider their card choices wisely. Stack too many cards of the same rank, and you may find yourself unable to stack further!
 
 Stress! can be called by either player when both cards on the piles are identical in rank. The other player that is too slow to the call will have to taken all the cards from the pile and place it in their deck. Remember, you can stack either up or down now, so be quick on your feet!
@@ -45,11 +46,15 @@ Stress! can be called by either player when both cards on the piles are identica
 Inspired by the QWER control scheme of real time strategy (RTS) games, and the classic WASD control scheme of most shooter games, we chose to offer players the best of both worlds. 
 Use QWER (or UIOP for player two) to throw your cards from your HAND to one of the PILEs.
 Use AD (or JL) to switch between PILEs. 
+
 **Most importantly, S (or K) is used to called Stress!**
 
 ![Stress Controls](./images/dialog.png)
 
-To combat button mashing, players are penalised for incorrect moves, with their controls going on cooldown for 1 seconds (on a invalid card throw), or 2 seconds (on an invalid stress call). You must be quick, but you must also be precise!
+To combat button mashing, players are penalised for incorrect moves, with their controls going on cooldown for:
+1 second (on a invalid card throw)
+2 seconds (on an invalid stress call)
+Be quick, but accurate!
 
 --
 
