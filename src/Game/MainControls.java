@@ -12,6 +12,8 @@ import gui.*;
  */
 public class MainControls extends KeyAdapter {
     private Set<Integer> pressedKeys = new HashSet<>();
+    private final Set<Integer> PLAYER1_CONTROLS = Set.of(KeyEvent.VK_Q, KeyEvent.VK_W, KeyEvent.VK_E, KeyEvent.VK_R, KeyEvent.VK_S);
+    private final Set<Integer> PLAYER2_CONTROLS = Set.of(KeyEvent.VK_U, KeyEvent.VK_I, KeyEvent.VK_O, KeyEvent.VK_P, KeyEvent.VK_K);
     private Game game;
     private MainGUI mainGUI;
 
@@ -36,19 +38,21 @@ public class MainControls extends KeyAdapter {
         pressedKeys.add(newKeyPress);
         switch (game.getGameState()) {
             case START_SCREEN:
-                handleStartScreenKeyPress(newKeyPress);
+                handleStartScreenControls(newKeyPress);
                 break;
             case NO_VALID_MOVES:
-                handleOpenCardsKeyPress(newKeyPress);
+                handleChangePilesControls(newKeyPress);
+                handleOpenCardsControls(newKeyPress);
                 break;
             case PLAYING:
-                handlePlayingKeyPress(newKeyPress);
+                handleChangePilesControls(newKeyPress);
+                handlePlayCardsControls(newKeyPress);
                 break;
             case STRESS:
-                handleStressKeyPress(newKeyPress);
+                handleChangePilesControls(newKeyPress);
                 break;
             case END:
-                handleEndGameKeyPress(newKeyPress);
+                handleEndGameControls(newKeyPress);
                 break;
             default:
                 System.out.println("Game State Not Found");
@@ -63,7 +67,7 @@ public class MainControls extends KeyAdapter {
      * Handles key press events at the start screen.
      * @param newKeyPress The key code of the pressed key.
      */
-    private void handleStartScreenKeyPress(int newKeyPress) {
+    private void handleStartScreenControls(int newKeyPress) {
         if (newKeyPress == KeyEvent.VK_SPACE) {
             mainGUI.changeToPanel("Game");
             Sounds.bgmSound();
@@ -76,16 +80,7 @@ public class MainControls extends KeyAdapter {
      * Checks for players holding down S and K to continue
      * @param newKeyPress The key code of the pressed key.
      */
-    private void handleOpenCardsKeyPress(int newKeyPress) {
-        Player player1 = game.getPlayer1();
-        Player player2 = game.getPlayer2();
-        switch (newKeyPress) {
-            case KeyEvent.VK_A -> player1.setTargetPileIndex(0);
-            case KeyEvent.VK_D -> player1.setTargetPileIndex(1);
-            case KeyEvent.VK_J -> player2.setTargetPileIndex(0);
-            case KeyEvent.VK_L -> player2.setTargetPileIndex(1);
-            default -> System.out.println("Invalid move");
-        }
+    private void handleOpenCardsControls(int newKeyPress) {
         if (pressedKeys.contains(KeyEvent.VK_S) && pressedKeys.contains(KeyEvent.VK_K)) {
             Overlays.clear();
             Sounds.resumeBgm();
@@ -94,75 +89,73 @@ public class MainControls extends KeyAdapter {
     }
 
     /**
-     * Handles key press events during gameplay.
-     * If keypress is invalid, play invalid sound and lock controls for a delay
+     * Handles key press events for card playing moves
      * @param newKeyPress The key code of the pressed key.
      */
-    private void handlePlayingKeyPress(int newKeyPress) {
+    private void handlePlayCardsControls(int newKeyPress) {
         Player player1 = game.getPlayer1();
         Player player2 = game.getPlayer2();
-
-        // Allow switching piles regardless of blocking
-        switch (newKeyPress) {
-            case KeyEvent.VK_A -> player1.setTargetPileIndex(0);
-            case KeyEvent.VK_D -> player1.setTargetPileIndex(1);
-            case KeyEvent.VK_J -> player2.setTargetPileIndex(0);
-            case KeyEvent.VK_L -> player2.setTargetPileIndex(1);
-            default -> System.out.println("Invalid move");
-        }
-
         Pile[] piles = game.getBothPiles();
-        // Processing player 1's controls if player 1 is not blocked.
-        if (!player1.isBlocked()) {
-            switch (newKeyPress) {
-                case KeyEvent.VK_Q -> player1.throwCardToPile(0, piles);
-                case KeyEvent.VK_W -> player1.throwCardToPile(1, piles);
-                case KeyEvent.VK_E -> player1.throwCardToPile(2, piles);
-                case KeyEvent.VK_R -> player1.throwCardToPile(3, piles);
-                case KeyEvent.VK_S -> game.stress(player1, player2);
-                default -> System.out.println("Invalid move");
-            }
-        } else {
-            // else plays invalid sound
-            switch (newKeyPress) {
-                case KeyEvent.VK_Q, KeyEvent.VK_W, KeyEvent.VK_E, KeyEvent.VK_R, KeyEvent.VK_S:
-                    Sounds.invalidSound();
-                    break;
-                default:
-                    System.out.println("Invalid move");
-                    break;
-            }
+
+        if (!player1.isBlocked() && PLAYER1_CONTROLS.contains(newKeyPress)) {
+            processPlayer1Actions(newKeyPress, player1, piles);
+        } 
+        if (!player2.isBlocked() && PLAYER2_CONTROLS.contains(newKeyPress)) {
+            processPlayer2Actions(newKeyPress, player2, piles);
         }
 
-        // Processing player 2's controls if player 2 is not blocked.
-        if (!player2.isBlocked()) {
-            switch (newKeyPress) {
-                case KeyEvent.VK_U -> player2.throwCardToPile(0, piles);
-                case KeyEvent.VK_I -> player2.throwCardToPile(1, piles);
-                case KeyEvent.VK_O -> player2.throwCardToPile(2, piles);
-                case KeyEvent.VK_P -> player2.throwCardToPile(3, piles);
-                case KeyEvent.VK_K -> game.stress(player2, player1);
-                default -> System.out.println("Invalid move");
-            }
-        } else {
-            // else plays invalid sound
-            switch (newKeyPress) {
-                case KeyEvent.VK_U, KeyEvent.VK_I, KeyEvent.VK_O, KeyEvent.VK_P, KeyEvent.VK_K:
-                    Sounds.invalidSound();
-                    break;
-                default:
-                    System.out.println("Invalid move");
-                    break;
-            }
-        }
         game.updateGameState();
     }
+
     /**
-     * Handles key press events during stress.
-     * Only allows for setting target pile until stress is over
+     * Processes actions for player 1 based on the pressed key.
+     * If the action is valid, it is executed. Otherwise, an invalid move handling is triggered.
+     * @param keyCode The key code of the pressed key.
+     * @param player The player 1 object.
+     * @param piles The array of pile objects.
+     */
+    private void processPlayer1Actions(int keyCode, Player player, Pile[] piles) {
+        switch (keyCode) {
+            case KeyEvent.VK_Q -> player.throwCardToPile(0, piles);
+            case KeyEvent.VK_W -> player.throwCardToPile(1, piles);
+            case KeyEvent.VK_E -> player.throwCardToPile(2, piles);
+            case KeyEvent.VK_R -> player.throwCardToPile(3, piles);
+            case KeyEvent.VK_S -> game.stress(player, game.getPlayer2());
+            default -> handdleFallThrough();
+        }
+    }
+
+    /**
+     * Processes actions for player 2 based on the pressed key.
+     * If the action is valid, it is executed. Otherwise, an invalid move handling is triggered.
+     * @param keyCode The key code of the pressed key.
+     * @param player The player 2 object.
+     * @param piles The array of pile objects.
+     */
+    private void processPlayer2Actions(int keyCode, Player player, Pile[] piles) {
+        switch (keyCode) {
+            case KeyEvent.VK_U -> player.throwCardToPile(0, piles);
+            case KeyEvent.VK_I -> player.throwCardToPile(1, piles);
+            case KeyEvent.VK_O -> player.throwCardToPile(2, piles);
+            case KeyEvent.VK_P -> player.throwCardToPile(3, piles);
+            case KeyEvent.VK_K -> game.stress(player, game.getPlayer1());
+            default -> handdleFallThrough();
+        }
+    }
+
+    /**
+     * Handles an invalid move by printing an error message.
+     */
+    private void handdleFallThrough() {
+        return;
+    }
+    
+    /**
+     * Handles the control changes for pile target index for both players.
+     * Allows changing the target pile based on the key pressed.
      * @param newKeyPress The key code of the pressed key.
      */
-    private void handleStressKeyPress(int newKeyPress) {
+    private void handleChangePilesControls(int newKeyPress) {
         Player player1 = game.getPlayer1();
         Player player2 = game.getPlayer2();
         switch (newKeyPress) {
@@ -170,7 +163,7 @@ public class MainControls extends KeyAdapter {
             case KeyEvent.VK_D -> player1.setTargetPileIndex(1);
             case KeyEvent.VK_J -> player2.setTargetPileIndex(0);
             case KeyEvent.VK_L -> player2.setTargetPileIndex(1);
-            default -> System.out.println("Invalid move");
+            default -> handdleFallThrough();
         }
     }
 
@@ -179,7 +172,7 @@ public class MainControls extends KeyAdapter {
      * Checks for restart or quit
      * @param newKeyPress The key code of the pressed key.
      */
-    private void handleEndGameKeyPress(int newKeyPress) {
+    private void handleEndGameControls(int newKeyPress) {
         if (pressedKeys.contains(KeyEvent.VK_S) && pressedKeys.contains(KeyEvent.VK_K)) {
             // Restart the game
             Overlays.clear();
