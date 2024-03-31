@@ -8,6 +8,8 @@ import gui.panels.gamecontainer.playercontainer.PlayerPanel;
 
 public final class Overlays {
 
+    private Overlays () {}
+
     private static JLayeredPane onGoingLayeredPane;
     private static JLabel onGoingLabel;
     private static JPanel onGoingGlassPane;
@@ -16,6 +18,10 @@ public final class Overlays {
     private static final int CARD_TRANSITION_FLASH_DURATION = 100;
     private static final int DELAY_DURATION = 3200;
     private static final int DELAY_DURATION_STRESS = 3000;
+
+    /*
+     * Methods for transitions involving CardPanel
+     */
 
     public static void renderCardTransition(JPanel cardPanel, String playerName) {
         showLockoutTransition(cardPanel, playerName, CARD_TRANSITION_FLASH_DURATION);
@@ -26,6 +32,11 @@ public final class Overlays {
             showLockoutTransition(cardPanel, null, blockedDuration);
         }
     }
+
+    /*
+     * Methods for transitions involving target panels
+     * Called during/before various GAME STATES
+     */
 
     private static void showLockoutTransition(JPanel targetPanel, String playerName, int displayDuration) {
         final String transitionPath = "/assets/transition";
@@ -63,7 +74,10 @@ public final class Overlays {
         renderGIF(targetPanel, filePath, DELAY_DURATION, true);
     }
 
-    // File Path processing
+    /*
+     * Method to process and return a filepath based on 
+     * whether a player is associated with it or not
+     */
     private static String processPath(String path, String playerName, boolean isGif) {
         String playerPath = "";
         if (playerName == null) {
@@ -78,7 +92,7 @@ public final class Overlays {
     }
 
     /*
-     * IMAGE OVERLAY RENDERING
+     * Methods to render images and GIFs on screen
      */
     private static void renderImage(JPanel targetPanel, String imgPath, int displayDuration) {
         JFrame frame = (JFrame) SwingUtilities.getAncestorOfClass(JFrame.class, targetPanel);
@@ -92,12 +106,21 @@ public final class Overlays {
         }
         JLabel imgLabel = GUIUtility.initialiseIMGLabel(imgUrl, targetPanel, frame); 
         onGoingLabel = imgLabel;
+
+        /*
+         * Layered Pane allows us to add transitions on top of the targetpanel
+         * while not being confined to the dimensions of the targetpanel
+         */
         
         JLayeredPane layeredPane = frame.getLayeredPane();
         onGoingLayeredPane = layeredPane;
 
         layeredPane.add(imgLabel, JLayeredPane.POPUP_LAYER);
         layeredPane.moveToFront(imgLabel);
+
+        /*
+         * Handling for static or dynamic image
+         */
 
         if (displayDuration == 0) {
             return;
@@ -117,9 +140,6 @@ public final class Overlays {
         timer.start();
     }
 
-    /*
-     * GIF OVERLAY RENDERING
-     */
 
     private static void renderGIF(JPanel targetPanel, String gifPath, int delayDuration,
                                   boolean loadImageAfter) {
@@ -135,13 +155,18 @@ public final class Overlays {
         }
         ImageIcon gifIcon = new ImageIcon(gifUrl);
 
-        // Create a new JPanel that acts as the glass pane
+        /*
+         * Glass Pane is used to render transparent GIFs
+         */
+
         JPanel glassPane = GUIUtility.initialiseGlassPane(gifIcon);
         frame.setGlassPane(glassPane);
         glassPane.setVisible(true);
         onGoingGlassPane = glassPane;
 
-        // Forces garbage collection to ensure proper looping
+        /*
+         * Garbage collection to ensure proper looping
+         */
         gifIcon.getImage().flush();
 
         hideGIFAfterDelay(frame, glassPane, delayDuration);
@@ -149,9 +174,11 @@ public final class Overlays {
             loadImageAfterDelay(gifPath, targetPanel, delayDuration);
         }
     }
-
+    
+    /*
+     * Remove animation and hide glassPane after a delay
+     */
     private static void hideGIFAfterDelay(JFrame frame, JPanel glassPane, int delayDuration) {
-        // Timer to remove the animation and hide the glass pane after a delay
         Timer timer = new Timer(delayDuration, e -> {
             onGoingGlassPane = null;
             glassPane.setVisible(false);
@@ -161,8 +188,10 @@ public final class Overlays {
         timer.start();
     }
 
+    /*
+     * Load static image after the GIF completes
+     */
     private static void loadImageAfterDelay(String gifPath, JPanel targetPanel, int delayDuration) {
-        // timer to load image after gif finishes
         final String newPath = gifPath.replace(".gif", ".png");
         Timer loadImageTimer = new Timer(delayDuration, e -> {
             renderImage(targetPanel, newPath, 0);
@@ -173,11 +202,11 @@ public final class Overlays {
     }
 
     /*
-     * Cut and clear any active Overlays
+     * Methods to cut and clear any active Overlays
      */
 
     public static void clear() {
-        cancelActiveTimer(); // Cancel any active timer
+        cancelActiveTimer();
         cutCurrentAnimationIfAny();
         clearStaticImagesIfAny();
     }
