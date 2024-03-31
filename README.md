@@ -81,7 +81,3 @@ The following game conditions can happen in Stress! The Game:
 3. **Tie:** Both players are out of valid card places, but there are no more cards left in the deck.
 
 --
-
-## UML Diagram
-For a better understanding of our code structure, we have attached our UML diagram below.
-![Stress UML]
