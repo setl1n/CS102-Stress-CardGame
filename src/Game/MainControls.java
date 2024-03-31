@@ -38,6 +38,9 @@ public class MainControls extends KeyAdapter {
             case END:
                 handleEndGameKeyPress(newKeyPress);
                 break;
+            default:
+                System.out.println("Game State Not Found");
+                break;
         }
         System.out.println(
                 "Keys Pressed: " + pressedKeys.stream().map(i -> (char) i.intValue()).collect(Collectors.toList()));
@@ -60,6 +63,7 @@ public class MainControls extends KeyAdapter {
             case KeyEvent.VK_D -> player1.setTargetPileIndex(1);
             case KeyEvent.VK_J -> player2.setTargetPileIndex(0);
             case KeyEvent.VK_L -> player2.setTargetPileIndex(1);
+            default -> System.out.println("Invalid move");
         }
         if (pressedKeys.contains(KeyEvent.VK_S) && pressedKeys.contains(KeyEvent.VK_K)) {
             game.openCardsFromDeck();
@@ -79,6 +83,7 @@ public class MainControls extends KeyAdapter {
             case KeyEvent.VK_D -> player1.setTargetPileIndex(1);
             case KeyEvent.VK_J -> player2.setTargetPileIndex(0);
             case KeyEvent.VK_L -> player2.setTargetPileIndex(1);
+            default -> System.out.println("Invalid move");
         }
 
         Pile[] piles = game.getBothPiles();
@@ -90,12 +95,16 @@ public class MainControls extends KeyAdapter {
                 case KeyEvent.VK_E -> player1.throwCardToPile(2, piles);
                 case KeyEvent.VK_R -> player1.throwCardToPile(3, piles);
                 case KeyEvent.VK_S -> game.stress(player1, player2);
+                default -> System.out.println("Invalid move");
             }
         } else {
             // else plays invalid sound
             switch (newKeyPress) {
                 case KeyEvent.VK_Q, KeyEvent.VK_W, KeyEvent.VK_E, KeyEvent.VK_R, KeyEvent.VK_S:
                     Sounds.invalidSound();
+                    break;
+                default:
+                    System.out.println("Invalid move");
                     break;
             }
         }
@@ -108,12 +117,16 @@ public class MainControls extends KeyAdapter {
                 case KeyEvent.VK_O -> player2.throwCardToPile(2, piles);
                 case KeyEvent.VK_P -> player2.throwCardToPile(3, piles);
                 case KeyEvent.VK_K -> game.stress(player2, player1);
+                default -> System.out.println("Invalid move");
             }
         } else {
             //// else plays invalid sound
             switch (newKeyPress) {
                 case KeyEvent.VK_U, KeyEvent.VK_I, KeyEvent.VK_O, KeyEvent.VK_P, KeyEvent.VK_K:
                     Sounds.invalidSound();
+                    break;
+                default:
+                    System.out.println("Invalid move");
                     break;
             }
         }
@@ -128,6 +141,7 @@ public class MainControls extends KeyAdapter {
             case KeyEvent.VK_D -> player1.setTargetPileIndex(1);
             case KeyEvent.VK_J -> player2.setTargetPileIndex(0);
             case KeyEvent.VK_L -> player2.setTargetPileIndex(1);
+            default -> System.out.println("Invalid move");
         }
     }
 
