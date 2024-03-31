@@ -16,6 +16,11 @@ public class CardPanel extends JPanel {
 
     private JLabel cardLabel;
 
+    /*
+     * Creates JPanel to show the image of a Card
+     * used in the hand (which has 4 of these panels)
+     */
+
     public CardPanel(Card card) {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setLayout(new BorderLayout());

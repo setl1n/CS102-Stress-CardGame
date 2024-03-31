@@ -15,6 +15,10 @@ public class NumPanel extends JPanel {
     private static final int HEIGHT = 50;
     private static final int LABEL_WIDTH_HEIGHT = 50;
     
+    /*
+     * Creates JPanel to display the number of cards left
+     * in the deck for each player, next to the deck panel
+     */
 
     public NumPanel(Deck deck) {
         this.deck = deck;
@@ -23,12 +27,19 @@ public class NumPanel extends JPanel {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
         int num = deck.size();
+
+        /*
+         * Add the first digit as an image
+         * Fallback path to render as 0
+         */
         String path = "/assets/" + (num / 10) + ".png";
         JLabel labelComponent = GUIUtility.renderLabel(path, "/assets/0.png", LABEL_WIDTH_HEIGHT, LABEL_WIDTH_HEIGHT);
         numLabels.add(labelComponent);
         add(labelComponent);
 
-        // create digit 2
+        /*
+         * Add the second digit as an image
+         */
         path = "/assets/" + (num % 10) + ".png";
         labelComponent = GUIUtility.renderLabel(path, "/assets/0.png", LABEL_WIDTH_HEIGHT, LABEL_WIDTH_HEIGHT);
         numLabels.add(labelComponent);
@@ -38,11 +49,9 @@ public class NumPanel extends JPanel {
     public void updateNum(){
         int num = deck.size();
         
-        // first digit
         String path = "/assets/" + (num / 10) + ".png";
         GUIUtility.renderLabel(numLabels.get(0), path, "/assets/0.png", LABEL_WIDTH_HEIGHT, LABEL_WIDTH_HEIGHT);
 
-        // second digit
         path = "/assets/" + (num % 10) + ".png";
         GUIUtility.renderLabel(numLabels.get(1), path, "/assets/0.png", LABEL_WIDTH_HEIGHT, LABEL_WIDTH_HEIGHT);
     }

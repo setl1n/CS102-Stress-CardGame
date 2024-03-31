@@ -13,6 +13,10 @@ public class PilePanel extends JPanel {
 
     private JLabel jLabel;
 
+    /*
+     * Creates new JPanel for one pile
+     */
+
     public PilePanel(Pile pile) {
 
         pile.setPilePanel(this);
@@ -25,6 +29,11 @@ public class PilePanel extends JPanel {
         add(jLabel, BorderLayout.CENTER);
 
     }
+
+    /*
+     * Updates Pile panel when the top card changes
+     * to modify the image displayed in GUI
+     */
 
     public void updatePilePanel(Card card) {
         Image image = card.getCardImage().getScaledInstance(WIDTH, HEIGHT, Image.SCALE_SMOOTH);

@@ -19,7 +19,13 @@ public class PlayerPanel extends JPanel {
     private static final int WIDTH = 1080;
     private static final int HEIGHT = 240;
     private static final int OFFSET = 5;
-    
+
+    /*
+     * Creates a Player panel that contains:
+     * 4 Card panels (the HAND)
+     * 1 Deck panel (the DECK)
+     * 1 Num Panel
+     */
     
     public PlayerPanel(Player player) {
         this.player = player;
@@ -31,11 +37,21 @@ public class PlayerPanel extends JPanel {
 
             setLayout(new FlowLayout(FlowLayout.LEFT, OFFSET, OFFSET));
 
+            /*
+             * Add in order
+             * hand / deck / num 
+             */
+
             addHand();
             addDeck();
             addNumPanel();
 
         } else if ("Player 2".equals(player.getName())) {
+
+            /*
+             * Reverse the order
+             * num / deck / hand 
+             */
 
             setLayout(new FlowLayout(FlowLayout.RIGHT, OFFSET, OFFSET));
             addNumPanel();
@@ -52,6 +68,10 @@ public class PlayerPanel extends JPanel {
         }
     }
 
+    /*
+     * Methods to add the various panels
+     */
+
     public void addDeck() {
         this.deckPanel = new DeckPanel(player.getDeck());
         add(deckPanel);
@@ -66,9 +86,10 @@ public class PlayerPanel extends JPanel {
         return cardPanels.get(index);
     }
 
-    public Player getPlayer() {
-        return player;
-    }
+    /*
+     * Methods to update the entire playerpanel
+     * and its various nested JPanels
+     */
 
     public void updateCardPanel(int idx, Card card) {
         CardPanel cardPanel = cardPanels.get(idx);
@@ -90,6 +111,11 @@ public class PlayerPanel extends JPanel {
             updateCardPanel(i, player.getHand().getCardAtIndex(i));
         }
     }
+
+    /*
+     * returns an ArrayList of CardPanels to modify
+     * individually if necessary
+     */
 
     public ArrayList<CardPanel> getCardPanels() {
         return cardPanels;

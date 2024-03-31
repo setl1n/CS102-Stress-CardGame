@@ -1,12 +1,9 @@
-
 package gui.panels.gamecontainer.pilecontainer;
 
 import javax.swing.*;
-
-import game.Player;
-
 import java.awt.*;
 
+import game.Player;
 import gui.GUIUtility;
 
 public class IndicatorPanel extends JPanel {
@@ -15,6 +12,11 @@ public class IndicatorPanel extends JPanel {
     static final int INDICATOR_HEIGHT = 40;
     static final int PANEL_WIDTH = 185;
     static final int PANEL_HEIGHT = 50;
+
+    /*
+     * Creates a JPanel that holds one indicator JLabel (to show which pile is active)
+     * FlowLayout is used to snap the indicator left or right (using LayoutManager)
+     */
 
 
     public IndicatorPanel(Player player) {
@@ -36,7 +38,10 @@ public class IndicatorPanel extends JPanel {
 
     }
 
-    // Method to update the position of the indicator within this panel
+    /*
+     * Updates whether the indicator snaps left or right of the panel
+     */
+
     public void setPositionToLeft() {
         ((FlowLayout) getLayout()).setAlignment(FlowLayout.LEFT);
         revalidate();

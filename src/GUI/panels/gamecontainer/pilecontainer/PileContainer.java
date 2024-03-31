@@ -12,54 +12,66 @@ public class PileContainer extends JPanel {
     private static final int WIDTH = 300;
     private static final int HEIGHT = 240;
 
+    /*
+     * Creates new PileContainer JPanel that holds both piles in the centre
+     * As well as the corresponding indicator panels for each player
+     */
+
     public PileContainer(Pile pile1, Pile pile2, Player player1, Player player2) {
         setLayout(new GridBagLayout());
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.setOpaque(false);
+
+        /*
+         * GridBag constraints allow us to add elements in a grid format;
+         * 
+         * INDICATOR PANEL P2
+         *   PILE 1 / PILE 2
+         * INDICATOR PANEL P1
+         */
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(OFFSET, OFFSET, OFFSET, OFFSET);
 
         /*
          * INDICATOR 2
-         * need to add indicator to player maybe? or game, unsure
+         * Panel takes up two columns
          */
-        IndicatorPanel indicator2 = new IndicatorPanel(player2); // Initialize with BLUE for player 2
-        gbc.gridwidth = 2; // Span across two columns
+        IndicatorPanel indicator2 = new IndicatorPanel(player2);
+        gbc.gridwidth = 2;
         add(indicator2, gbc);
 
-        // move down by one row
-        gbc.gridy = 1;
-        // change back to single column
-        gbc.gridwidth = 1;
-
+        
         /*
          * FIRST PILE
+         * Shifted down by one row
+         * Takes up one column
          */
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
         PilePanel pilePanel1 = new PilePanel(pile1);
         add(pilePanel1, gbc);
-
-        // move to next column in row
-        gbc.gridx = 1;
+        
 
         /*
          * PILE 2
+         * Move to next column in row
          */
+        gbc.gridx = 1;
         PilePanel pilePanel2 = new PilePanel(pile2);
-        add(pilePanel2, gbc); // Add pile 2
-
-        // move back to first column
-        gbc.gridx = 0;
-        // move down one more row
-        gbc.gridy = 2; // Third row, below the piles
-        // change back to two columns
-        gbc.gridwidth = 2;
+        add(pilePanel2, gbc);
 
         /*
          * INDICATOR 1
+         * Move back to first column
+         * Move down one more row
+         * Set width to 2 columns
          */
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 2;
         IndicatorPanel indicator1 = new IndicatorPanel(player1);
-        add(indicator1, gbc); // Add indicator 1 below the piles
+        add(indicator1, gbc);
 
     }
 }

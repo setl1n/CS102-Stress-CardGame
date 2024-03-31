@@ -15,6 +15,11 @@ public class DeckPanel extends JPanel {
     private Deck deck;
     private JLabel deckLabel;
 
+    /*
+     * Creates JPanel to visually show the size of the deck
+     * based on the number of cards left for that player
+     */
+
     public DeckPanel(Deck deck) {
         this.deck = deck;
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
