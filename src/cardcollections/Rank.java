@@ -6,7 +6,7 @@ import java.util.*;
  * This class represents a rank of a card. It implements Comparable interface 
  * to compare ranks of two cards.
  */
-public class Rank implements Comparable<Rank> {
+public final class Rank implements Comparable<Rank> {
     /**
      * The name of the rank.
      */
