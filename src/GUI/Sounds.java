@@ -35,7 +35,7 @@ public final class Sounds {
     }
 
     public static void endSound() {
-        playSound("/assets/end.wav", false, false);
+        playSound("/assets/end.wav", true, false);
     }
 
     public static void pauseClip() {

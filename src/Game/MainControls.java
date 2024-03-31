@@ -140,6 +140,7 @@ public class MainControls extends KeyAdapter {
             game.restart();
             mainGUI.restart(game);
             mainGUI.changeToPanel("Game");
+            Sounds.bgmSound();
         } else if (newKeyPress == KeyEvent.VK_ESCAPE) {
             mainGUI.dispose();
         }
