@@ -8,7 +8,6 @@ import javax.swing.*;
 
 import cardcollections.*;
 
-
 /*
 *  Methods for loading audio and visual elements
 */
