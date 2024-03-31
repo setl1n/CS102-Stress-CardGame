@@ -86,6 +86,10 @@ public class Deck extends CardCollection {
         return super.isEmpty();
     }
 
+    public boolean isSizeAtLeast2() {
+        return size() >= 2;
+    }
+
     public Card popTopCard() {
         Card topCard = super.popTopCard();
         if (numPanel != null) {

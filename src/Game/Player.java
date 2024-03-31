@@ -9,7 +9,7 @@ public class Player {
 
     private String name;
     private Deck deck;
-    private Hand hand = new Hand();
+    private Hand hand;
     private long blockUntil = 0;
 
     private PlayerPanel playerPanel;
@@ -20,8 +20,10 @@ public class Player {
     public Player(String name, Deck deck) {
         this.name = name;
         this.deck = deck;
+        hand = new Hand();
         drawFourCards(false);
         targetPileIndex = 0;
+
     }
 
     /*

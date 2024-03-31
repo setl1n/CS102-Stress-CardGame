@@ -33,33 +33,19 @@ public class Game {
         this.gamePanel = gamePanel;
     }
 
-    private boolean areBothPlayersOutOfMoves() {
-        return !player1.getHand().hasValidMoves(piles) && !player2.getHand().hasValidMoves(piles);
-    }
-
-    private boolean doBothPlayersHaveAtLeast1CardInDeck() {
-        return !player1.getDeck().isEmpty() && !player2.getDeck().isEmpty();
-    }
-
-    private boolean doesPlayer1HaveAtLeast2CardsInDeck() {
-        return player1.getDeck().size() >= 2;
-    }
-
-    private boolean doesPlayer2HaveAtLeast2CardsInDeck() {
-        return player2.getDeck().size() >= 2;
-    }
+    
 
     public void openCardsFromDeck() {
 
-        if (doBothPlayersHaveAtLeast1CardInDeck()) {
+        if (GameLogicUtils.doBothPlayersHaveAtLeast1CardInDeck(player1, player2)) {
             player1.openCardToPile(piles[0], true);
             player2.openCardToPile(piles[1], false);
 
-        } else if (doesPlayer1HaveAtLeast2CardsInDeck()) {
+        } else if (player1.getDeck().isSizeAtLeast2()) {
             player1.openCardToPile(piles[0], true);
             player1.openCardToPile(piles[1], false);
 
-        } else if (doesPlayer2HaveAtLeast2CardsInDeck()) {
+        } else if (player2.getDeck().isSizeAtLeast2()) {
             player2.openCardToPile(piles[0], true);
             player2.openCardToPile(piles[1], false);
         }
@@ -80,10 +66,11 @@ public class Game {
             Overlays.renderGameTransition(gamePanel, player2.getName());
             gameState = GameState.END;
 
-        } else if (areBothPlayersOutOfMoves()) {
+        } else if (GameLogicUtils.areBothPlayersOutOfMoves(player1, player2, piles)) {
 
-            if (doBothPlayersHaveAtLeast1CardInDeck() || doesPlayer1HaveAtLeast2CardsInDeck()
-                    || doesPlayer2HaveAtLeast2CardsInDeck()) {
+            if (GameLogicUtils.doBothPlayersHaveAtLeast1CardInDeck(player1, player2) 
+                || player1.getDeck().isSizeAtLeast2()
+                || player2.getDeck().isSizeAtLeast2()) {
                 Overlays.renderTimeoutTransition(gamePanel);
                 Sounds.pauseClip();
                 gameState = GameState.NO_VALID_MOVES;

@@ -22,4 +22,12 @@ public class GameLogicUtils {
         }
         return false;
     }
+
+    static boolean areBothPlayersOutOfMoves(Player player1, Player player2, Pile[] piles) {
+        return !player1.getHand().hasValidMoves(piles) && !player2.getHand().hasValidMoves(piles);
+    }
+
+    static boolean doBothPlayersHaveAtLeast1CardInDeck(Player player1, Player player2) {
+        return !player1.getDeck().isEmpty() && !player2.getDeck().isEmpty();
+    }
 }
