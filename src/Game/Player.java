@@ -116,11 +116,9 @@ public class Player {
         if (indicatorPanel != null) {
             if (targetPileIndex == 0) {
                 indicatorPanel.setPositionToLeft();
-            } else if (targetPileIndex == 1) {
-                indicatorPanel.setPositionToRight();
             } else {
-                System.out.println("### INVALID TARGETPILE INDEX ###");
-            }
+                indicatorPanel.setPositionToRight();
+            } 
         }
     }
 
