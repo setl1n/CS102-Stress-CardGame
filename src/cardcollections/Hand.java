@@ -1,8 +1,6 @@
-package player;
+package cardcollections;
 
 import java.util.*;
-import cardcollections.*;
-import cardcollections.deckcomponents.*;
 import game.*;
 
 public class Hand {
@@ -14,14 +12,13 @@ public class Hand {
         return cardsInHand[index];
     }
 
-    Card popCardAtIndex(int index) {
+    public Card popCardAtIndex(int index) {
         Card toReturn = cardsInHand[index];
         cardsInHand[index] = null;
         return toReturn;
     }
 
-    // I think this should be better, removed the previous comments
-    void drawCard(Deck deck) {
+    public void drawCard(Deck deck) {
         if (deck.isEmpty()) {
             System.out.println("Deck is empty!");
             return;

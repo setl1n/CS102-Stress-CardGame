@@ -12,8 +12,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import cardcollections.Card;
 import cardcollections.Deck;
-import cardcollections.deckcomponents.Card;
 
 /*
  *  Methods for loading audio and visual elements

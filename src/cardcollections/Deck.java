@@ -2,12 +2,7 @@ package cardcollections;
 
 import java.awt.Image;
 import java.net.URL;
-import java.util.Collections;
-
 import javax.swing.ImageIcon;
-
-import cardcollections.deckcomponents.*;
-import cardcollections.deckcomponents.cardcomponents.*;
 import gui.panels.gamecontainer.playercontainer.NumPanel;
 
 public class Deck extends CardCollection {
@@ -74,11 +69,11 @@ public class Deck extends CardCollection {
         deckImage = new ImageIcon(imgUrl).getImage();
     }
 
-    // makes shuffle available to caller as shuffle is protected in cardcollection
-    // checked with chatgpt, this is good OOP as it's more important to encapsulate
-    // alternatively, need to make arraylist cardcollections protected, which is
-    // worse than
-    // having a "layer" in the child class for shuffle
+    /*
+     * makes the following methods available to caller as they are default in CardCollection
+     * this is good OOP as it's more important to encapsulate
+     * by having a "layer" in the child class then to make CardCollections methods public
+    */
     public int size() {
         return super.size();
     }
@@ -110,12 +105,15 @@ public class Deck extends CardCollection {
         return deckImage;
     }
 
-    // returns a new deck with top half of deck
-    // original deck holds (remaining) bottom half
-    //
-    // note: order of cards that gets added to new deck gets reversed
-    // while bottom half of old cards stay in order
-    // -should not affect implementation, just for own's knowledge
+    /*
+     * returns a new deck with top half of deck
+     * original deck holds (remaining) bottom half
+    
+     * note: order of cards that gets added to new deck gets reversed
+     * while bottom half of old cards stay in order
+     * should not affect implementation, just for own's knowledge
+    */
+    
     public Deck splitAndReturnHalf() {
         Deck deckToReturn = new Deck(true);
         int cardsToTransfer = this.size() / 2;

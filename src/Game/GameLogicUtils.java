@@ -1,7 +1,6 @@
 package game;
 
 import cardcollections.*;
-import cardcollections.deckcomponents.*;
 
 public class GameLogicUtils {
 
