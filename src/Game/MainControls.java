@@ -42,7 +42,7 @@ public class MainControls extends KeyAdapter {
                 break;
             case NO_VALID_MOVES:
                 handleChangePilesControls(newKeyPress);
-                handleOpenCardsControls(newKeyPress);
+                handleOpenCardsControls();
                 break;
             case PLAYING:
                 handleChangePilesControls(newKeyPress);
@@ -78,9 +78,8 @@ public class MainControls extends KeyAdapter {
     /**
      * Handles key press events when there are no valid moves.
      * Checks for players holding down S and K to continue
-     * @param newKeyPress The key code of the pressed key.
      */
-    private void handleOpenCardsControls(int newKeyPress) {
+    private void handleOpenCardsControls() {
         if (pressedKeys.contains(KeyEvent.VK_S) && pressedKeys.contains(KeyEvent.VK_K)) {
             Overlays.clear();
             Sounds.resumeBgm();
@@ -121,7 +120,7 @@ public class MainControls extends KeyAdapter {
             case KeyEvent.VK_E -> player.throwCardToPile(2, piles);
             case KeyEvent.VK_R -> player.throwCardToPile(3, piles);
             case KeyEvent.VK_S -> game.stress(player, game.getPlayer2());
-            default -> handdleFallThrough();
+            default -> {}
         }
     }
 
@@ -139,17 +138,10 @@ public class MainControls extends KeyAdapter {
             case KeyEvent.VK_O -> player.throwCardToPile(2, piles);
             case KeyEvent.VK_P -> player.throwCardToPile(3, piles);
             case KeyEvent.VK_K -> game.stress(player, game.getPlayer1());
-            default -> handdleFallThrough();
+            default -> {}
         }
     }
-
-    /**
-     * Handles an invalid move by printing an error message.
-     */
-    private void handdleFallThrough() {
-        return;
-    }
-    
+   
     /**
      * Handles the control changes for pile target index for both players.
      * Allows changing the target pile based on the key pressed.
@@ -163,7 +155,7 @@ public class MainControls extends KeyAdapter {
             case KeyEvent.VK_D -> player1.setTargetPileIndex(1);
             case KeyEvent.VK_J -> player2.setTargetPileIndex(0);
             case KeyEvent.VK_L -> player2.setTargetPileIndex(1);
-            default -> handdleFallThrough();
+            default -> {}
         }
     }
 

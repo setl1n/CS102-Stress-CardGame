@@ -1,3 +1,4 @@
+package app;
 import javax.swing.SwingUtilities;
 
 import gui.MainGUI;
@@ -7,8 +8,8 @@ public class App {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             Game game = new Game();
-            MainGUI GUI = new MainGUI(game);
-            GUI.setVisible(true);
+            MainGUI gui = new MainGUI(game);
+            gui.setVisible(true);
         });
     }
 }
