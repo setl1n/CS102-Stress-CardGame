@@ -1,1 +1,1 @@
-java -cp classes App
+java -cp classes app.App
