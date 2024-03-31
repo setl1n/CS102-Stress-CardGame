@@ -75,8 +75,6 @@ public class MainControls extends KeyAdapter {
             processPlayer1Actions(newKeyPress, player1, piles);
         } else if (!player2.isBlocked() && isPlayer2Control(newKeyPress)) {
             processPlayer2Actions(newKeyPress, player2, piles);
-        } else {
-            handleInvalidMove();
         }
 
         game.updateGameState();
@@ -96,6 +94,7 @@ public class MainControls extends KeyAdapter {
             case KeyEvent.VK_W -> player.throwCardToPile(1, piles);
             case KeyEvent.VK_E -> player.throwCardToPile(2, piles);
             case KeyEvent.VK_R -> player.throwCardToPile(3, piles);
+            default -> handleInvalidMove();
         }
     }
 
@@ -105,6 +104,7 @@ public class MainControls extends KeyAdapter {
             case KeyEvent.VK_I -> player.throwCardToPile(1, piles);
             case KeyEvent.VK_O -> player.throwCardToPile(2, piles);
             case KeyEvent.VK_P -> player.throwCardToPile(3, piles);
+            default -> handleInvalidMove();
         }
     }
 
