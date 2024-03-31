@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.Rectangle;
 import java.net.URL;
 
 import javax.swing.*;
