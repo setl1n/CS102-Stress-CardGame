@@ -11,6 +11,7 @@ public class Game {
     private GameState gameState;
 
     private JPanel gamePanel;
+    private static final int WRONG_STRESS_PENALTY = 2000;
 
     public Game() {
         Deck startingDeck = new Deck(false);
@@ -22,6 +23,7 @@ public class Game {
         piles = new Pile[] { new Pile(), new Pile() };
         gameState = GameState.START_SCREEN;
     }
+
     public void start() {
         setGameState(GameState.OPEN_FIRST_CARDS);
         Overlays.renderHelpDialog(gamePanel);
@@ -31,25 +33,22 @@ public class Game {
         this.gamePanel = gamePanel;
     }
 
-    
-
     public void openCardsFromDeck() {
-        
+
         do {
             if (GameLogicUtils.doBothPlayersHaveAtLeast1CardInDeck(player1, player2)) {
                 player1.openCardToPile(piles[0], true);
                 player2.openCardToPile(piles[1], false);
-    
+
             } else if (player1.getDeck().isSizeAtLeast2()) {
                 player1.openCardToPile(piles[0], true);
                 player1.openCardToPile(piles[1], false);
-    
+
             } else if (player2.getDeck().isSizeAtLeast2()) {
                 player2.openCardToPile(piles[0], true);
                 player2.openCardToPile(piles[1], false);
             }
         } while (GameLogicUtils.areBothPlayersOutOfMoves(player1, player2, piles));
-
 
     }
 
@@ -69,9 +68,9 @@ public class Game {
 
         } else if (GameLogicUtils.areBothPlayersOutOfMoves(player1, player2, piles)) {
 
-            if (GameLogicUtils.doBothPlayersHaveAtLeast1CardInDeck(player1, player2) 
-                || player1.getDeck().isSizeAtLeast2()
-                || player2.getDeck().isSizeAtLeast2()) {
+            if (GameLogicUtils.doBothPlayersHaveAtLeast1CardInDeck(player1, player2)
+                    || player1.getDeck().isSizeAtLeast2()
+                    || player2.getDeck().isSizeAtLeast2()) {
                 Overlays.renderTimeoutTransition(gamePanel);
                 Sounds.pauseClip();
                 gameState = GameState.NO_VALID_MOVES;
@@ -115,35 +114,42 @@ public class Game {
     }
 
     public void stress(Player actionPlayer, Player opponent) {
-        Deck opponentDeck = opponent.getDeck();
-
         if (GameLogicUtils.isValidStress(piles)) {
-            gameState = GameState.STRESS;
             Overlays.renderStressTransition(gamePanel, opponent.getName());
             Sounds.stressSound();
-            // Change gamestate to re-enable inputs after animation
-            Timer timer = new Timer(3000, e -> {
-                gameState = GameState.PLAYING;
-            });
-            timer.setRepeats(false);
-            timer.start();
-
-            Timer changeCardsWhenAnimationHideScreen = new Timer(2000, e -> {
-                // add pile to loser's hand
-                for (Pile p : piles) {
-                    opponentDeck.transfer(p);
-                }
-                opponentDeck.shuffle();
-                opponent.drawFourCards(false);
-                openCardsFromDeck();
-            });
-            changeCardsWhenAnimationHideScreen.setRepeats(false);
-            changeCardsWhenAnimationHideScreen.start();
+            temporaryDisableInputs();
+            addPilesToLoserHand(opponent);
         } else {
             // Penalty for invalid throwing card to pile: 2 seconds
             System.out.println("Invalid Stress, blocked for 2s");
-            actionPlayer.blockFor(2000);
+            actionPlayer.blockFor(WRONG_STRESS_PENALTY);
         }
+    }
+
+    private void temporaryDisableInputs() {
+        gameState = GameState.STRESS;
+        // Change gamestate to re-enable inputs after animation
+        Timer timer = new Timer(3000, e -> {
+            gameState = GameState.PLAYING;
+        });
+        timer.setRepeats(false);
+        timer.start();
+    }
+
+    private void addPilesToLoserHand(Player opponent) {
+        Deck opponentDeck = opponent.getDeck();
+        // Times the transfer to occur when screen is covered by animation
+        Timer changeCardsWhenAnimationHideScreen = new Timer(2000, e -> {
+            // add pile to loser's hand
+            for (Pile p : piles) {
+                opponentDeck.transfer(p);
+            }
+            opponentDeck.shuffle();
+            opponent.drawFourCards(false);
+            openCardsFromDeck();
+        });
+        changeCardsWhenAnimationHideScreen.setRepeats(false);
+        changeCardsWhenAnimationHideScreen.start();
     }
 
     public void restart() {
@@ -153,14 +159,14 @@ public class Game {
         startingDeck.shuffle();
         Deck halfDeck = startingDeck.splitAndReturnHalf();
         halfDeck.changeColour();
-    
+
         // Reset the players
         player1 = new Player("Player 1", startingDeck);
         player2 = new Player("Player 2", halfDeck);
-    
+
         // Reset the piles
         piles = new Pile[] { new Pile(), new Pile() };
-    
+
         start();
     }
 

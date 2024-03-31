@@ -17,6 +17,8 @@ public class Player {
 
     private int targetPileIndex;
 
+    private static final int WRONG_MOVE_PENALTY = 1000;
+
     public Player(String name, Deck deck) {
         this.name = name;
         this.deck = deck;
@@ -103,21 +105,20 @@ public class Player {
         } else {
             // Penalty for invalid throwing card to pile: 1 seconds
             System.out.println("INVALID MOVE, actions frozen for 1s");
-            blockFor(1000);
+            blockFor(WRONG_MOVE_PENALTY);
         }
     }
 
     public void setTargetPileIndex(int targetPileIndex) {
+        // Changes internal variable
         this.targetPileIndex = targetPileIndex;
 
+        // Change GUI (if set)
         if (indicatorPanel != null) {
-
             if (targetPileIndex == 0) {
                 indicatorPanel.setPositionToLeft();
-
             } else if (targetPileIndex == 1) {
                 indicatorPanel.setPositionToRight();
-
             } else {
                 System.out.println("### INVALID TARGETPILE INDEX ###");
             }

@@ -17,8 +17,6 @@ public final class Overlays {
     private static final int DELAY = 3200;
     private static final int DELAY_STRESS = 3000;
     
-    private Overlays() {}
-
     public static void clear() {
         cancelActiveTimer(); // Cancel any active timer
         cutCurrentAnimationIfAny();
