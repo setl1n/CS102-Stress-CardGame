@@ -32,8 +32,8 @@ public class MainControls extends KeyAdapter {
                 break;
             case PLAYING:
                 handleChangePilesControls(newKeyPress);
-                handlePlayingKeyPress(newKeyPress);
                 handleStressControls(newKeyPress);
+                handlePlayingKeyPress(newKeyPress);
                 break;
             case STRESS:
                 handleChangePilesControls(newKeyPress);
@@ -63,6 +63,15 @@ public class MainControls extends KeyAdapter {
             Overlays.clear();
             Sounds.resumeBgm();
             game.start();
+        }
+    }
+
+    private void handleStressControls(int newKeyPress) {
+        if (newKeyPress == KeyEvent.VK_S) {
+            game.stress(game.getPlayer1(), game.getPlayer2());
+        }
+        if (newKeyPress == KeyEvent.VK_K) {
+            game.stress(game.getPlayer2(), game.getPlayer1());
         }
     }
 
@@ -107,21 +116,10 @@ public class MainControls extends KeyAdapter {
             default -> handleInvalidMove();
         }
     }
-
-    private void handleStressControls(int newKeyPress) {
-        if (newKeyPress == KeyEvent.VK_S) {
-            game.stress(game.getPlayer1(), game.getPlayer2());
-        }
-        if (newKeyPress == KeyEvent.VK_K) {
-            game.stress(game.getPlayer2(), game.getPlayer1());
-        }
-    }
-
     private void handleInvalidMove() {
         Sounds.invalidSound();
         System.out.println("Invalid move");
     }
-
     
     private void handleChangePilesControls(int newKeyPress) {
         Player player1 = game.getPlayer1();
