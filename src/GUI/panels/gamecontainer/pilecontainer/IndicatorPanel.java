@@ -14,16 +14,13 @@ public class IndicatorPanel extends JPanel {
     static final int width = 40;
     static final int height = 40;
 
-    private JPanel indicator;
-    private Image indicatorImage;
-
     public IndicatorPanel(Player player) {
 
         setLayout(new FlowLayout(FlowLayout.LEFT,0 ,0));
         setPreferredSize(new Dimension(185, 50));
         this.setOpaque(false);
 
-        indicator = new JPanel();
+        JPanel indicator = new JPanel();
         indicator.setPreferredSize(new Dimension(width, height));
         indicator.setOpaque(false);
 

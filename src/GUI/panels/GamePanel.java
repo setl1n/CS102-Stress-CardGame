@@ -6,9 +6,9 @@ import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import gui.GUIUtility;
 import gui.panels.gamecontainer.pilecontainer.PileContainer;
 import gui.panels.gamecontainer.playercontainer.PlayerPanel;
+
 import game.Game;
 import game.Player;
 
@@ -16,16 +16,13 @@ public class GamePanel extends JPanel {
 
     private ImageIcon bgImage;
 
-    private Player player1;
-    private Player player2;
-
     public GamePanel(Game game) {
 
         super();
         game.setGamePanel(this);
 
-        player1 = game.getPlayer1();
-        player2 = game.getPlayer2();
+        Player player1 = game.getPlayer1();
+        Player player2 = game.getPlayer2();
 
         this.setOpaque(false);
         setLayout(new BorderLayout());

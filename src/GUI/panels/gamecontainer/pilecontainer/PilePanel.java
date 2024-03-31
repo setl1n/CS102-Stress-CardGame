@@ -1,7 +1,6 @@
 package gui.panels.gamecontainer.pilecontainer;
 
 import java.awt.*;
-import java.util.*;
 import javax.swing.*;
 
 import gui.GUIUtility;

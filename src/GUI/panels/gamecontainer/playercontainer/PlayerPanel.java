@@ -4,10 +4,8 @@ import java.util.*;
 
 import java.awt.*;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import gui.GUIUtility;
 import cardcollections.*;
 import game.Player;
 
