@@ -2,6 +2,7 @@ package game;
 
 import java.awt.event.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import cardcollections.Pile;
 import gui.*;
