@@ -1,19 +1,12 @@
 package gui;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.*;
 import java.net.URL;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.sound.sampled.*;
+import javax.swing.*;
 
-import cardcollections.Card;
-import cardcollections.Deck;
+import cardcollections.*;
 
 /*
  *  Methods for loading audio and visual elements

@@ -3,13 +3,7 @@ package gui;
 import java.awt.Rectangle;
 import java.net.URL;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.Timer;
+import javax.swing.*;
 
 import gui.panels.gamecontainer.playercontainer.PlayerPanel;
 

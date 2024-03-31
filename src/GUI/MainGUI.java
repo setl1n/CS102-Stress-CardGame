@@ -2,13 +2,10 @@ package gui;
 
 import java.awt.CardLayout;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 
-import gui.panels.GamePanel;
-import gui.panels.IntroPanel;
-import game.Game;
-import game.MainControls;
+import gui.panels.*;
+import game.*;
 
 public class MainGUI extends JFrame {
 

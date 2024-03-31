@@ -1,8 +1,6 @@
 package game;
 
-import javax.swing.JPanel;
-import javax.swing.Timer;
-
+import javax.swing.*;
 import cardcollections.*;
 import gui.*;
 

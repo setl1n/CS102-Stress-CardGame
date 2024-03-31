@@ -1,12 +1,9 @@
 package game;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.awt.event.*;
+import java.util.*;
 
-import cardcollections.*;
+import cardcollections.Pile;
 import gui.*;
 
 public class MainControls extends KeyAdapter {
