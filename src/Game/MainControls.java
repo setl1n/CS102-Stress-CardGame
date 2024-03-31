@@ -26,7 +26,7 @@ public class MainControls extends KeyAdapter {
             case START_SCREEN:
                 handleStartScreenKeyPress(newKeyPress);
                 break;
-            case OPEN_FIRST_CARDS, NO_VALID_MOVES:
+            case NO_VALID_MOVES:
                 handleOpenCardsKeyPress(newKeyPress);
                 break;
             case PLAYING:

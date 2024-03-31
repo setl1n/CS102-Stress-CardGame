@@ -39,7 +39,7 @@ public class Game {
     }
     
     public void loadDialog() {
-        gameState = GameState.OPEN_FIRST_CARDS;
+        gameState = GameState.NO_VALID_MOVES;
         Overlays.renderHelpDialog(gamePanel);
     }
 
