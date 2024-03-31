@@ -9,84 +9,121 @@ import gui.panels.gamecontainer.playercontainer.PlayerPanel;
 
 public final class Overlays {
 
-    private static JFrame onGoingFrame;
+    private static JLayeredPane onGoingLayeredPane;
     private static JLabel onGoingLabel;
     private static JPanel onGoingPane;
     private static Timer onGoingTimer;
 
-    private static final int DELAY = 3200;
-    private static final int DELAY_STRESS = 3000;
-    
-    public static void clear() {
-        cancelActiveTimer(); // Cancel any active timer
-        cutCurrentAnimationIfAny();
-        clearStaticImagesIfAny();
+    private static final int CARD_TRANSITION_FLASH_DURATION = 100;
+    private static final int DELAY_DURATION = 3200;
+    private static final int DELAY_DURATION_STRESS = 3000;
+
+    public static void renderCardTransition(JPanel cardPanel, String playerName) {
+        showLockoutTransition(cardPanel, playerName, CARD_TRANSITION_FLASH_DURATION);
     }
 
-    private static void cutCurrentAnimationIfAny() {
-        if (onGoingPane != null) {
-            onGoingPane.setVisible(false);
+    public static void blockedFor(PlayerPanel playerPanel, int blockedDuration) {
+        for (JPanel cardPanel : playerPanel.getCardPanels()) {
+            showLockoutTransition(cardPanel, null, blockedDuration);
         }
-        onGoingPane = null;
     }
 
-    private static void clearStaticImagesIfAny() {
-        if (onGoingFrame != null && onGoingLabel != null) {
-            JLayeredPane jLayeredPane = onGoingFrame.getLayeredPane();
-            jLayeredPane.remove(onGoingLabel);
-            jLayeredPane.repaint();
-        }
-        onGoingFrame = null;
-        onGoingLabel = null;
+    private static void showLockoutTransition(JPanel targetPanel, String playerName, int displayDuration) {
+        final String transitionPath = "/assets/transition";
+        final String filePath = processPath(transitionPath, playerName, false);
+        renderImage(targetPanel, filePath, displayDuration);
     }
 
-    private static void cancelActiveTimer() {
-        if (onGoingTimer != null) {
-            onGoingTimer.stop();
+    public static void renderHelpDialog(JPanel targetPanel) {
+        final String assetPath = "/assets/dialog";
+        final String filePath = processPath(assetPath, null, false);
+        renderImage(targetPanel, filePath, 0);
+    }
+
+    public static void renderTimeoutTransition(JPanel targetPanel) {
+        final String assetPath = "/assets/timeout";
+        final String filePath = processPath(assetPath, null, true);
+        renderGIF(targetPanel, filePath, DELAY_DURATION, true);
+    }
+
+    public static void renderTieTransition(JPanel targetPanel) {
+        final String assetPath = "/assets/tie";
+        final String filePath = processPath(assetPath, null, true);
+        renderGIF(targetPanel, filePath, DELAY_DURATION, true);
+    }
+
+    public static void renderStressTransition(JPanel targetPanel, String playerName) {
+        final String assetPath = "/assets/stress";
+        final String filePath = processPath(assetPath, playerName, true);
+        renderGIF(targetPanel, filePath, DELAY_DURATION_STRESS, false);
+    }
+
+    public static void renderGameTransition(JPanel targetPanel, String playerName) {
+        final String assetPath = "/assets/game";
+        final String filePath = processPath(assetPath, playerName, true);
+        renderGIF(targetPanel, filePath, DELAY_DURATION, true);
+    }
+
+    // File Path processing
+    private static String processPath(String path, String playerName, boolean isGif) {
+        String playerPath = "";
+        if (playerName == null) {
+            playerPath += "";
+        } else if ("Player 1".equals(playerName)) {
+            playerPath += "red";
+        } else {
+            playerPath += "blue";
         }
-        onGoingTimer = null;
+        String extension = isGif ? ".gif" : ".png";
+        return path + playerPath + extension;
     }
 
     /*
-     * ANIMATION RENDERING
+     * IMAGE OVERLAY RENDERING
      */
-    public static void renderImage(JPanel targetPanel, String imgPath, int delay) {
+    private static void renderImage(JPanel targetPanel, String imgPath, int displayDuration) {
         JFrame frame = (JFrame) SwingUtilities.getAncestorOfClass(JFrame.class, targetPanel);
         if (frame == null) {
             return;
         }
-
+        
         URL imgUrl = GUIUtility.class.getResource(imgPath);
         if (imgUrl == null) {
             return;
         }
-        JLabel imgLabel = new JLabel(new ImageIcon(imgUrl));
-        onGoingFrame = frame;
+        JLabel imgLabel = GUIUtility.initialiseIMGLabel(imgUrl, targetPanel, frame); 
         onGoingLabel = imgLabel;
-
-        imgLabel.setOpaque(false);
-        Rectangle bounds = SwingUtilities.convertRectangle(targetPanel.getParent(), targetPanel.getBounds(),
-                frame.getLayeredPane());
-        imgLabel.setBounds(bounds);
-
+        
         JLayeredPane layeredPane = frame.getLayeredPane();
+        onGoingLayeredPane = layeredPane;
+
         layeredPane.add(imgLabel, JLayeredPane.POPUP_LAYER);
         layeredPane.moveToFront(imgLabel);
 
-        if (delay > 0) {
-            Timer timer = new Timer(delay, e -> {
-                layeredPane.remove(imgLabel);
-                layeredPane.repaint();
-            });
-            timer.setRepeats(false);
-            timer.start();
-        } else {
+        if (displayDuration == 0) {
             return;
+        } else {
+            hideImageAfterDelay(layeredPane, imgLabel, displayDuration);
         }
     }
 
-    public static void renderGIF(JPanel targetPanel, String gifPath, int duration,
-            boolean loadImageAfter) {
+    private static void hideImageAfterDelay(JLayeredPane layeredPane, JLabel imgLabel, int displayDuration) {
+        Timer timer = new Timer(displayDuration, e -> {
+            onGoingLabel = null;
+            onGoingLayeredPane = null;
+            layeredPane.remove(imgLabel);
+            layeredPane.repaint();
+        });
+        timer.setRepeats(false);
+        timer.start();
+    }
+
+    /*
+     * GIF OVERLAY RENDERING
+     */
+
+    private static void renderGIF(JPanel targetPanel, String gifPath, int delayDuration,
+                                  boolean loadImageAfter) {
         JFrame frame = (JFrame) SwingUtilities.getAncestorOfClass(JFrame.class, targetPanel);
         if (frame == null) {
             System.err.println("No enclosing JFrame found for the target panel.");
@@ -101,97 +138,71 @@ public final class Overlays {
 
         // Create a new JPanel that acts as the glass pane
         JPanel glassPane = GUIUtility.initialiseGlassPane(gifIcon);
-        glassPane.setOpaque(false); // Make the glass pane transparent
-        glassPane.setLayout(null); // No layout manager
-
         frame.setGlassPane(glassPane);
-
-        glassPane.setVisible(true); // Activate the glass pane to show the animation
+        glassPane.setVisible(true);
         onGoingPane = glassPane;
+
         // Forces garbage collection to ensure proper looping
         gifIcon.getImage().flush();
 
+        hideGIFAfterDelay(frame, glassPane, delayDuration);
+        if (loadImageAfter) {
+            loadImageAfterDelay(gifPath, targetPanel, delayDuration);
+        }
+    }
+
+    private static void hideGIFAfterDelay(JFrame frame, JPanel glassPane, int delayDuration) {
         // Timer to remove the animation and hide the glass pane after a delay
-        Timer timer = new Timer(DELAY, e -> {
+        Timer timer = new Timer(delayDuration, e -> {
             onGoingPane = null;
             glassPane.setVisible(false);
             frame.repaint();
         });
         timer.setRepeats(false);
         timer.start();
+    }
 
+    private static void loadImageAfterDelay(String gifPath, JPanel targetPanel, int delayDuration) {
         // timer to load image after gif finishes
         final String newPath = gifPath.replace(".gif", ".png");
-        Timer loadImageTimer = new Timer(DELAY, e -> {
-            if (loadImageAfter) {
-                renderImage(targetPanel, newPath, 0);
-            }
+        Timer loadImageTimer = new Timer(delayDuration, e -> {
+            renderImage(targetPanel, newPath, 0);
         });
         loadImageTimer.setRepeats(false);
         loadImageTimer.start();
         onGoingTimer = loadImageTimer;
     }
 
-    public static void renderCardTransition(JPanel targetPanel, String playerName) {
-        showLockoutTransition(targetPanel, playerName, 100);
+    /*
+     * Cut and clear any active Overlays
+     */
+
+    public static void clear() {
+        cancelActiveTimer(); // Cancel any active timer
+        cutCurrentAnimationIfAny();
+        clearStaticImagesIfAny();
     }
 
-    public static void blockedFor(PlayerPanel playerPanel, int milliseconds) {
-        for (JPanel cardPanel : playerPanel.getCardPanels()) {
-            showLockoutTransition(cardPanel, null, milliseconds);
+    private static void cutCurrentAnimationIfAny() {
+        if (onGoingPane != null) {
+            onGoingPane.setVisible(false);
         }
+        onGoingPane = null;
     }
 
-    private static void showLockoutTransition(JPanel targetPanel, String playerName, int duration) {
-        final String transitionPath = "/assets/transition";
-        final String filePath = processPath(transitionPath, playerName, false);
-        renderImage(targetPanel, filePath, duration);
-    }
-
-    public static void renderHelpDialog(JPanel targetPanel) {
-        final String assetPath = "/assets/dialog";
-        final String filePath = processPath(assetPath, null, false);
-        renderImage(targetPanel, filePath, 0);
-    }
-
-    public static void renderTimeoutTransition(JPanel targetPanel) {
-        final int duration = DELAY;
-        final String assetPath = "/assets/timeout";
-        final String filePath = processPath(assetPath, null, true);
-        renderGIF(targetPanel, filePath, duration, true);
-    }
-
-    public static void renderTieTransition(JPanel targetPanel) {
-        final int duration = DELAY;
-        final String assetPath = "/assets/tie";
-        final String filePath = processPath(assetPath, null, true);
-        renderGIF(targetPanel, filePath, duration, true);
-    }
-
-    public static void renderStressTransition(JPanel targetPanel, String playerName) {
-        final int duration = DELAY_STRESS;
-        final String assetPath = "/assets/stress";
-        final String filePath = processPath(assetPath, playerName, true);
-        renderGIF(targetPanel, filePath, duration, false);
-    }
-
-    public static void renderGameTransition(JPanel targetPanel, String playerName) {
-        final int duration = DELAY;
-        final String assetPath = "/assets/game";
-        final String filePath = processPath(assetPath, playerName, true);
-        renderGIF(targetPanel, filePath, duration, true);
-    }
-    
-    private static String processPath(String path, String playerName, boolean isGif) {
-        String playerPath = "";
-        if (playerName == null) {
-            playerPath += "";
-        } else if ("Player 1".equals(playerName)) {
-            playerPath += "red";
-        } else {
-            playerPath += "blue";
+    private static void clearStaticImagesIfAny() {
+        if (onGoingLayeredPane != null && onGoingLabel != null) {
+            onGoingLayeredPane.remove(onGoingLabel);
+            onGoingLayeredPane.repaint();
         }
-        String extension = isGif ? ".gif" :".png";
-        return path + playerPath + extension;
+        onGoingLayeredPane = null;
+        onGoingLabel = null;
+    }
+
+    private static void cancelActiveTimer() {
+        if (onGoingTimer != null) {
+            onGoingTimer.stop();
+        }
+        onGoingTimer = null;
     }
 }
