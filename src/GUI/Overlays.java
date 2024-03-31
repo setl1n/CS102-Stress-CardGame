@@ -13,7 +13,9 @@ public final class Overlays {
     private static JLabel onGoingLabel;
     private static JPanel onGoingPane;
     private static Timer onGoingTimer;
-
+    
+    private Overlays() {}
+    
     public static void clear() {
         cancelActiveTimer(); // Cancel any active timer
         cutCurrentAnimationIfAny();
@@ -23,8 +25,8 @@ public final class Overlays {
     private static void cutCurrentAnimationIfAny() {
         if (onGoingPane != null) {
             onGoingPane.setVisible(false);
-            onGoingPane = null;
         }
+        onGoingPane = null;
     }
 
     private static void clearStaticImagesIfAny() {
@@ -32,16 +34,16 @@ public final class Overlays {
             JLayeredPane jLayeredPane = onGoingFrame.getLayeredPane();
             jLayeredPane.remove(onGoingLabel);
             jLayeredPane.repaint();
-            onGoingFrame = null;
-            onGoingLabel = null;
         }
+        onGoingFrame = null;
+        onGoingLabel = null;
     }
 
     private static void cancelActiveTimer() {
         if (onGoingTimer != null) {
             onGoingTimer.stop();
-            onGoingTimer = null;
         }
+        onGoingTimer = null;
     }
 
     /*
