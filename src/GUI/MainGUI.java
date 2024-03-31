@@ -4,7 +4,6 @@ import java.awt.CardLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
 import gui.panels.GamePanel;
 import gui.panels.IntroPanel;

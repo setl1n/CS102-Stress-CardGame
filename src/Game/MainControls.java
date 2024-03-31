@@ -6,18 +6,17 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.swing.*;
 import cardcollections.*;
 import gui.*;
 
 public class MainControls extends KeyAdapter {
     private Set<Integer> pressedKeys = new HashSet<>();
     private Game game;
-    private MainGUI GUI;
+    private MainGUI mainGUI;
 
-    public MainControls(Game game, MainGUI GUI) {
+    public MainControls(Game game, MainGUI mainGUI) {
         this.game = game;
-        this.GUI = GUI;
+        this.mainGUI = mainGUI;
         Sounds.menuSound();
     }
 
@@ -49,7 +48,7 @@ public class MainControls extends KeyAdapter {
 
     private void handleStartScreenKeyPress(int newKeyPress) {
         if (newKeyPress == KeyEvent.VK_SPACE) {
-            GUI.changeToPanel("Game");
+            mainGUI.changeToPanel("Game");
             Sounds.bgmSound();
             game.start();
         }
@@ -136,7 +135,7 @@ public class MainControls extends KeyAdapter {
 
     private void handleEndGameKeyPress(int newKeyPress) {
         if (newKeyPress == KeyEvent.VK_ESCAPE) {
-            GUI.dispose();
+            mainGUI.dispose();
         }
     }
 

@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
-import game.*;
 import gui.panels.gamecontainer.playercontainer.PlayerPanel;
 
 public final class Overlays {
@@ -127,8 +126,9 @@ public final class Overlays {
         // timer to load image after gif finishes
         final String newPath = gifPath.replace(".gif", ".png");
         Timer loadImageTimer = new Timer(3200, e -> {
-            if (loadImageAfter)
+            if (loadImageAfter) {
                 renderImage(targetPanel, newPath, 0);
+            }
         });
         loadImageTimer.setRepeats(false);
         loadImageTimer.start();
@@ -189,7 +189,7 @@ public final class Overlays {
         String playerPath = "";
         if (playerName == null) {
             playerPath += "";
-        } else if (playerName.equals("Player 1")) {
+        } else if ("Player 1".equals(playerName)) {
             playerPath += "red";
         } else {
             playerPath += "blue";
