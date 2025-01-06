@@ -1,0 +1,26 @@
+{
+    "family": "cardgame",
+    "networkMode": "awsvpc",
+    "requiresCompatibilities": ["FARGATE"],
+    "cpu": "256",
+    "memory": "512",
+    "containerDefinitions": [
+        {
+            "name": "cardgame",
+            "image": "your-account-id.dkr.ecr.region.amazonaws.com/cardgame:latest",
+            "portMappings": [
+                {
+                    "containerPort": 6080,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "environment": [
+                {
+                    "name": "DISPLAY",
+                    "value": ":99"
+                }
+            ]
+        }
+    ]
+}

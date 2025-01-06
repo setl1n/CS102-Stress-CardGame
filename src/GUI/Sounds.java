@@ -19,10 +19,41 @@ public final class Sounds {
         if (audioUrl == null) {
             throw new RuntimeException("Audio file not found: " + audioPath);
         }
-        try (AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioUrl)) {
+
+        // Debug: Print available mixer info
+        Mixer.Info[] mixerInfo = AudioSystem.getMixerInfo();
+        System.out.println("Available audio mixers:");
+        for (Mixer.Info info : mixerInfo) {
+            System.out.println("Mixer: " + info.getName());
+        }
+
+        try (AudioInputStream originalStream = AudioSystem.getAudioInputStream(audioUrl)) {
+            // Get the original format
+            AudioFormat originalFormat = originalStream.getFormat();
+            System.out.println("Original format: " + originalFormat);
+
+            // Create a target format
+            AudioFormat targetFormat = new AudioFormat(
+                AudioFormat.Encoding.PCM_SIGNED,
+                44100.0f,                // Sample rate
+                16,                      // Sample size in bits
+                2,                       // Channels
+                4,                       // Frame size
+                44100.0f,               // Frame rate
+                false                    // Little endian
+            );
+
+            // Convert the audio format if needed
+            AudioInputStream convertedStream = AudioSystem.getAudioInputStream(targetFormat, originalStream);
+            
+            // Get a clip and open it with the converted stream
             Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
+            clip.open(convertedStream);
             return clip;
+        } catch (Exception e) {
+            System.err.println("Error loading audio: " + e.getMessage());
+            e.printStackTrace();
+            throw e;
         }
     }
 
