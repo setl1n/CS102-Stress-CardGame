@@ -48,39 +48,78 @@ public class Deck extends CardCollection {
         updateImageToSize();
     }
 
+    private URL getResourceUrl(String path) {
+        System.out.println("\n[DEBUG] Resource Loading Diagnostic:");
+        System.out.println("----------------------------------------");
+        
+        // Try different relative paths
+        String[] pathsToTry = {
+            path,                                           // Original path
+            "../../resources/" + path,                      // Relative to class location
+            "../../../resources/" + path,                   // One level up
+            "../../resources/assets/" + path.replaceFirst("^/?assets/", ""), // Direct to assets
+            path.replaceFirst("^/?assets/", "")            // Just filename
+        };
+
+        URL url = null;
+        for (String tryPath : pathsToTry) {
+            System.out.println("Trying path: " + tryPath);
+            url = getClass().getClassLoader().getResource(tryPath);
+            if (url != null) {
+                System.out.println("Successfully found resource at: " + url);
+                break;
+            }
+        }
+
+        System.out.println("Current working directory: " + System.getProperty("user.dir"));
+        System.out.println("Class location: " + getClass().getProtectionDomain().getCodeSource().getLocation());
+        System.out.println("Final URL result: " + url);
+        System.out.println("----------------------------------------\n");
+        
+        return url;
+    }
+
     /**
      * Updates the image of the deck based on its size.
      */
     public void updateImageToSize() {
         int cardsInDeck = super.size();
+        System.out.println("[DEBUG] Updating image for deck with " + cardsInDeck + " cards");
+        
         if (cardsInDeck == 0) {
-
-            String path = "/assets/" + colour + "DeckEmpty.png";
-            URL imgUrl = getClass().getResource(path);
-            deckImage = new ImageIcon(imgUrl).getImage();
+            String path = "assets/emptyDeck.png";  // Changed from /assets to assets
+            URL imgUrl = getResourceUrl(path);
+            
+            if (imgUrl != null) {
+                deckImage = new ImageIcon(imgUrl).getImage();
+            } else {
+                System.err.println("[ERROR] Could not find resource: " + path);
+            }
             return;
         }
 
         String colourPath = colour == 'r' ? "red" : "blu";
         String thickness = "Med";
 
-        if (cardsInDeck < 5) {
-            thickness = "Single";
-        } else if (cardsInDeck < 15) {
-            thickness = "Thin";
-        } else if (cardsInDeck < 30) {
-            thickness = "Med";
-        } else {
-            thickness = "Thick";
-        }
+        if (cardsInDeck < 5) thickness = "Single";
+        else if (cardsInDeck < 15) thickness = "Thin";
+        else if (cardsInDeck < 30) thickness = "Med";
+        else thickness = "Thick";
 
-        String path = "/assets/" + colourPath + "Deck" + thickness + ".png";
-        URL imgUrl = getClass().getResource(path);
+        String path = "assets/" + colourPath + "Deck" + thickness + ".png";  // Changed from /assets to assets
+        
+        URL imgUrl = getResourceUrl(path);
+        
         if (imgUrl == null) {
-            imgUrl = getClass().getResource("/assets/empty.png");
+            imgUrl = getResourceUrl("assets/empty.png");
         }
-        // It avoids dealing with IOException, which ImageIO.read() might throw.
-        deckImage = new ImageIcon(imgUrl).getImage();
+        
+        if (imgUrl != null) {
+            ImageIcon icon = new ImageIcon(imgUrl);
+            deckImage = icon.getImage();
+        } else {
+            System.err.println("[ERROR] Both primary and fallback resource loading failed");
+        }
     }
 
     /*

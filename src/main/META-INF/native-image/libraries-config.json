@@ -1,0 +1,9 @@
+
+{
+  "libraries": [
+    {
+      "name": "javasound",
+      "path": "java.desktop"
+    }
+  ]
+}

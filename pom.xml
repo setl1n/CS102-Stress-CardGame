@@ -33,6 +33,7 @@
                     <archive>
                         <manifest>
                             <mainClass>app.App</mainClass>
+                            <addClasspath>true</addClasspath>
                         </manifest>
                     </archive>
                 </configuration>
@@ -42,6 +43,13 @@
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
+                <includes>
+                    <include>assets/**</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main</directory>
+                <targetPath>META-INF/native-image</targetPath>
             </resource>
         </resources>
     </build>

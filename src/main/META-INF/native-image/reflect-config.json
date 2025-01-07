@@ -1,0 +1,111 @@
+[
+{
+  "name":"com.apple.laf.AquaKeyBindings",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.apple.laf.AquaLabelUI",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"createUI","parameterTypes":["javax.swing.JComponent"] }]
+},
+{
+  "name":"com.apple.laf.AquaLookAndFeel",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.apple.laf.AquaMnemonicHandler$AltProcessor",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.apple.laf.AquaPanelUI",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"createUI","parameterTypes":["javax.swing.JComponent"] }]
+},
+{
+  "name":"com.apple.laf.AquaRootPaneUI",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"createUI","parameterTypes":["javax.swing.JComponent"] }]
+},
+{
+  "name":"com.apple.laf.AquaUtilControlSize$PropertySizeListener",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"gui.GUIUtility$1",
+  "methods":[{"name":"coalesceEvents","parameterTypes":["java.awt.AWTEvent","java.awt.AWTEvent"] }]
+},
+{
+  "name":"gui.MainGUI",
+  "methods":[{"name":"coalesceEvents","parameterTypes":["java.awt.AWTEvent","java.awt.AWTEvent"] }]
+},
+{
+  "name":"gui.panels.GamePanel",
+  "methods":[{"name":"coalesceEvents","parameterTypes":["java.awt.AWTEvent","java.awt.AWTEvent"] }]
+},
+{
+  "name":"gui.panels.IntroPanel",
+  "methods":[{"name":"coalesceEvents","parameterTypes":["java.awt.AWTEvent","java.awt.AWTEvent"] }]
+},
+{
+  "name":"gui.panels.gamecontainer.pilecontainer.IndicatorPanel",
+  "methods":[{"name":"coalesceEvents","parameterTypes":["java.awt.AWTEvent","java.awt.AWTEvent"] }]
+},
+{
+  "name":"gui.panels.gamecontainer.pilecontainer.PileContainer",
+  "methods":[{"name":"coalesceEvents","parameterTypes":["java.awt.AWTEvent","java.awt.AWTEvent"] }]
+},
+{
+  "name":"gui.panels.gamecontainer.pilecontainer.PilePanel",
+  "methods":[{"name":"coalesceEvents","parameterTypes":["java.awt.AWTEvent","java.awt.AWTEvent"] }]
+},
+{
+  "name":"gui.panels.gamecontainer.playercontainer.CardPanel",
+  "methods":[{"name":"coalesceEvents","parameterTypes":["java.awt.AWTEvent","java.awt.AWTEvent"] }]
+},
+{
+  "name":"gui.panels.gamecontainer.playercontainer.DeckPanel",
+  "methods":[{"name":"coalesceEvents","parameterTypes":["java.awt.AWTEvent","java.awt.AWTEvent"] }]
+},
+{
+  "name":"gui.panels.gamecontainer.playercontainer.NumPanel",
+  "methods":[{"name":"coalesceEvents","parameterTypes":["java.awt.AWTEvent","java.awt.AWTEvent"] }]
+},
+{
+  "name":"gui.panels.gamecontainer.playercontainer.PlayerPanel",
+  "methods":[{"name":"coalesceEvents","parameterTypes":["java.awt.AWTEvent","java.awt.AWTEvent"] }]
+},
+{
+  "name":"java.awt.SequencedEvent"
+},
+{
+  "name":"java.awt.SystemColor",
+  "fields":[{"name":"activeCaption"}, {"name":"activeCaptionBorder"}, {"name":"activeCaptionText"}, {"name":"control"}, {"name":"controlDkShadow"}, {"name":"controlHighlight"}, {"name":"controlLtHighlight"}, {"name":"controlShadow"}, {"name":"controlText"}, {"name":"desktop"}, {"name":"inactiveCaption"}, {"name":"inactiveCaptionBorder"}, {"name":"inactiveCaptionText"}, {"name":"info"}, {"name":"infoText"}, {"name":"menu"}, {"name":"menuText"}, {"name":"scrollbar"}, {"name":"text"}, {"name":"textHighlight"}, {"name":"textHighlightText"}, {"name":"textInactiveText"}, {"name":"textText"}, {"name":"window"}, {"name":"windowBorder"}, {"name":"windowText"}]
+},
+{
+  "name":"java.awt.Toolkit",
+  "fields":[{"name":"eventListener"}]
+},
+{
+  "name":"java.awt.event.KeyEvent",
+  "fields":[{"name":"VK_CONTEXT_MENU"}, {"name":"VK_F10"}]
+},
+{
+  "name":"java.util.concurrent.atomic.AtomicBoolean",
+  "fields":[{"name":"value"}]
+},
+{
+  "name":"java.util.concurrent.atomic.AtomicReference",
+  "fields":[{"name":"value"}]
+},
+{
+  "name":"sun.java2d.marlin.DMarlinRenderingEngine",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"sun.security.provider.SHA",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name": "com.sun.media.sound.DirectAudioDevice",
+  "methods": [
+    { "name": "<init>", "parameterTypes": [] }
+  ]
+}
+]
