@@ -3,7 +3,7 @@ FROM ubuntu:22.04
 # Prevent timezone prompt during installation
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install required packages with additional audio support
+# Install required packages with X11 and GUI support
 RUN apt-get update && apt-get install -y \
     openjdk-17-jdk \
     xvfb \
@@ -15,6 +15,16 @@ RUN apt-get update && apt-get install -y \
     libasound2 \
     libasound2-plugins \
     pulseaudio-utils \
+    xorg \
+    x11-xserver-utils \
+    xauth \
+    x11-utils \
+    x11-apps \
+    metacity \
+    dbus-x11 \
+    libxext6 \
+    libxrender1 \
+    libxtst6 \
     && rm -rf /var/lib/apt/lists/*
 
 # Configure PulseAudio
@@ -36,6 +46,10 @@ RUN echo "ctl.!default { type hw card 0 }" >> /etc/asound.conf
 RUN mkdir -p /etc/pulse
 RUN echo "default-sample-rate = 44100" >> /etc/pulse/daemon.conf
 
+# Configure X11
+RUN mkdir -p /tmp/.X11-unix && \
+    chmod 1777 /tmp/.X11-unix
+
 # Create directory for the application
 WORKDIR /app
 
@@ -55,6 +69,16 @@ ENV DISPLAY=:99
 # Add audio environment variables
 ENV PULSE_SERVER=unix:/tmp/pulse/native
 ENV PULSE_COOKIE=/tmp/pulse/cookie
+
+# Set X11 environment variables
+ENV DISPLAY=:99
+ENV XAUTHORITY=/root/.Xauthority
+ENV _JAVA_AWT_WM_NONREPARENTING=1
+ENV JAVA_TOOL_OPTIONS="-Dsun.java2d.xrender=false -Dawt.useSystemAAFontSettings=on"
+
+# Disable GPU acceleration
+ENV LIBGL_ALWAYS_SOFTWARE=1
+ENV GALLIUM_DRIVER=llvmpipe
 
 # Start the application
 CMD ["./start.sh"]

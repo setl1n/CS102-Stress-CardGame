@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.CardLayout;
+import java.awt.Dimension;
 
 import javax.swing.*;
 
@@ -29,9 +30,17 @@ public class MainGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null); // Center the window
+        setUndecorated(true); // Remove window decorations
         setFocusable(true);
         requestFocusInWindow();
         setContentPane(mainPanel);
+        
+        // Force the window to be visible in X11
+        setAlwaysOnTop(true);
+        setResizable(false);
+        
+        // Set minimum size to ensure visibility
+        setMinimumSize(new Dimension(800, 600));
     }
 
     /**
