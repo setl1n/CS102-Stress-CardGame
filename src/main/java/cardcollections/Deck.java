@@ -48,47 +48,15 @@ public class Deck extends CardCollection {
         updateImageToSize();
     }
 
-    private URL getResourceUrl(String path) {
-        System.out.println("\n[DEBUG] Resource Loading Diagnostic:");
-        System.out.println("----------------------------------------");
-        
-        // Try different relative paths
-        String[] pathsToTry = {
-            path,                                           // Original path
-            "../../resources/" + path,                      // Relative to class location
-            "../../../resources/" + path,                   // One level up
-            "../../resources/assets/" + path.replaceFirst("^/?assets/", ""), // Direct to assets
-            path.replaceFirst("^/?assets/", "")            // Just filename
-        };
-
-        URL url = null;
-        for (String tryPath : pathsToTry) {
-            System.out.println("Trying path: " + tryPath);
-            url = getClass().getClassLoader().getResource(tryPath);
-            if (url != null) {
-                System.out.println("Successfully found resource at: " + url);
-                break;
-            }
-        }
-
-        System.out.println("Current working directory: " + System.getProperty("user.dir"));
-        System.out.println("Class location: " + getClass().getProtectionDomain().getCodeSource().getLocation());
-        System.out.println("Final URL result: " + url);
-        System.out.println("----------------------------------------\n");
-        
-        return url;
-    }
-
     /**
      * Updates the image of the deck based on its size.
      */
     public void updateImageToSize() {
         int cardsInDeck = super.size();
-        System.out.println("[DEBUG] Updating image for deck with " + cardsInDeck + " cards");
         
         if (cardsInDeck == 0) {
             String path = "assets/emptyDeck.png";  // Changed from /assets to assets
-            URL imgUrl = getResourceUrl(path);
+            URL imgUrl = getClass().getClassLoader().getResource(path);
             
             if (imgUrl != null) {
                 deckImage = new ImageIcon(imgUrl).getImage();
@@ -108,10 +76,10 @@ public class Deck extends CardCollection {
 
         String path = "assets/" + colourPath + "Deck" + thickness + ".png";  // Changed from /assets to assets
         
-        URL imgUrl = getResourceUrl(path);
+        URL imgUrl = getClass().getClassLoader().getResource(path);
         
         if (imgUrl == null) {
-            imgUrl = getResourceUrl("assets/empty.png");
+            imgUrl = getClass().getClassLoader().getResource("assets/empty.png");
         }
         
         if (imgUrl != null) {
