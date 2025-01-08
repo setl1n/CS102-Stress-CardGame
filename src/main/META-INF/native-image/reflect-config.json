@@ -103,9 +103,31 @@
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name": "com.sun.media.sound.DirectAudioDevice",
+  "name": "javax.sound.sampled.AudioSystem",
+  "allDeclaredMethods": true,
+  "allDeclaredConstructors": true
+},
+{
+  "name": "javax.sound.sampled.Mixer",
+  "allDeclaredMethods": true,
+  "allDeclaredConstructors": true
+},
+{
+  "name": "com.sun.media.sound.DirectAudioDeviceProvider",
+  "allDeclaredMethods": true,
+  "allDeclaredConstructors": true
+},
+{
+  "name": "com.sun.media.sound.PortMixerProvider",
+  "allDeclaredMethods": true,
+  "allDeclaredConstructors": true
+},
+{
+  "name": "com.sun.media.sound.DirectAudioDevice$DirectAudioDeviceProvider",
   "methods": [
     { "name": "<init>", "parameterTypes": [] }
-  ]
+  ],
+  "allPublicMethods": true,
+  "allDeclaredConstructors": true
 }
 ]

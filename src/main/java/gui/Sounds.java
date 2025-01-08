@@ -1,7 +1,10 @@
 package gui;
 
 import java.net.URL;
+import java.util.Arrays;
+import java.util.ServiceLoader;
 
+import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -50,6 +53,33 @@ public final class Sounds {
      * Method to load the Audio Clip
      */
     private static Clip loadAudioClip(String audioPath) throws Exception {
+        // Setup java.home if not set
+        if (System.getProperty("java.home") == null) {
+            String userDir = System.getProperty("user.dir");
+            System.out.println("[DEBUG] Setting java.home to: " + userDir);
+            System.setProperty("java.home", userDir);
+        }
+
+        // Hardcode audio properties instead of using sound.properties
+        System.out.println("[DEBUG] Setting up hardcoded audio properties:");
+        
+        // Direct Audio Device properties
+        System.setProperty("javax.sound.sampled.Clip", "com.sun.media.sound.DirectAudioDevice");
+        System.setProperty("javax.sound.sampled.SourceDataLine", "com.sun.media.sound.DirectAudioDevice");
+        System.setProperty("javax.sound.sampled.TargetDataLine", "com.sun.media.sound.DirectAudioDevice");
+        
+        // Force load DirectAudioDevice
+        try {
+            Class.forName("com.sun.media.sound.DirectAudioDevice");
+        } catch (ClassNotFoundException e) {
+            System.err.println("[ERROR] Could not load DirectAudioDevice: " + e.getMessage());
+        }
+
+        System.out.println("[DEBUG] Audio properties set:");
+        System.out.println(" - javax.sound.sampled.Clip: " + System.getProperty("javax.sound.sampled.Clip"));
+        System.out.println(" - javax.sound.sampled.SourceDataLine: " + System.getProperty("javax.sound.sampled.SourceDataLine"));
+        System.out.println(" - javax.sound.sampled.TargetDataLine: " + System.getProperty("javax.sound.sampled.TargetDataLine"));
+
         URL audioUrl = getResourceUrl(audioPath);
         if (audioUrl == null) {
             System.err.println("[ERROR] Audio file not found: " + audioPath);
@@ -57,17 +87,61 @@ public final class Sounds {
         }
 
         System.out.println("[DEBUG] Opening audio stream from: " + audioUrl);
+        System.out.println("[DEBUG] Available Audio Providers:");
+        
+        // List available providers using ServiceLoader
+        ServiceLoader<javax.sound.sampled.spi.AudioFileReader> providers = 
+            ServiceLoader.load(javax.sound.sampled.spi.AudioFileReader.class);
+        
+        providers.forEach(provider -> 
+            System.out.println(" - " + provider.getClass().getName()));
+
         try {
-            // Set system properties required for audio
-            System.setProperty("javax.sound.sampled.Clip", "com.sun.media.sound.DirectAudioDevice");
-            System.setProperty("java.home", System.getProperty("user.dir"));
+            // Get and print available mixers
+            javax.sound.sampled.Mixer.Info[] mixerInfo = AudioSystem.getMixerInfo();
+            System.out.println("[DEBUG] Available mixers:");
+            for (javax.sound.sampled.Mixer.Info info : mixerInfo) {
+                System.out.println(" - " + info.getName() + ": " + info.getDescription());
+            }
+
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioUrl);
             
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioUrl);
+            // Explicitly set the format to match native image capabilities
+            AudioFormat baseFormat = audioStream.getFormat();
+            AudioFormat targetFormat = new AudioFormat(
+                AudioFormat.Encoding.PCM_SIGNED,
+                44100.0f,                    // Sample rate
+                16,                          // Sample size in bits
+                2,                           // Channels (stereo)
+                4,                           // Frame size
+                44100.0f,                    // Frame rate
+                false                        // Little endian
+            );
+
+            // Convert to the target format if needed
+            if (!baseFormat.matches(targetFormat)) {
+                System.out.println("[DEBUG] Converting from format: " + baseFormat);
+                System.out.println("[DEBUG] Converting to format: " + targetFormat);
+                audioStream = AudioSystem.getAudioInputStream(targetFormat, audioStream);
+            }
+
+            // Create and open clip with explicit format
             Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
+            clip.open(audioStream);
+            System.out.println("[DEBUG] Successfully created audio clip");
             return clip;
         } catch (Exception e) {
             System.err.println("[ERROR] Failed to load audio clip: " + e.getMessage());
+            System.err.println("[DEBUG] Audio URL protocol: " + audioUrl.getProtocol());
+            System.err.println("[DEBUG] Audio URL path: " + audioUrl.getPath());
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioUrl);
+            if (audioStream == null) {
+                System.err.println("[ERROR] Audio stream is null");
+                return null;
+            }
+            System.err.println("[ERROR] Supported formats: " + Arrays.toString(AudioSystem.getTargetFormats(
+                javax.sound.sampled.AudioFormat.Encoding.PCM_SIGNED,
+                audioStream.getFormat())));
             e.printStackTrace();
             return null;
         }

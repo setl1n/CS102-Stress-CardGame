@@ -5,6 +5,7 @@ native-image \
   --initialize-at-build-time=javax.sound.sampled,com.sun.media.sound \
   --initialize-at-run-time=com.sun.media.sound.DirectAudioDevice \
   --initialize-at-run-time=com.sun.media.sound.PortMixer \
+  --initialize-at-run-time=com.sun.media.sound.MixerThread \
   --initialize-at-run-time=javax.sound.sampled.AudioSystem \
   --initialize-at-run-time=com.sun.media.sound.JSSecurityManager \
   -H:+AllowIncompleteClasspath \
