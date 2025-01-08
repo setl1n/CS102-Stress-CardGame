@@ -21,3 +21,8 @@ hs_err_pid*
 replay_pid*
 
 .DS_Store
+
+
+# Ignore all Unix executables
+*
+!*.*
