@@ -6,8 +6,6 @@ services:
       - "6080:6080"
     environment:
       - DISPLAY=:99
-      - PULSE_SERVER=unix:/tmp/pulse/native
     volumes:
-      - /tmp/pulse:/tmp/pulse
       - /dev/shm:/dev/shm
     privileged: true
