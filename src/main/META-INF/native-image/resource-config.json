@@ -8,28 +8,13 @@
         "pattern": "\\QMETA-INF/services/java.lang.System$LoggerFinder\\E"
       },
       {
-        "pattern": "\\QMETA-INF/services/javax.sound.sampled.spi.AudioFileReader\\E"
-      },
-      {
-        "pattern": "\\QMETA-INF/services/javax.sound.sampled.spi.MixerProvider\\E"
-      },
-      {
-        "pattern": "\\QMETA-INF/services/javax.sound.sampled.spi.FormatConversionProvider\\E"
-      },
-      {
         "pattern": ".*assets/.*\\.png"
-      },
-      {
-        "pattern": ".*assets/.*\\.wav"
       },
       {
         "pattern": ".*assets/.*\\.gif"
       },
       {
         "pattern": ".*assets/.*\\.jpg"
-      },
-      {
-        "pattern": ".*\\.properties"
       }
     ]
   },

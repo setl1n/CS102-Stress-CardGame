@@ -6,7 +6,6 @@ import javax.swing.Timer;
 import cardcollections.Deck;
 import cardcollections.Pile;
 import gui.Overlays;
-import gui.Sounds;
 
 /**
  * This class represents a game. It manages the game state, players, and piles of cards.
@@ -116,11 +115,9 @@ public class Game {
         boolean isPlayer2HandEmpty = player2.getHand().isEmpty();
 
         if (isPlayer1HandEmpty && !isPlayer2HandEmpty) {
-            Sounds.endSound();
             Overlays.renderGameTransition(gamePanel, player1.getName());
             gameState = GameState.END;
         } else if (isPlayer2HandEmpty && !isPlayer1HandEmpty) {
-            Sounds.endSound();
             Overlays.renderGameTransition(gamePanel, player2.getName());
             gameState = GameState.END;
         } else if (GameLogicUtils.bothPlayersOutOfMoves(player1, player2, piles)) {
@@ -129,11 +126,9 @@ public class Game {
                     || player1.getDeck().isSizeAtLeast2()
                     || player2.getDeck().isSizeAtLeast2()) {
                 Overlays.renderTimeoutTransition(gamePanel);
-                Sounds.pauseClip();
                 gameState = GameState.NO_VALID_MOVES;
 
             } else {
-                Sounds.endSound();
                 Overlays.renderTieTransition(gamePanel);
                 gameState = GameState.END;
             }
@@ -149,7 +144,6 @@ public class Game {
     public void stress(Player actionPlayer, Player opponent) {
         if (GameLogicUtils.isValidStress(piles)) {
             Overlays.renderStressTransition(gamePanel, opponent.getName());
-            Sounds.stressSound();
             temporaryDisableInputs();
             moveCardsAfterTimer(opponent);
         } else {

@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import cardcollections.Pile;
 import gui.MainGUI;
 import gui.Overlays;
-import gui.Sounds;
 
 /**
  * This class handles the main controls of the game.
@@ -29,7 +28,6 @@ public class MainControls extends KeyAdapter {
     public MainControls(Game game, MainGUI mainGUI) {
         this.game = game;
         this.mainGUI = mainGUI;
-        Sounds.menuSound();
     }
 
     /**
@@ -74,7 +72,6 @@ public class MainControls extends KeyAdapter {
     private void handleStartScreenControls(int newKeyPress) {
         if (newKeyPress == KeyEvent.VK_SPACE) {
             mainGUI.changeToPanel("Game");
-            Sounds.bgmSound();
             game.loadDialog();
         }
     }
@@ -86,7 +83,6 @@ public class MainControls extends KeyAdapter {
     private void handleOpenCardsControls() {
         if (pressedKeys.contains(KeyEvent.VK_S) && pressedKeys.contains(KeyEvent.VK_K)) {
             Overlays.clear();
-            Sounds.resumeBgm();
             game.start();
         }
     }
@@ -174,7 +170,6 @@ public class MainControls extends KeyAdapter {
             Overlays.clear();
             game.restart();
             mainGUI.restart(game);
-            Sounds.bgmSound();
         } else if (newKeyPress == KeyEvent.VK_ESCAPE) {
             mainGUI.dispose();
         }

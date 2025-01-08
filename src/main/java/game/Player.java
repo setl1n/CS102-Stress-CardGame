@@ -5,7 +5,6 @@ import cardcollections.Deck;
 import cardcollections.Hand;
 import cardcollections.Pile;
 import gui.Overlays;
-import gui.Sounds;
 import gui.panels.gamecontainer.pilecontainer.IndicatorPanel;
 import gui.panels.gamecontainer.playercontainer.PlayerPanel;
 
@@ -49,7 +48,6 @@ public class Player {
             playerPanel.updateAll();
         }
         if (playAudio) {
-            Sounds.cardSound();
         }
     }
     
@@ -75,7 +73,6 @@ public class Player {
             playerPanel.updateAll();
         }
         if (playAudio) {
-            Sounds.cardSound();
         }
     }
     
@@ -139,7 +136,6 @@ public class Player {
      * @param milliseconds The amount of time to block the player for.
      */
     public void blockFor(int milliseconds) {
-        Sounds.invalidSound();
         Overlays.blockedFor(playerPanel, milliseconds);
         this.blockUntil = System.currentTimeMillis() + milliseconds;
     }

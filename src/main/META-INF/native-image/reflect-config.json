@@ -28,10 +28,6 @@
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"gui.GUIUtility$1",
-  "methods":[{"name":"coalesceEvents","parameterTypes":["java.awt.AWTEvent","java.awt.AWTEvent"] }]
-},
-{
   "name":"gui.MainGUI",
   "methods":[{"name":"coalesceEvents","parameterTypes":["java.awt.AWTEvent","java.awt.AWTEvent"] }]
 },
@@ -101,11 +97,5 @@
 {
   "name":"sun.security.provider.SHA",
   "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name": "com.sun.media.sound.DirectAudioDevice",
-  "methods": [
-    { "name": "<init>", "parameterTypes": [] }
-  ]
 }
 ]

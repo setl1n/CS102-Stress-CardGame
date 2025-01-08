@@ -15,22 +15,6 @@
   "methods":[{"name":"initMenuStates","parameterTypes":["boolean","boolean","boolean","boolean"] }]
 },
 {
-  "name":"com.sun.media.sound.DirectAudioDevice",
-  "methods":[{"name":"addFormat","parameterTypes":["java.util.Vector","int","int","int","float","int","boolean","boolean"] }, {"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"com.sun.media.sound.DirectAudioDeviceProvider$DirectAudioDeviceInfo",
-  "methods":[{"name":"<init>","parameterTypes":["int","int","int","java.lang.String","java.lang.String","java.lang.String","java.lang.String"] }]
-},
-{
-  "name":"com.sun.media.sound.PortMixerProvider$PortMixerInfo",
-  "methods":[{"name":"<init>","parameterTypes":["int","java.lang.String","java.lang.String","java.lang.String","java.lang.String"] }]
-},
-{
-  "name":"com.sun.media.sound.PortMixerProvider",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
   "name":"java.awt.AlphaComposite",
   "fields":[{"name":"extraAlpha"}, {"name":"rule"}]
 },
@@ -121,7 +105,7 @@
 },
 {
   "name":"java.lang.String",
-  "methods":[{"name":"lastIndexOf","parameterTypes":["int"] }, {"name":"substring","parameterTypes":["int"] }, { "name": "length" }]
+  "methods":[{"name":"lastIndexOf","parameterTypes":["int"] }, {"name":"substring","parameterTypes":["int"] }]
 },
 {
   "name":"java.lang.System",
@@ -354,20 +338,5 @@
 {
   "name":"sun.lwawt.macosx.NSEvent",
   "methods":[{"name":"<init>","parameterTypes":["int","int","int","int","int","int","int","int","double","double","int"] }, {"name":"<init>","parameterTypes":["int","int","short","java.lang.String","java.lang.String"] }]
-},
-{
-  "name": "java.awt.AWTEvent",
-  "fields": [
-    { "name": "bdata" },
-    { "name": "consumed" },
-    { "name": "id" }
-  ]
-},
-{
-  "name": "javax.sound.sampled.AudioSystem",
-  "methods": [
-    { "name": "getAudioInputStream", "parameterTypes": ["java.net.URL"] },
-    { "name": "getClip" }
-  ]
 }
 ]
