@@ -24,5 +24,4 @@ replay_pid*
 
 
 # Ignore all Unix executables
-*
-!*.*
+stress
