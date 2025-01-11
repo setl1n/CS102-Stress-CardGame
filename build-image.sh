@@ -20,7 +20,7 @@ native-image \
   --enable-url-protocols=resource,file \
   -H:+PrintClassInitialization \
   --enable-all-security-services \
-  -jar target/cs102-cardgame-1.0-SNAPSHOT.jar stress
+  -jar target/stress-cardgame-1.0.jar stress
 # native-image  -H:+UnlockExperimentalVMOptions -H:Name=StressCardGame -H:ConfigurationFileDirectories=./META-INF/native-image/ -H:IncludeResources="./assets/*" -jar target/cs102-cardgame-1.0-SNAPSHOT.jar stress
 
 #   -H:ServiceLoaderFeatureConfiguration=javax.sound.sampled.spi.AudioFileReader:serviceloader \
